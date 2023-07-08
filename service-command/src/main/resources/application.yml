@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: service-command
+dubbo:
+  application:
+    name: ${spring.application.name}
+  protocol:
+    id: tri
+    name: tri
+  registry:
+    address: nacos://localhost:8848
+  config-center:
+    address: nacos://localhost:8848
+  metadata-report:
+    address: nacos://localhost:8848
