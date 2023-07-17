@@ -1,15 +1,29 @@
 spring:
   application:
     name: service-image
+  datasource:
+    url: jdbc:mysql://localhost:3306/service?characterEncoding=utf8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: service
+    password: service8520
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
 dubbo:
   application:
     name: ${spring.application.name}
   protocol:
-    name: dubbo
+    id: tri
+    name: tri
     port: -1
   registry:
     address: nacos://localhost:8848
-  config-center:
-    address: nacos://localhost:8848
   metadata-report:
     address: nacos://localhost:8848
+logging:
+  pattern:
+    dateformat: yyyy-MM-dd hh:mm:ss.SSS

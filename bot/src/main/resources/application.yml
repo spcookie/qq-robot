@@ -8,12 +8,13 @@ dubbo:
   protocol:
     id: tri
     name: tri
+    port: -1
   registry:
-    address: nacos://localhost:8848
-  config-center:
     address: nacos://localhost:8848
   metadata-report:
     address: nacos://localhost:8848
 logging:
+  pattern:
+    dateformat: yyyy-MM-dd hh:mm:ss.SSS
   level:
     net.mamoe.mirai.*: trace

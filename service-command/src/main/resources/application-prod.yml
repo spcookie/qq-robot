@@ -1,0 +1,13 @@
+dubbo:
+  registry:
+    address: nacos://nacos:8848
+  metadata-report:
+    address: nacos://nacos:8848
+logging:
+  #  level:
+  #    root: error
+  #    sql: off
+  #    io.net.bot.*: info
+  #    net.mamoe.mirai.*: info
+  file:
+    name: logger.log

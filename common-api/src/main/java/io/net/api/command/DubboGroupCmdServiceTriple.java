@@ -17,31 +17,20 @@
 
     package io.net.api.command;
 
-import org.apache.dubbo.common.stream.StreamObserver;
+import com.google.protobuf.Message;
 import org.apache.dubbo.common.URL;
-import org.apache.dubbo.rpc.Invoker;
-import org.apache.dubbo.rpc.PathResolver;
-import org.apache.dubbo.rpc.RpcException;
-import org.apache.dubbo.rpc.ServerService;
-import org.apache.dubbo.rpc.TriRpcStatus;
+import org.apache.dubbo.common.stream.StreamObserver;
+import org.apache.dubbo.rpc.*;
 import org.apache.dubbo.rpc.model.MethodDescriptor;
 import org.apache.dubbo.rpc.model.ServiceDescriptor;
 import org.apache.dubbo.rpc.model.StubMethodDescriptor;
 import org.apache.dubbo.rpc.model.StubServiceDescriptor;
-import org.apache.dubbo.rpc.stub.BiStreamMethodHandler;
-import org.apache.dubbo.rpc.stub.ServerStreamMethodHandler;
-import org.apache.dubbo.rpc.stub.StubInvocationUtil;
-import org.apache.dubbo.rpc.stub.StubInvoker;
-import org.apache.dubbo.rpc.stub.StubMethodHandler;
-import org.apache.dubbo.rpc.stub.StubSuppliers;
-import org.apache.dubbo.rpc.stub.UnaryStubMethodHandler;
-
-import com.google.protobuf.Message;
+import org.apache.dubbo.rpc.stub.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 public final class DubboGroupCmdServiceTriple {
 
@@ -63,19 +52,19 @@ public final class DubboGroupCmdServiceTriple {
     }
 
     private static final StubMethodDescriptor invokeMethod = new StubMethodDescriptor("invoke",
-    GroupCmd.class, MsgResult.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
-    obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), GroupCmd::parseFrom,
-    MsgResult::parseFrom);
+            io.net.api.GroupCmd.class, io.net.api.MsgResult.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), io.net.api.GroupCmd::parseFrom,
+            io.net.api.MsgResult::parseFrom);
 
     private static final StubMethodDescriptor invokeAsyncMethod = new StubMethodDescriptor("invoke",
-    GroupCmd.class, CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
-    obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), GroupCmd::parseFrom,
-    MsgResult::parseFrom);
+            io.net.api.GroupCmd.class, java.util.concurrent.CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), io.net.api.GroupCmd::parseFrom,
+            io.net.api.MsgResult::parseFrom);
 
     private static final StubMethodDescriptor invokeProxyAsyncMethod = new StubMethodDescriptor("invokeAsync",
-    GroupCmd.class, MsgResult.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
-    obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), GroupCmd::parseFrom,
-    MsgResult::parseFrom);
+            io.net.api.GroupCmd.class, io.net.api.MsgResult.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), io.net.api.GroupCmd::parseFrom,
+            io.net.api.MsgResult::parseFrom);
 
 
 
@@ -89,17 +78,17 @@ public final class DubboGroupCmdServiceTriple {
         }
 
         @Override
-        public MsgResult invoke(GroupCmd request){
+        public io.net.api.MsgResult invoke(io.net.api.GroupCmd request) {
             return StubInvocationUtil.unaryCall(invoker, invokeMethod, request);
         }
 
-        public CompletableFuture<MsgResult> invokeAsync(GroupCmd request){
+        public CompletableFuture<io.net.api.MsgResult> invokeAsync(io.net.api.GroupCmd request) {
             return StubInvocationUtil.unaryCall(invoker, invokeAsyncMethod, request);
         }
 
         @Override
-        public void invoke(GroupCmd request, StreamObserver<MsgResult> responseObserver){
-            StubInvocationUtil.unaryCall(invoker, invokeMethod , request, responseObserver);
+        public void invoke(io.net.api.GroupCmd request, StreamObserver<io.net.api.MsgResult> responseObserver) {
+            StubInvocationUtil.unaryCall(invoker, invokeMethod, request, responseObserver);
         }
 
 
@@ -133,9 +122,9 @@ public final class DubboGroupCmdServiceTriple {
             pathResolver.addNativeStub( "/" + SERVICE_NAME + "/invoke" );
             pathResolver.addNativeStub( "/" + SERVICE_NAME + "/invokeAsync" );
 
-            BiConsumer<GroupCmd, StreamObserver<MsgResult>> invokeFunc = this::invoke;
+            BiConsumer<io.net.api.GroupCmd, StreamObserver<io.net.api.MsgResult>> invokeFunc = this::invoke;
             handlers.put(invokeMethod.getMethodName(), new UnaryStubMethodHandler<>(invokeFunc));
-            BiConsumer<GroupCmd, StreamObserver<MsgResult>> invokeAsyncFunc = syncToAsync(this::invoke);
+            BiConsumer<io.net.api.GroupCmd, StreamObserver<io.net.api.MsgResult>> invokeAsyncFunc = syncToAsync(this::invoke);
             handlers.put(invokeProxyAsyncMethod.getMethodName(), new UnaryStubMethodHandler<>(invokeAsyncFunc));
 
 
@@ -146,7 +135,7 @@ public final class DubboGroupCmdServiceTriple {
 
 
         @Override
-        public MsgResult invoke(GroupCmd request){
+        public io.net.api.MsgResult invoke(io.net.api.GroupCmd request) {
             throw unimplementedMethodException(invokeMethod);
         }
 

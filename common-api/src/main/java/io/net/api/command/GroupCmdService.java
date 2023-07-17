@@ -18,29 +18,25 @@
     package io.net.api.command;
 
 import org.apache.dubbo.common.stream.StreamObserver;
-import com.google.protobuf.Message;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.concurrent.CompletableFuture;
 
-public interface GroupCmdService {
+public interface GroupCmdService extends org.apache.dubbo.rpc.model.DubboStub {
 
     String JAVA_SERVICE_NAME = "io.net.api.command.GroupCmdService";
-    String SERVICE_NAME = "proto.command.GroupCmdService";
+    String SERVICE_NAME = "protobuf.command.GroupCmdService";
 
-    MsgResult invoke(GroupCmd request);
+    io.net.api.MsgResult invoke(io.net.api.GroupCmd request);
 
-    default CompletableFuture<MsgResult> invokeAsync(GroupCmd request){
+    default CompletableFuture<io.net.api.MsgResult> invokeAsync(io.net.api.GroupCmd request) {
         return CompletableFuture.completedFuture(invoke(request));
     }
 
     /**
-    * This server stream type unary method is <b>only</b> used for generated stub to support async unary method.
-    * It will not be called if you are NOT using Dubbo3 generated triple stub and <b>DO NOT</b> implement this method.
-    */
-    default void invoke(GroupCmd request, StreamObserver<MsgResult> responseObserver){
+     * This server stream type unary method is <b>only</b> used for generated stub to support async unary method.
+     * It will not be called if you are NOT using Dubbo3 generated triple stub and <b>DO NOT</b> implement this method.
+     */
+    default void invoke(io.net.api.GroupCmd request, StreamObserver<io.net.api.MsgResult> responseObserver) {
         invokeAsync(request).whenComplete((r, t) -> {
             if (t != null) {
                 responseObserver.onError(t);

@@ -14,16 +14,6 @@ public final class CommandProto {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_command_GroupCmd_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_command_GroupCmd_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_command_MsgResult_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_command_MsgResult_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -32,32 +22,19 @@ public final class CommandProto {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    String[] descriptorData = {
-      "\n\025command/command.proto\022\rproto.command\"W" +
-      "\n\010GroupCmd\022\017\n\007groupId\030\001 \001(\004\022\r\n\005botId\030\002 \001" +
-      "(\004\022\020\n\010senderId\030\003 \001(\004\022\013\n\003cmd\030\004 \001(\t\022\014\n\004arg" +
-      "s\030\005 \003(\t\"\'\n\tMsgResult\022\013\n\003msg\030\001 \001(\t\022\r\n\005byt" +
-      "es\030\002 \001(\0142P\n\017GroupCmdService\022=\n\006invoke\022\027." +
-      "proto.command.GroupCmd\032\030.proto.command.M" +
-      "sgResult\"\000B\'\n\022io.net.api.commandB\014Comman" +
-      "dProtoP\001\240\001\001b\006proto3"
-    };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        });
-    internal_static_proto_command_GroupCmd_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_proto_command_GroupCmd_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_command_GroupCmd_descriptor,
-        new String[] { "GroupId", "BotId", "SenderId", "Cmd", "Args", });
-    internal_static_proto_command_MsgResult_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_proto_command_MsgResult_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_command_MsgResult_descriptor,
-        new String[] { "Msg", "Bytes", });
+      java.lang.String[] descriptorData = {
+              "\n\025command/command.proto\022\020protobuf.comman" +
+                      "d\032\nbase.proto24\n\017GroupCmdService\022!\n\006invo" +
+                      "ke\022\t.GroupCmd\032\n.MsgResult\"\000B-\n\022io.net.ap" +
+                      "i.commandB\014CommandProtoP\001\240\001\001\242\002\003DSPb\006prot" +
+                      "o3"
+      };
+      descriptor = com.google.protobuf.Descriptors.FileDescriptor
+              .internalBuildGeneratedFileFrom(descriptorData,
+                      new com.google.protobuf.Descriptors.FileDescriptor[]{
+                              io.net.api.BaseProto.getDescriptor(),
+                      });
+      io.net.api.BaseProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -2,6 +2,7 @@ package io.net.command
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.boot.runApplication
  *@since 2023/7/6
  */
 @EnableDubbo
+@EnableConfigurationProperties(CmdProperty::class)
 @SpringBootApplication
 class CommandApplication
 

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+option java_package = "io.net.api.work";
+option java_outer_classname = "WorkProto";
+option objc_class_prefix = "DSP";
+
+package protobuf.work;
+
+import "base.proto";
+import "google/protobuf/empty.proto";
+
+service WorkService {
+  rpc doWork (GroupCmd) returns (MsgResult);
+  rpc manifest (google.protobuf.Empty) returns (Menu);
+}
+
+message Menu {
+  map<string, string> menu = 1;
+}

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+option java_package = "io.net.api";
+option java_outer_classname = "BaseProto";
+option objc_class_prefix = "DSP";
+
+message GroupCmd {
+  repeated uint64 ats = 1;
+  uint64 groupId = 2;
+  uint64 botId = 3;
+  uint64 senderId = 4;
+  string cmd = 5;
+  repeated string args = 6;
+}
+
+message MsgResult {
+  MsgCode code = 1;
+  string msg = 2;
+  bytes bytes = 3;
+  string foot = 4;
+}
+
+enum MsgCode {
+  OK = 0;
+  BUSINESS_ANOMALY = 1;
+  RPC_ANOMALY = 2;
+}

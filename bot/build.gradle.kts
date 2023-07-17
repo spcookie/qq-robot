@@ -1,6 +1,8 @@
 dependencies {
-    api(project(":common-api"))
-    implementation("net.mamoe:mirai-core:2.15.0-RC")
+    implementation(project(":common-api"))
+    implementation(fileTree("libs") { include("*.jar") })
+    implementation("org.asynchttpclient:async-http-client:2.12.3")
+    implementation("net.mamoe:mirai-core:2.15.0")
     implementation("net.mamoe:mirai-core-mock:2.13.0")
 }
 
