@@ -1,18 +1,17 @@
 spring:
   datasource:
-    url: jdbc:mysql://mysql:3306/service?characterEncoding=utf8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: service
-    password: service8520
+    url: jdbc:postgresql://postgresql:5432/service
 dubbo:
   registry:
-    address: nacos://nacos:8848
+    address: zookeeper://zookeeper:2181
   metadata-report:
-    address: nacos://nacos:8848
+    address: zookeeper://zookeeper:2181
 logging:
-  #  level:
-  #    root: error
-  #    sql: off
-  #    io.net.bot.*: info
-  #    net.mamoe.mirai.*: info
+  level:
+    root: error
+    sql: off
+    io.net.image.*: info
   file:
-    name: logger.log
+    name: /root/logger.log
+minio:
+  host: minio

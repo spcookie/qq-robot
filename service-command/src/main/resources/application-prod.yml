@@ -1,13 +1,11 @@
 dubbo:
   registry:
-    address: nacos://nacos:8848
+    address: zookeeper://zookeeper:2181
   metadata-report:
-    address: nacos://nacos:8848
+    address: zookeeper://zookeeper:2181
 logging:
-  #  level:
-  #    root: error
-  #    sql: off
-  #    io.net.bot.*: info
-  #    net.mamoe.mirai.*: info
+  level:
+    root: error
+    io.net.command.*: info
   file:
-    name: logger.log
+    name: /root/logger.log

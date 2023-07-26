@@ -1,7 +1,6 @@
 package io.net.image.command
 
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource
 import io.net.api.base.AbstractCmd
 import io.net.api.base.Cmd
 import io.net.api.base.Msg
@@ -9,6 +8,7 @@ import io.net.api.enumeration.CmdEnum
 import io.net.api.exception.GroupCmdException
 import io.net.image.bo.RandomUrlBO
 import io.net.image.entity.Image
+import io.net.image.minio.MinioImageUtils
 import io.net.image.repository.ImageRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,6 +20,7 @@ import org.springframework.retry.annotation.Retryable
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.web.client.RestTemplate
 import java.io.InputStream
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -31,7 +32,7 @@ import kotlin.random.nextInt
 @Cmd(cmd = CmdEnum.IMG)
 class RandomCuteGirl(
     private val restTemplate: RestTemplate,
-    private val imageRepository: ImageRepository
+    private val imageRepository: ImageRepository,
 ) : AbstractCmd {
 
     @set:Autowired
@@ -50,12 +51,13 @@ class RandomCuteGirl(
     """.trimIndent()
 
     override fun command(args: MutableList<String>): Msg {
-        logger.info("被调用了")
         val img = imageRepository.findFirstByCategoryIsOrderByCreatedDateAsc(Image.Category.GIRL)
         return if (img != null) {
-            val bytes = img.bytes!!
+            val path = img.path!!
+            val image = MinioImageUtils.getImage(path)
             imageRepository.delete(img)
-            Msg(bytes = bytes)
+            MinioImageUtils.removeImage(path)
+            Msg(bytes = image.readBytes())
         } else {
             Msg(bytes = query())
         }
@@ -79,16 +81,19 @@ class RandomCuteGirl(
         val of = arrayOf("1", "2", "3", "5", "8", "9")
         val mode = of[Random.nextInt(0..5)]
         try {
-            val bytes = self.resolve(mode).readBytes()
-            val image = Image(category = Image.Category.GIRL, bytes = bytes)
+            val stream = self.resolve(mode)
+            val uuid = UUID.randomUUID().toString()
+            val image = Image(category = Image.Category.GIRL, path = uuid)
             imageRepository.saveAndFlush(image)
+            stream.use {
+                MinioImageUtils.putImage(uuid, it)
+            }
             logger.info("图片下载成功...")
-        } catch (e: GroupCmdException) {
+        } catch (e: RuntimeException) {
             logger.error(e.message, e)
         }
     }
 
-    @SentinelResource(value = "base")
     @Retryable(exclude = [GroupCmdException::class], maxAttempts = 3, backoff = Backoff(delay = 1500))
     protected fun resolve(mode: String): InputStream {
         val param = mapOf("mode" to mode, "type" to "json")

@@ -1,19 +1,20 @@
-
 spring:
   application:
     name: service-command
+  profiles:
+    active: dev
 dubbo:
   application:
     name: ${spring.application.name}
-    qos-port: 60002
+    qos-enable: false
   protocol:
     id: tri
     name: tri
     port: -1
   registry:
-    address: nacos://localhost:8848
+    address: zookeeper://localhost:2181
   metadata-report:
-    address: nacos://localhost:8848
+    address: zookeeper://localhost:2181
 logging:
   pattern:
     dateformat: yyyy-MM-dd hh:mm:ss.SSS
@@ -21,20 +22,3 @@ cmd:
   name: "augenstern-bot"
   version: "3.0.0"
   powered-by: "mirai | spring | dubbo"
-  sudo: [ 1307083930, 5971 ]
-  permission:
-    666:
-      - gpt
-      - img
-      - st
-      - steam
-    474270623:
-      - gpt
-      - img
-      - st
-      - steam
-    1053148332:
-      - gpt
-      - img
-      - st
-      - steam

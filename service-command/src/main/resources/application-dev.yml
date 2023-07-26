@@ -1,0 +1,18 @@
+cmd:
+  sudo: [ 1307083930, 5971 ]
+  permission:
+    666:
+      - gpt
+      - img
+      - st
+      - steam
+    474270623:
+      - gpt
+      - img
+      - st
+      - steam
+    1053148332:
+      - gpt
+      - img
+      - st
+      - steam

@@ -4,7 +4,7 @@ import jakarta.persistence.*
 import org.hibernate.Hibernate
 
 @Entity
-@Table(name = "image")
+@Table(name = "service_image")
 open class Image(
     @Column(length = 100)
     open var name: String? = null,
@@ -13,8 +13,8 @@ open class Image(
     @Column(length = 20, nullable = false)
     open var category: Category? = null,
 
-    @Column(columnDefinition = "blob", nullable = false)
-    open var bytes: ByteArray? = null,
+    @Column(length = 100, nullable = false)
+    open var path: String? = null,
 
     @Column(length = 255)
     open var url: String? = null
@@ -33,6 +33,6 @@ open class Image(
     override fun hashCode(): Int = javaClass.hashCode()
 
     override fun toString(): String {
-        return "Image(name=$name, category=$category, bytes=${bytes?.contentToString()}, url=$url)"
+        return "Image(name=$name, category=$category, path=$path, url=$url)"
     }
 }

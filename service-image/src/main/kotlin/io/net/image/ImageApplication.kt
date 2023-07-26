@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 @EnableDubbo
 @EnableRetry
 @EnableScheduling
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ["io.net.*"])
 class ImageApplication
 
 fun main(args: Array<String>) {

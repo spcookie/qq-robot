@@ -1,11 +1,12 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version "3.1.1"
     id("io.spring.dependency-management") version "1.1.0"
+    id("com.bmuschko.docker-remote-api") version "6.7.0"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
-//    kotlin("plugin.jpa") version "1.8.22"
 }
 
 repositories {
@@ -24,6 +25,7 @@ subprojects {
     apply{
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
+        plugin("com.bmuschko.docker-remote-api")
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.jetbrains.kotlin.plugin.spring")
     }
@@ -69,5 +71,30 @@ subprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+    }
+
+    extra["dockerRegistry"] = "175.178.120.75:5000"
+
+    docker {
+        url.set("npipe:////./pipe/docker_engine")
+
+        registryCredentials {
+            url.set("tcp://${extra["dockerRegistry"]}")
+            username.set("supercookies")
+            password.set("@lwx130YI")
+        }
+    }
+
+    tasks.register<Copy>("copyJar") {
+        dependsOn.add(tasks.bootJar.get())
+        from("$buildDir/libs")
+        into("$projectDir/docker")
+    }
+
+    tasks.register("buildDockerImage", DockerBuildImage::class) {
+        dependsOn.add(tasks.named<Copy>("copyJar"))
+        inputDir.set(file("docker"))
+        pull.set(true)
+        images.add("${extra["dockerRegistry"]}/$name:$version")
     }
 }

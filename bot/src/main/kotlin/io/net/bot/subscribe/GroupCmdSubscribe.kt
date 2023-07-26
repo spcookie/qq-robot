@@ -14,6 +14,8 @@ import net.mamoe.mirai.message.data.MessageChain
 import net.mamoe.mirai.message.data.MessageSource.Key.quote
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
+import org.apache.dubbo.common.constants.ClusterRules
+import org.apache.dubbo.common.constants.LoadbalanceRules
 import org.apache.dubbo.config.annotation.DubboReference
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -24,7 +26,13 @@ import org.springframework.stereotype.Component
  */
 @Component
 class GroupCmdSubscribe(
-    @DubboReference(check = false, timeout = 120000, mock = "true") private val groupCmdService: GroupCmdService
+    @DubboReference(
+        check = false,
+        loadbalance = LoadbalanceRules.ROUND_ROBIN,
+        cluster = ClusterRules.FAIL_OVER,
+        timeout = 1000 * 60 * 2,
+        mock = "true"
+    ) private val groupCmdService: GroupCmdService
 ) {
 
     private suspend fun GroupMessageEvent.call(ats: List<Long>, cmd: String, vararg args: String): Result<MsgResult> {

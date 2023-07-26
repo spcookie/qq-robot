@@ -14,6 +14,8 @@ import org.apache.dubbo.common.constants.LoadbalanceRules
 import org.apache.dubbo.config.annotation.DubboReference
 import org.apache.dubbo.config.annotation.DubboService
 import org.apache.dubbo.rpc.RpcException
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  *@author Augenstern
@@ -28,12 +30,19 @@ class GroupCmdServiceImpl(
         filter = ["ex"],
         loadbalance = LoadbalanceRules.ROUND_ROBIN,
         cluster = ClusterRules.FAIL_OVER,
-        retries = 1
+        timeout = 1000 * 60,
+        retries = 2
     ) val imageService: WorkService
 ) : DubboGroupCmdServiceTriple.GroupCmdServiceImplBase() {
+
+    companion object {
+        private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
+    }
+
     override fun invoke(request: GroupCmd): MsgResult {
         val cmd = request.cmd
-        if (request.botId !in request.atsList) {
+        val ats: List<Long> = request.atsList
+        if (request.botId !in ats) {
             return MsgResult.getDefaultInstance()
         }
         val result: MsgResult
@@ -95,7 +104,11 @@ class GroupCmdServiceImpl(
 
     private fun menu(groupId: Long, cmd: String? = null): MsgResult {
         val manifest = buildList {
-            add(imageService.manifest(Empty.getDefaultInstance()))
+            try {
+                add(imageService.manifest(Empty.getDefaultInstance()))
+            } catch (e: RuntimeException) {
+                logger.error("查询命令清单时出错", e)
+            }
         }
         val permission = cmdProperty.permissionWithStatus
         val menu = manifest.map { it.menuMap }.reduce { acc, map ->
@@ -113,6 +126,12 @@ class GroupCmdServiceImpl(
                         appendLine(it)
                     }
                 }
+                append(
+                    """
+                    ##帮助##
+                      help()
+                    """.trimIndent()
+                )
             }
             MsgResult.newBuilder().setMsg(str).build()
         } ?: MsgResult.getDefaultInstance()

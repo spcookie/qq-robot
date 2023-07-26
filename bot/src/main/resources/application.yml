@@ -10,9 +10,9 @@ dubbo:
     name: tri
     port: -1
   registry:
-    address: nacos://localhost:8848
+    address: zookeeper://localhost:2181
   metadata-report:
-    address: nacos://localhost:8848
+    address: zookeeper://localhost:2181
 logging:
   pattern:
     dateformat: yyyy-MM-dd hh:mm:ss.SSS

@@ -7,7 +7,7 @@ import io.net.api.MsgResult;
  * @author Augenstern
  * @since 2023/7/16
  */
-public class GroupCmdServiceMock implements GroupCmdService {
+public class GroupCmdServiceMock extends DubboGroupCmdServiceTriple.GroupCmdServiceImplBase {
     @Override
     public MsgResult invoke(GroupCmd request) {
         return MsgResult.newBuilder().setMsg("服务不可用，请稍后再试").build();
