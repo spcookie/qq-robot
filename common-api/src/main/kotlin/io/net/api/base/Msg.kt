@@ -2,6 +2,7 @@ package io.net.api.base
 
 import com.google.protobuf.ByteString
 import io.net.api.MsgResult
+import io.net.api.MsgResult.Data
 
 /**
  *@author Augenstern
@@ -30,7 +31,10 @@ data class Msg(
             msg = str
         }
         if (this@Msg.bytes != null) {
-            bytes = ByteString.copyFrom(this@Msg.bytes)
+            data = Data.newBuilder()
+                .setType(Data.MediaType.PICTURE)
+                .setBytes(ByteString.copyFrom(this@Msg.bytes))
+                .build()
         }
     }.build()
 }

@@ -1,6 +1,5 @@
 package io.net.api.filter
 
-import io.net.api.MsgCode
 import io.net.api.MsgResult
 import io.net.api.exception.GroupCmdException
 import org.apache.dubbo.common.constants.CommonConstants
@@ -23,7 +22,7 @@ class DubboExceptionFilter : Filter {
             if (exception is GroupCmdException) {
                 result.exception = null
                 result.value = MsgResult.newBuilder()
-                    .setCode(MsgCode.BUSINESS_ANOMALY)
+                    .setCode(MsgResult.Code.BUSINESS_ANOMALY)
                     .setMsg(exception.message)
                     .build()
             }

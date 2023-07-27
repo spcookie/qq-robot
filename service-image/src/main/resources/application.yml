@@ -33,3 +33,6 @@ minio:
   port: 9000
   accessKey: minioadmin
   secretKey: minioadmin
+rest:
+  host: localhost
+  port: 62495

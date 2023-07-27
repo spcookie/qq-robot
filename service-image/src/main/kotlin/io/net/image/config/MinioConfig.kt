@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration
  *@since 2023/7/26
  */
 @EnableConfigurationProperties(MinioProperty::class)
-@Configuration
+@Configuration(proxyBeanMethods = false)
 class MinioConfig(val minioProperty: MinioProperty) {
     @Bean
     fun minioClient(): MinioClient = MinioClient.builder()

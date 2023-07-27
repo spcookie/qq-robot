@@ -2,12 +2,11 @@ package io.net.command
 
 import com.google.protobuf.Empty
 import io.net.api.GroupCmd
-import io.net.api.MsgCode
 import io.net.api.MsgResult
 import io.net.api.command.DubboGroupCmdServiceTriple
 import io.net.api.enumeration.CmdEnum
+import io.net.api.enumeration.CmdType
 import io.net.api.enumeration.ServiceGroup
-import io.net.api.enumeration.WorkType
 import io.net.api.work.WorkService
 import org.apache.dubbo.common.constants.ClusterRules
 import org.apache.dubbo.common.constants.LoadbalanceRules
@@ -53,19 +52,19 @@ class GroupCmdServiceImpl(
                 try {
                     val enum = CmdEnum.valueOf(cmd)
                     when (enum.type) {
-                        WorkType.TEXT -> {
+                        CmdType.TEXT -> {
                             MsgResult.getDefaultInstance()
                         }
 
-                        WorkType.CRAWLING -> {
+                        CmdType.CRAWLING -> {
                             MsgResult.getDefaultInstance()
                         }
 
-                        WorkType.IMAGE -> {
+                        CmdType.IMAGE -> {
                             imageService.doWork(request)
                         }
 
-                        WorkType.OTHER -> {
+                        CmdType.OTHER -> {
                             when (enum) {
                                 CmdEnum.HELP -> {
                                     MsgResult.newBuilder().setMsg(help()).build()
@@ -93,8 +92,11 @@ class GroupCmdServiceImpl(
     ): MsgResult {
         val permission = cmdProperty.permissionWithStatus
         val sudo = cmdProperty.sudo
-        val predicate = request.senderId in sudo || permission.getOrDefault(request.groupId, mapOf())
-            .map { it.key.name.uppercase() }.contains(request.cmd.uppercase())
+        val predicate = request.senderId in sudo
+                || request.cmd.uppercase() == CmdEnum.HELP.name
+                || permission.getOrDefault(request.groupId, mapOf())
+            .map { it.key.name.uppercase() }
+            .contains(request.cmd.uppercase())
         return if (predicate) {
             block()
         } else {
@@ -148,14 +150,13 @@ class GroupCmdServiceImpl(
     """.trimIndent()
 
     private fun foot() = """
-        
-            ============================
-            name: ${cmdProperty.name}
-            version: ${cmdProperty.version}
-            powered-by: ${cmdProperty.poweredBy}
+            
+            :: @${cmdProperty.name}
+            :: v${cmdProperty.version}
+            :: ${cmdProperty.poweredBy}
         """.trimIndent()
 
     private fun error(cmd: String): MsgResult {
-        return MsgResult.newBuilder().setCode(MsgCode.RPC_ANOMALY).setMsg("${cmd}命令不可用，请稍后再试").build()
+        return MsgResult.newBuilder().setCode(MsgResult.Code.RPC_ANOMALY).setMsg("${cmd}命令不可用，请稍后再试").build()
     }
 }

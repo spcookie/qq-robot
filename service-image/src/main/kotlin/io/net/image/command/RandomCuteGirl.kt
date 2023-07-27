@@ -12,6 +12,7 @@ import io.net.image.minio.MinioImageUtils
 import io.net.image.repository.ImageRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Lazy
 import org.springframework.core.io.Resource
 import org.springframework.retry.annotation.Backoff
@@ -31,7 +32,7 @@ import kotlin.random.nextInt
  */
 @Cmd(cmd = CmdEnum.IMG)
 class RandomCuteGirl(
-    private val restTemplate: RestTemplate,
+    @Qualifier("direct") private val restTemplate: RestTemplate,
     private val imageRepository: ImageRepository,
 ) : AbstractCmd {
 

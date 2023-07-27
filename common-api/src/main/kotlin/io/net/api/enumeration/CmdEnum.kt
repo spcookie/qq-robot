@@ -4,10 +4,10 @@ package io.net.api.enumeration
  *@author Augenstern
  *@date 2023/6/1
  */
-enum class CmdEnum(val type: WorkType) {
-    GPT(WorkType.TEXT),
-    IMG(WorkType.IMAGE),
-    ST(WorkType.IMAGE),
-    STEAM(WorkType.TEXT),
-    HELP(WorkType.OTHER)
+enum class CmdEnum(val type: CmdType) {
+    GPT(CmdType.TEXT),
+    IMG(CmdType.IMAGE),
+    ST(CmdType.IMAGE),
+    STEAM(CmdType.TEXT),
+    HELP(CmdType.OTHER)
 }
