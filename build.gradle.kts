@@ -73,7 +73,7 @@ subprojects {
         useJUnitPlatform()
     }
 
-    extra["dockerRegistry"] = "175.178.120.75:5000"
+    extra["dockerRegistry"] = "local"
 
     docker {
         url.set("npipe:////./pipe/docker_engine")
