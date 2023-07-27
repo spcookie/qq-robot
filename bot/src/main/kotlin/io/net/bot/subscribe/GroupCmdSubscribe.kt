@@ -113,10 +113,10 @@ class GroupCmdSubscribe(
                                     if (recall > 0) {
                                         messageReceipt.recallIn(recall.toLong())
                                     }
-                                    if (fallback.isNotBlank()) {
-                                        val ids = messageReceipt.source.ids
-                                        if (ids.isEmpty() || ids.any { it < 0 }) {
-                                            logger.warn("图片发送失败，账号可能已被风控")
+                                    val ids = messageReceipt.source.ids
+                                    if (ids.isEmpty() || ids.any { it < 0 }) {
+                                        logger.warn("消息发送失败，账号可能已被风控")
+                                        if (fallback.isNotBlank()) {
                                             val fallbackMsg = group.sendMessage(message.quote() + fallback + foot)
                                             if (recall > 0) {
                                                 fallbackMsg.recallIn(recall.toLong())
