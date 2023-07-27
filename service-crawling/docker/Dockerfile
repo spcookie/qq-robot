@@ -4,4 +4,4 @@ COPY . /root
 
 WORKDIR /root
 
-ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "crawling-3.0.0.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "service-crawling-3.0.0.jar"]

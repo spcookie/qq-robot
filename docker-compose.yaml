@@ -3,7 +3,7 @@ version: "3.8"
 services:
   qsign:
     image: xzhouqd/qsign:core-1.1.5
-    container_name: qsign
+    container_name: qsign-dev
     environment:
       - BASE_PATH=/srv/qsign/qsign/txlib/8.9.63
     healthcheck:
@@ -16,7 +16,7 @@ services:
     restart: on-failure
   postgresql:
     image: postgres
-    container_name: postgresql
+    container_name: postgresql-dev
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
@@ -29,7 +29,7 @@ services:
     restart: on-failure
   zookeeper:
     image: zookeeper
-    container_name: zookeeper
+    container_name: zookeeper-dev
     restart: on-failure
     ports:
       - "2181:2181"
@@ -37,7 +37,7 @@ services:
       ZOO_MY_ID: 1
   minio:
     image: minio/minio
-    container_name: minio
+    container_name: minio-dev
     volumes:
       - minio_dev:/mnt/data
     ports:
