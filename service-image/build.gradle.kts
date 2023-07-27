@@ -8,6 +8,7 @@ dependencies {
     implementation("org.springframework.retry:spring-retry")
     runtimeOnly("org.postgresql:postgresql")
     implementation("io.minio:minio:8.5.4")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude("org.springframework.boot", "spring-boot-starter-tomcat")
     }

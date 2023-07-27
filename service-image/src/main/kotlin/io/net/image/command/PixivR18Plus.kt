@@ -122,12 +122,12 @@ class PixivR18Plus(
             if (counter-- == 0) {
                 throw GroupCmdException("图片都是坏的，请稍后再试")
             }
-            if (pixivRandomResults.isEmpty()) {
-                pixivRandomResults.addAll(request())
-            }
             result = if (args.isNotEmpty()) {
                 request(args[0], 1)[0]
             } else {
+                if (pixivRandomResults.isEmpty()) {
+                    pixivRandomResults.addAll(request())
+                }
                 pixivRandomResults.removeFirst()
             }
             val entity = restTemplate.getForEntity(result.url, Resource::class.java)
@@ -145,13 +145,18 @@ class PixivR18Plus(
         throw GroupCmdException("非常抱歉，由于网络异常，无法提供图片浏览服务", e)
     }
 
-    private fun request(keywords: String = "", num: Int = 30): List<PixivRandomResult> {
-        return restTemplate.exchange(
-            "$URL?r18=1&num=$num&size=regular&keywords=$keywords",
+    private fun request(keyword: String = "", num: Int = 30): List<PixivRandomResult> {
+        val entity = restTemplate.exchange(
+            "$URL?r18=1&num=$num&size=regular&keywords=$keyword",
             HttpMethod.GET,
             HttpEntity(mutableMapOf(HttpHeaders.ACCEPT to MediaType.APPLICATION_JSON_VALUE)),
             object : ParameterizedTypeReference<List<PixivRandomResult>>() {}
-        ).body!!
+        )
+        if (entity.statusCode.is2xxSuccessful) {
+            return entity.body!!
+        } else {
+            throw GroupCmdException("「${keyword}」的图片还没有呢")
+        }
     }
 
     fun validImage(byteArray: ByteArray): Boolean {
