@@ -31,10 +31,10 @@ class RestTemplateConfig {
         return restTemplate
     }
 
-    @Value("\${rest.host}")
+    @Value("\${proxy.host}")
     var host: String = ""
 
-    @Value("\${rest.port}")
+    @Value("\${proxy.port}")
     var port: Int = 0
 
     @Bean

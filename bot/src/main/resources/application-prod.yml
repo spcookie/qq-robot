@@ -9,4 +9,4 @@ logging:
     io.net.bot.*: info
     net.mamoe.mirai.*: info
   file:
-    name: /root/logger.log
+    name: ./logger.log

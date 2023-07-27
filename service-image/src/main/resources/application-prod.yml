@@ -12,6 +12,9 @@ logging:
     sql: off
     io.net.image.*: info
   file:
-    name: /root/logger.log
+    name: ./logger.log
 minio:
   host: minio
+proxy:
+  host: clash
+  port: 7890

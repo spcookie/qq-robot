@@ -8,4 +8,4 @@ logging:
     root: error
     io.net.command.*: info
   file:
-    name: /root/logger.log
+    name: ./logger.log
