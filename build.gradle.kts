@@ -73,13 +73,13 @@ subprojects {
         useJUnitPlatform()
     }
 
-    extra["dockerRegistry"] = "local"
+    rootProject.extra["dockerRegistry"] = "local"
 
     docker {
         url.set("npipe:////./pipe/docker_engine")
 
         registryCredentials {
-            url.set("tcp://${extra["dockerRegistry"]}")
+            url.set("tcp://${rootProject.extra["dockerRegistry"]}")
             username.set("supercookies")
             password.set("@lwx130YI")
         }
@@ -94,7 +94,7 @@ subprojects {
     tasks.register("buildDockerImage", DockerBuildImage::class) {
         dependsOn.add(tasks.named<Copy>("copyJar"))
         inputDir.set(file("docker"))
-        pull.set(true)
-        images.add("${extra["dockerRegistry"]}/$name:$version")
+//        pull.set(true)
+        images.add("${rootProject.extra["dockerRegistry"]}/${project.name}:$version")
     }
 }
