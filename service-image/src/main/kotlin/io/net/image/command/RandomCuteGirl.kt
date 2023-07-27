@@ -20,7 +20,6 @@ import org.springframework.retry.annotation.Recover
 import org.springframework.retry.annotation.Retryable
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.web.client.RestTemplate
-import java.io.InputStream
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -58,7 +57,7 @@ class RandomCuteGirl(
             val image = MinioImageUtils.getImage(path)
             imageRepository.delete(img)
             MinioImageUtils.removeImage(path)
-            Msg(bytes = image.readBytes())
+            Msg(bytes = image)
         } else {
             Msg(bytes = query())
         }
@@ -67,8 +66,7 @@ class RandomCuteGirl(
     private fun query(): ByteArray {
         val of = arrayOf("1", "2", "3", "5", "8", "9")
         val mode = of[Random.nextInt(0..5)]
-        val stream = self.resolve(mode)
-        return stream.readBytes()
+        return self.resolve(mode)
     }
 
     @Scheduled(initialDelay = 10, fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
@@ -82,13 +80,11 @@ class RandomCuteGirl(
         val of = arrayOf("1", "2", "3", "5", "8", "9")
         val mode = of[Random.nextInt(0..5)]
         try {
-            val stream = self.resolve(mode)
+            val bytes = self.resolve(mode)
             val uuid = UUID.randomUUID().toString()
             val image = Image(category = Image.Category.GIRL, path = uuid)
             imageRepository.saveAndFlush(image)
-            stream.use {
-                MinioImageUtils.putImage(uuid, it)
-            }
+            MinioImageUtils.putImage(uuid, bytes)
             logger.info("图片下载成功...")
         } catch (e: RuntimeException) {
             logger.error(e.message, e)
@@ -96,17 +92,17 @@ class RandomCuteGirl(
     }
 
     @Retryable(exclude = [GroupCmdException::class], maxAttempts = 3, backoff = Backoff(delay = 1500))
-    protected fun resolve(mode: String): InputStream {
+    protected fun resolve(mode: String): ByteArray {
         val param = mapOf("mode" to mode, "type" to "json")
         val randomUrl = restTemplate.getForObject(CUTE_GIRL_URL, RandomUrlBO::class.java, param)
         val resource = restTemplate.getForEntity(randomUrl!!.url, Resource::class.java)
-        return resource.body?.inputStream
+        return resource.body?.contentAsByteArray
             ?: throw GroupCmdException("非常抱歉，在尝试加载图片时发生了服务错误。尽管已经找到了图片，但由于某些困难，无法顺利加载。")
     }
 
     @Suppress("UNUSED")
     @Recover
-    protected fun fallback(e: Exception): InputStream {
+    protected fun fallback(e: Exception): ByteArray {
         throw GroupCmdException("非常抱歉，目前无法成功找到图片链接。", e)
     }
 }

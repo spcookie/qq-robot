@@ -16,7 +16,7 @@ import org.springframework.core.annotation.AnnotationUtils
  *@author Augenstern
  *@since 2023/7/8
  */
-@DubboService(group = ServiceGroup.IMAGE)
+@DubboService(group = ServiceGroup.IMAGE, filter = ["ex"])
 class ImageServiceImpl(private val cmds: List<AbstractCmd>) : DubboWorkServiceTriple.WorkServiceImplBase() {
 
     private val matchedCmds: MutableMap<String, AbstractCmd> = mutableMapOf()

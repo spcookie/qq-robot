@@ -2,7 +2,6 @@ package io.net.image.minio
 
 import io.minio.*
 import io.net.api.util.SpringContextUtil
-import java.io.InputStream
 
 /**
  *@author Augenstern
@@ -17,20 +16,20 @@ object MinioImageUtils {
 
     private var bucketExists = false
 
-    fun getImage(path: String): InputStream {
+    fun getImage(path: String): ByteArray {
         val args = GetObjectArgs.builder()
             .bucket(BUCKET)
             .`object`(path)
             .build()
-        return minio.getObject(args)
+        return minio.getObject(args).use { it.readBytes() }
     }
 
-    fun putImage(path: String, stream: InputStream) {
+    fun putImage(path: String, byteArray: ByteArray) {
         ensureBucketExists()
         val args = PutObjectArgs.builder()
             .bucket(BUCKET)
             .`object`(path)
-            .stream(stream, -1, ObjectWriteArgs.MIN_MULTIPART_SIZE.toLong())
+            .stream(byteArray.inputStream(), -1, ObjectWriteArgs.MIN_MULTIPART_SIZE.toLong())
             .build()
         minio.putObject(args)
     }

@@ -3,6 +3,7 @@ package io.net.api.base
 import com.google.protobuf.ByteString
 import io.net.api.MsgResult
 import io.net.api.MsgResult.Data
+import io.net.api.MsgResult.Receipt
 
 /**
  *@author Augenstern
@@ -10,7 +11,9 @@ import io.net.api.MsgResult.Data
  */
 data class Msg(
     val str: String? = null,
-    val bytes: ByteArray? = null
+    val bytes: ByteArray? = null,
+    val overdue: Int? = null,
+    val replace: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -30,11 +33,19 @@ data class Msg(
         if (str != null) {
             msg = str
         }
-        if (this@Msg.bytes != null) {
+        if (bytes != null) {
             data = Data.newBuilder()
                 .setType(Data.MediaType.PICTURE)
-                .setBytes(ByteString.copyFrom(this@Msg.bytes))
+                .setBytes(ByteString.copyFrom(bytes))
                 .build()
         }
+        receipt = Receipt.newBuilder().apply {
+            if (overdue != null) {
+                recall = overdue
+            }
+            if (replace != null) {
+                fallback = replace
+            }
+        }.build()
     }.build()
 }

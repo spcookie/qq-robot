@@ -1,6 +1,8 @@
 spring:
   application:
     name: service-image
+  profiles:
+    active: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/service
     driver-class-name: org.postgresql.Driver

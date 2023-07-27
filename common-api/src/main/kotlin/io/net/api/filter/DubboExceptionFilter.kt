@@ -13,7 +13,7 @@ import org.apache.dubbo.rpc.Result
  *@author Augenstern
  *@since 2023/7/16
  */
-@Activate(CommonConstants.CONSUMER)
+@Activate(CommonConstants.PROVIDER)
 class DubboExceptionFilter : Filter {
     override fun invoke(invoker: Invoker<*>, invocation: Invocation): Result {
         val result = invoker.invoke(invocation)

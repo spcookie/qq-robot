@@ -26,10 +26,9 @@ class GroupCmdServiceImpl(
     @DubboReference(
         check = false,
         group = ServiceGroup.IMAGE,
-        filter = ["ex"],
         loadbalance = LoadbalanceRules.ROUND_ROBIN,
         cluster = ClusterRules.FAIL_OVER,
-        timeout = 1000 * 60,
+        timeout = 1000 * 60 * 2,
         retries = 2
     ) val imageService: WorkService
 ) : DubboGroupCmdServiceTriple.GroupCmdServiceImplBase() {
@@ -151,12 +150,14 @@ class GroupCmdServiceImpl(
 
     private fun foot() = """
             
-            :: @${cmdProperty.name}
-            :: v${cmdProperty.version}
-            :: ${cmdProperty.poweredBy}
+              ฅฅฅฅฅฅฅฅ
+            ∷ @${cmdProperty.name}
+            ∷ v${cmdProperty.version}
+            ∷ ${cmdProperty.poweredBy}
         """.trimIndent()
 
     private fun error(cmd: String): MsgResult {
-        return MsgResult.newBuilder().setCode(MsgResult.Code.RPC_ANOMALY).setMsg("${cmd}命令不可用，请稍后再试").build()
+        return MsgResult.newBuilder().setCode(MsgResult.Code.RPC_ANOMALY).setMsg("「${cmd}」命令不可用，请稍后再试")
+            .build()
     }
 }
