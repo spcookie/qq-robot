@@ -57,7 +57,7 @@ public final class DubboWorkServiceTriple {
             io.net.api.MsgResult::parseFrom);
 
     private static final StubMethodDescriptor doWorkAsyncMethod = new StubMethodDescriptor("doWork",
-            io.net.api.GroupCmd.class, java.util.concurrent.CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            io.net.api.GroupCmd.class, CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
             obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), io.net.api.GroupCmd::parseFrom,
             io.net.api.MsgResult::parseFrom);
 
@@ -67,19 +67,19 @@ public final class DubboWorkServiceTriple {
             io.net.api.MsgResult::parseFrom);
 
     private static final StubMethodDescriptor manifestMethod = new StubMethodDescriptor("manifest",
-            com.google.protobuf.Empty.class, io.net.api.work.Menu.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            com.google.protobuf.Empty.class, Menu.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
             obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), com.google.protobuf.Empty::parseFrom,
-            io.net.api.work.Menu::parseFrom);
+            Menu::parseFrom);
 
     private static final StubMethodDescriptor manifestAsyncMethod = new StubMethodDescriptor("manifest",
-            com.google.protobuf.Empty.class, java.util.concurrent.CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            com.google.protobuf.Empty.class, CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
             obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), com.google.protobuf.Empty::parseFrom,
-            io.net.api.work.Menu::parseFrom);
+            Menu::parseFrom);
 
     private static final StubMethodDescriptor manifestProxyAsyncMethod = new StubMethodDescriptor("manifestAsync",
-            com.google.protobuf.Empty.class, io.net.api.work.Menu.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            com.google.protobuf.Empty.class, Menu.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
             obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), com.google.protobuf.Empty::parseFrom,
-            io.net.api.work.Menu::parseFrom);
+            Menu::parseFrom);
 
 
     public static class WorkServiceStub implements WorkService {
@@ -104,18 +104,19 @@ public final class DubboWorkServiceTriple {
         }
 
         @Override
-        public io.net.api.work.Menu manifest(com.google.protobuf.Empty request) {
+        public Menu manifest(com.google.protobuf.Empty request) {
             return StubInvocationUtil.unaryCall(invoker, manifestMethod, request);
         }
 
-        public CompletableFuture<io.net.api.work.Menu> manifestAsync(com.google.protobuf.Empty request) {
+        public CompletableFuture<Menu> manifestAsync(com.google.protobuf.Empty request) {
             return StubInvocationUtil.unaryCall(invoker, manifestAsyncMethod, request);
         }
 
         @Override
-        public void manifest(com.google.protobuf.Empty request, StreamObserver<io.net.api.work.Menu> responseObserver) {
+        public void manifest(com.google.protobuf.Empty request, StreamObserver<Menu> responseObserver) {
             StubInvocationUtil.unaryCall(invoker, manifestMethod, request, responseObserver);
         }
+
 
 
     }
@@ -153,9 +154,9 @@ public final class DubboWorkServiceTriple {
             handlers.put(doWorkMethod.getMethodName(), new UnaryStubMethodHandler<>(doWorkFunc));
             BiConsumer<io.net.api.GroupCmd, StreamObserver<io.net.api.MsgResult>> doWorkAsyncFunc = syncToAsync(this::doWork);
             handlers.put(doWorkProxyAsyncMethod.getMethodName(), new UnaryStubMethodHandler<>(doWorkAsyncFunc));
-            BiConsumer<com.google.protobuf.Empty, StreamObserver<io.net.api.work.Menu>> manifestFunc = this::manifest;
+            BiConsumer<com.google.protobuf.Empty, StreamObserver<Menu>> manifestFunc = this::manifest;
             handlers.put(manifestMethod.getMethodName(), new UnaryStubMethodHandler<>(manifestFunc));
-            BiConsumer<com.google.protobuf.Empty, StreamObserver<io.net.api.work.Menu>> manifestAsyncFunc = syncToAsync(this::manifest);
+            BiConsumer<com.google.protobuf.Empty, StreamObserver<Menu>> manifestAsyncFunc = syncToAsync(this::manifest);
             handlers.put(manifestProxyAsyncMethod.getMethodName(), new UnaryStubMethodHandler<>(manifestAsyncFunc));
 
 
@@ -169,7 +170,7 @@ public final class DubboWorkServiceTriple {
         }
 
         @Override
-        public io.net.api.work.Menu manifest(com.google.protobuf.Empty request) {
+        public Menu manifest(com.google.protobuf.Empty request) {
             throw unimplementedMethodException(manifestMethod);
         }
 
@@ -178,7 +179,6 @@ public final class DubboWorkServiceTriple {
         public final ServiceDescriptor getServiceDescriptor() {
             return serviceDescriptor;
         }
-
         private RpcException unimplementedMethodException(StubMethodDescriptor methodDescriptor) {
             return TriRpcStatus.UNIMPLEMENTED.withDescription(String.format("Method %s is unimplemented",
                     "/" + serviceDescriptor.getInterfaceName() + "/" + methodDescriptor.getMethodName())).asException();

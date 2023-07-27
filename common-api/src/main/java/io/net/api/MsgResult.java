@@ -8,39 +8,41 @@ package io.net.api;
  */
 public final class MsgResult extends
     com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:MsgResult)
+    // @@protoc_insertion_point(message_implements:MsgResult)
     MsgResultOrBuilder {
 private static final long serialVersionUID = 0L;
+
   // Use MsgResult.newBuilder() to construct.
   private MsgResult(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
+
   private MsgResult() {
-      code_ = 0;
-      msg_ = "";
-      bytes_ = com.google.protobuf.ByteString.EMPTY;
-      foot_ = "";
+    code_ = 0;
+    msg_ = "";
+    foot_ = "";
   }
 
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-            UnusedPrivateParameter unused) {
-        return new MsgResult();
-    }
+  @Override
+  @SuppressWarnings({"unused"})
+  protected Object newInstance(
+          UnusedPrivateParameter unused) {
+    return new MsgResult();
+  }
 
-    @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
   }
+
   private MsgResult(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -49,110 +51,2357 @@ private static final long serialVersionUID = 0L;
       while (!done) {
         int tag = input.readTag();
         switch (tag) {
-            case 0:
-                done = true;
-                break;
-            case 8: {
-                int rawValue = input.readEnum();
+          case 0:
+            done = true;
+            break;
+          case 8: {
+            int rawValue = input.readEnum();
 
-                code_ = rawValue;
-                break;
-            }
-            case 18: {
-                java.lang.String s = input.readStringRequireUtf8();
+            code_ = rawValue;
+            break;
+          }
+          case 18: {
+            String s = input.readStringRequireUtf8();
 
-                msg_ = s;
-                break;
+            msg_ = s;
+            break;
+          }
+          case 26: {
+            Data.Builder subBuilder = null;
+            if (data_ != null) {
+              subBuilder = data_.toBuilder();
             }
-            case 26: {
+            data_ = input.readMessage(Data.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(data_);
+              data_ = subBuilder.buildPartial();
+            }
 
-                bytes_ = input.readBytes();
-                break;
-            }
-            case 34: {
-                java.lang.String s = input.readStringRequireUtf8();
+            break;
+          }
+          case 34: {
+            String s = input.readStringRequireUtf8();
 
-                foot_ = s;
-                break;
+            foot_ = s;
+            break;
+          }
+          case 42: {
+            Receipt.Builder subBuilder = null;
+            if (receipt_ != null) {
+              subBuilder = receipt_.toBuilder();
             }
-            default: {
-                if (!parseUnknownField(
-                        input, unknownFields, extensionRegistry, tag)) {
-                    done = true;
-                }
-                break;
+            receipt_ = input.readMessage(Receipt.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(receipt_);
+              receipt_ = subBuilder.buildPartial();
             }
+
+            break;
+          }
+          default: {
+            if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+              done = true;
+            }
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
       throw e.setUnfinishedMessage(this);
     } catch (java.io.IOException e) {
       throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
+              e).setUnfinishedMessage(this);
     } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
+      this.unknownFields = unknownFields.build();
+      makeExtensionsImmutable();
     }
   }
 
-    public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-        return io.net.api.BaseProto.internal_static_MsgResult_descriptor;
-    }
+  public static final com.google.protobuf.Descriptors.Descriptor
+  getDescriptor() {
+    return BaseProto.internal_static_MsgResult_descriptor;
+  }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-        return io.net.api.BaseProto.internal_static_MsgResult_fieldAccessorTable
-                .ensureFieldAccessorsInitialized(
-                        io.net.api.MsgResult.class, io.net.api.MsgResult.Builder.class);
-    }
+  @Override
+  protected FieldAccessorTable
+  internalGetFieldAccessorTable() {
+    return BaseProto.internal_static_MsgResult_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                    MsgResult.class, Builder.class);
+  }
 
-    public static final int CODE_FIELD_NUMBER = 1;
-    private int code_;
+  /**
+   * Protobuf enum {@code MsgResult.Code}
+   */
+  public enum Code
+          implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>OK = 0;</code>
+     */
+    OK(0),
+    /**
+     * <code>BUSINESS_ANOMALY = 1;</code>
+     */
+    BUSINESS_ANOMALY(1),
+    /**
+     * <code>RPC_ANOMALY = 2;</code>
+     */
+    RPC_ANOMALY(2),
+    UNRECOGNIZED(-1),
+    ;
 
     /**
-     * <code>.MsgCode code = 1;</code>
+     * <code>OK = 0;</code>
+     */
+    public static final int OK_VALUE = 0;
+    /**
+     * <code>BUSINESS_ANOMALY = 1;</code>
+     */
+    public static final int BUSINESS_ANOMALY_VALUE = 1;
+    /**
+     * <code>RPC_ANOMALY = 2;</code>
+     */
+    public static final int RPC_ANOMALY_VALUE = 2;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new IllegalArgumentException(
+                "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @Deprecated
+    public static Code valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static Code forNumber(int value) {
+      switch (value) {
+        case 0:
+          return OK;
+        case 1:
+          return BUSINESS_ANOMALY;
+        case 2:
+          return RPC_ANOMALY;
+        default:
+          return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<Code>
+    internalGetValueMap() {
+      return internalValueMap;
+    }
+
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+            Code> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Code>() {
+              public Code findValueByNumber(int number) {
+                return Code.forNumber(number);
+              }
+            };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+    getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new IllegalStateException(
+                "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+    getDescriptorForType() {
+      return getDescriptor();
+    }
+
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+    getDescriptor() {
+      return MsgResult.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final Code[] VALUES = values();
+
+    public static Code valueOf(
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new IllegalArgumentException(
+                "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private Code(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:MsgResult.Code)
+  }
+
+  public interface DataOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:MsgResult.Data)
+          com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.MsgResult.Data.MediaType type = 1;</code>
+     *
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+
+    /**
+     * <code>.MsgResult.Data.MediaType type = 1;</code>
+     *
+     * @return The type.
+     */
+    Data.MediaType getType();
+
+    /**
+     * <code>bytes bytes = 2;</code>
+     *
+     * @return The bytes.
+     */
+    com.google.protobuf.ByteString getBytes();
+  }
+
+  /**
+   * Protobuf type {@code MsgResult.Data}
+   */
+  public static final class Data extends
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:MsgResult.Data)
+          DataOrBuilder {
+    private static final long serialVersionUID = 0L;
+
+    // Use Data.newBuilder() to construct.
+    private Data(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+
+    private Data() {
+      type_ = 0;
+      bytes_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @Override
+    @SuppressWarnings({"unused"})
+    protected Object newInstance(
+            UnusedPrivateParameter unused) {
+      return new Data();
+    }
+
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+
+    private Data(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            case 18: {
+
+              bytes_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                      input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+                e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+    getDescriptor() {
+      return BaseProto.internal_static_MsgResult_Data_descriptor;
+    }
+
+    @Override
+    protected FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return BaseProto.internal_static_MsgResult_Data_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      Data.class, Builder.class);
+    }
+
+    /**
+     * Protobuf enum {@code MsgResult.Data.MediaType}
+     */
+    public enum MediaType
+            implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>PICTURE = 0;</code>
+       */
+      PICTURE(0),
+      /**
+       * <code>AUDIO = 1;</code>
+       */
+      AUDIO(1),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>PICTURE = 0;</code>
+       */
+      public static final int PICTURE_VALUE = 0;
+      /**
+       * <code>AUDIO = 1;</code>
+       */
+      public static final int AUDIO_VALUE = 1;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new IllegalArgumentException(
+                  "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @Deprecated
+      public static MediaType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static MediaType forNumber(int value) {
+        switch (value) {
+          case 0:
+            return PICTURE;
+          case 1:
+            return AUDIO;
+          default:
+            return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<MediaType>
+      internalGetValueMap() {
+        return internalValueMap;
+      }
+
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+              MediaType> internalValueMap =
+              new com.google.protobuf.Internal.EnumLiteMap<MediaType>() {
+                public MediaType findValueByNumber(int number) {
+                  return MediaType.forNumber(number);
+                }
+              };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+      getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new IllegalStateException(
+                  "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+      getDescriptorForType() {
+        return getDescriptor();
+      }
+
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+      getDescriptor() {
+        return Data.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final MediaType[] VALUES = values();
+
+      public static MediaType valueOf(
+              com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new IllegalArgumentException(
+                  "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private MediaType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:MsgResult.Data.MediaType)
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private int type_;
+
+    /**
+     * <code>.MsgResult.Data.MediaType type = 1;</code>
+     *
+     * @return The enum numeric value on the wire for type.
+     */
+    @Override
+    public int getTypeValue() {
+      return type_;
+    }
+
+    /**
+     * <code>.MsgResult.Data.MediaType type = 1;</code>
+     *
+     * @return The type.
+     */
+    @Override
+    public MediaType getType() {
+      @SuppressWarnings("deprecation")
+      MediaType result = MediaType.valueOf(type_);
+      return result == null ? MediaType.UNRECOGNIZED : result;
+    }
+
+    public static final int BYTES_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString bytes_;
+
+    /**
+     * <code>bytes bytes = 2;</code>
+     *
+     * @return The bytes.
+     */
+    @Override
+    public com.google.protobuf.ByteString getBytes() {
+      return bytes_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+
+    @Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+            throws java.io.IOException {
+      if (type_ != MediaType.PICTURE.getNumber()) {
+        output.writeEnum(1, type_);
+      }
+      if (!bytes_.isEmpty()) {
+        output.writeBytes(2, bytes_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (type_ != MediaType.PICTURE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+                .computeEnumSize(1, type_);
+      }
+      if (!bytes_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+                .computeBytesSize(2, bytes_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+        return true;
+      }
+      if (!(obj instanceof Data)) {
+        return super.equals(obj);
+      }
+      Data other = (Data) obj;
+
+      if (type_ != other.type_) return false;
+      if (!getBytes()
+              .equals(other.getBytes())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
+      hash = (37 * hash) + BYTES_FIELD_NUMBER;
+      hash = (53 * hash) + getBytes().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static Data parseFrom(
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static Data parseFrom(
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static Data parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static Data parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static Data parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static Data parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static Data parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+
+    public static Data parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static Data parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static Data parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static Data parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+
+    public static Data parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @Override
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+
+    public static Builder newBuilder(Data prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+
+    @Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+              ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @Override
+    protected Builder newBuilderForType(
+            BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+
+    /**
+     * Protobuf type {@code MsgResult.Data}
+     */
+    public static final class Builder extends
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:MsgResult.Data)
+            DataOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+      getDescriptor() {
+        return BaseProto.internal_static_MsgResult_Data_descriptor;
+      }
+
+      @Override
+      protected FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return BaseProto.internal_static_MsgResult_Data_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        Data.class, Builder.class);
+      }
+
+      // Construct using io.net.api.MsgResult.Data.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+              BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+
+      @Override
+      public Builder clear() {
+        super.clear();
+        type_ = 0;
+
+        bytes_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @Override
+      public com.google.protobuf.Descriptors.Descriptor
+      getDescriptorForType() {
+        return BaseProto.internal_static_MsgResult_Data_descriptor;
+      }
+
+      @Override
+      public Data getDefaultInstanceForType() {
+        return Data.getDefaultInstance();
+      }
+
+      @Override
+      public Data build() {
+        Data result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @Override
+      public Data buildPartial() {
+        Data result = new Data(this);
+        result.type_ = type_;
+        result.bytes_ = bytes_;
+        onBuilt();
+        return result;
+      }
+
+      @Override
+      public Builder clone() {
+        return super.clone();
+      }
+
+      @Override
+      public Builder setField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              Object value) {
+        return super.setField(field, value);
+      }
+
+      @Override
+      public Builder clearField(
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+
+      @Override
+      public Builder clearOneof(
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+
+      @Override
+      public Builder setRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+
+      @Override
+      public Builder addRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              Object value) {
+        return super.addRepeatedField(field, value);
+      }
+
+      @Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof Data) {
+          return mergeFrom((Data) other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(Data other) {
+        if (other == Data.getDefaultInstance()) return this;
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
+        if (other.getBytes() != com.google.protobuf.ByteString.EMPTY) {
+          setBytes(other.getBytes());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @Override
+      public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        Data parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (Data) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int type_ = 0;
+
+      /**
+       * <code>.MsgResult.Data.MediaType type = 1;</code>
+       *
+       * @return The enum numeric value on the wire for type.
+       */
+      @Override
+      public int getTypeValue() {
+        return type_;
+      }
+
+      /**
+       * <code>.MsgResult.Data.MediaType type = 1;</code>
+       *
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+
+        type_ = value;
+        onChanged();
+        return this;
+      }
+
+      /**
+       * <code>.MsgResult.Data.MediaType type = 1;</code>
+       *
+       * @return The type.
+       */
+      @Override
+      public MediaType getType() {
+        @SuppressWarnings("deprecation")
+        MediaType result = MediaType.valueOf(type_);
+        return result == null ? MediaType.UNRECOGNIZED : result;
+      }
+
+      /**
+       * <code>.MsgResult.Data.MediaType type = 1;</code>
+       *
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(MediaType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+
+      /**
+       * <code>.MsgResult.Data.MediaType type = 1;</code>
+       *
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString bytes_ = com.google.protobuf.ByteString.EMPTY;
+
+      /**
+       * <code>bytes bytes = 2;</code>
+       *
+       * @return The bytes.
+       */
+      @Override
+      public com.google.protobuf.ByteString getBytes() {
+        return bytes_;
+      }
+
+      /**
+       * <code>bytes bytes = 2;</code>
+       *
+       * @param value The bytes to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBytes(com.google.protobuf.ByteString value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        bytes_ = value;
+        onChanged();
+        return this;
+      }
+
+      /**
+       * <code>bytes bytes = 2;</code>
+       *
+       * @return This builder for chaining.
+       */
+      public Builder clearBytes() {
+
+        bytes_ = getDefaultInstance().getBytes();
+        onChanged();
+        return this;
+      }
+
+      @Override
+      public final Builder setUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @Override
+      public final Builder mergeUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:MsgResult.Data)
+    }
+
+    // @@protoc_insertion_point(class_scope:MsgResult.Data)
+    private static final Data DEFAULT_INSTANCE;
+
+    static {
+      DEFAULT_INSTANCE = new Data();
+    }
+
+    public static Data getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Data>
+            PARSER = new com.google.protobuf.AbstractParser<Data>() {
+      @Override
+      public Data parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Data(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Data> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<Data> getParserForType() {
+      return PARSER;
+    }
+
+    @Override
+    public Data getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ReceiptOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:MsgResult.Receipt)
+          com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 recall = 1;</code>
+     *
+     * @return The recall.
+     */
+    int getRecall();
+
+    /**
+     * <code>string fallback = 2;</code>
+     *
+     * @return The fallback.
+     */
+    String getFallback();
+
+    /**
+     * <code>string fallback = 2;</code>
+     *
+     * @return The bytes for fallback.
+     */
+    com.google.protobuf.ByteString
+    getFallbackBytes();
+  }
+
+  /**
+   * Protobuf type {@code MsgResult.Receipt}
+   */
+  public static final class Receipt extends
+          com.google.protobuf.GeneratedMessageV3 implements
+          // @@protoc_insertion_point(message_implements:MsgResult.Receipt)
+          ReceiptOrBuilder {
+    private static final long serialVersionUID = 0L;
+
+    // Use Receipt.newBuilder() to construct.
+    private Receipt(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+
+    private Receipt() {
+      fallback_ = "";
+    }
+
+    @Override
+    @SuppressWarnings({"unused"})
+    protected Object newInstance(
+            UnusedPrivateParameter unused) {
+      return new Receipt();
+    }
+
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+
+    private Receipt(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              recall_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              String s = input.readStringRequireUtf8();
+
+              fallback_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                      input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+                e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+    getDescriptor() {
+      return BaseProto.internal_static_MsgResult_Receipt_descriptor;
+    }
+
+    @Override
+    protected FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return BaseProto.internal_static_MsgResult_Receipt_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      Receipt.class, Builder.class);
+    }
+
+    public static final int RECALL_FIELD_NUMBER = 1;
+    private int recall_;
+
+    /**
+     * <code>int32 recall = 1;</code>
+     *
+     * @return The recall.
+     */
+    @Override
+    public int getRecall() {
+      return recall_;
+    }
+
+    public static final int FALLBACK_FIELD_NUMBER = 2;
+    private volatile Object fallback_;
+
+    /**
+     * <code>string fallback = 2;</code>
+     *
+     * @return The fallback.
+     */
+    @Override
+    public String getFallback() {
+      Object ref = fallback_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        fallback_ = s;
+        return s;
+      }
+    }
+
+    /**
+     * <code>string fallback = 2;</code>
+     *
+     * @return The bytes for fallback.
+     */
+    @Override
+    public com.google.protobuf.ByteString
+    getFallbackBytes() {
+      Object ref = fallback_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (String) ref);
+        fallback_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+
+    @Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+            throws java.io.IOException {
+      if (recall_ != 0) {
+        output.writeInt32(1, recall_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fallback_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, fallback_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (recall_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+                .computeInt32Size(1, recall_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fallback_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, fallback_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+        return true;
+      }
+      if (!(obj instanceof Receipt)) {
+        return super.equals(obj);
+      }
+      Receipt other = (Receipt) obj;
+
+      if (getRecall()
+              != other.getRecall()) return false;
+      if (!getFallback()
+              .equals(other.getFallback())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RECALL_FIELD_NUMBER;
+      hash = (53 * hash) + getRecall();
+      hash = (37 * hash) + FALLBACK_FIELD_NUMBER;
+      hash = (53 * hash) + getFallback().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static Receipt parseFrom(
+            java.nio.ByteBuffer data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static Receipt parseFrom(
+            java.nio.ByteBuffer data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static Receipt parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static Receipt parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static Receipt parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static Receipt parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static Receipt parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+
+    public static Receipt parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static Receipt parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static Receipt parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static Receipt parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input);
+    }
+
+    public static Receipt parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+              .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @Override
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+
+    public static Builder newBuilder(Receipt prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+
+    @Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+              ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @Override
+    protected Builder newBuilderForType(
+            BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+
+    /**
+     * Protobuf type {@code MsgResult.Receipt}
+     */
+    public static final class Builder extends
+            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:MsgResult.Receipt)
+            ReceiptOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+      getDescriptor() {
+        return BaseProto.internal_static_MsgResult_Receipt_descriptor;
+      }
+
+      @Override
+      protected FieldAccessorTable
+      internalGetFieldAccessorTable() {
+        return BaseProto.internal_static_MsgResult_Receipt_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                        Receipt.class, Builder.class);
+      }
+
+      // Construct using io.net.api.MsgResult.Receipt.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+              BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+
+      @Override
+      public Builder clear() {
+        super.clear();
+        recall_ = 0;
+
+        fallback_ = "";
+
+        return this;
+      }
+
+      @Override
+      public com.google.protobuf.Descriptors.Descriptor
+      getDescriptorForType() {
+        return BaseProto.internal_static_MsgResult_Receipt_descriptor;
+      }
+
+      @Override
+      public Receipt getDefaultInstanceForType() {
+        return Receipt.getDefaultInstance();
+      }
+
+      @Override
+      public Receipt build() {
+        Receipt result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @Override
+      public Receipt buildPartial() {
+        Receipt result = new Receipt(this);
+        result.recall_ = recall_;
+        result.fallback_ = fallback_;
+        onBuilt();
+        return result;
+      }
+
+      @Override
+      public Builder clone() {
+        return super.clone();
+      }
+
+      @Override
+      public Builder setField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              Object value) {
+        return super.setField(field, value);
+      }
+
+      @Override
+      public Builder clearField(
+              com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+
+      @Override
+      public Builder clearOneof(
+              com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+
+      @Override
+      public Builder setRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              int index, Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+
+      @Override
+      public Builder addRepeatedField(
+              com.google.protobuf.Descriptors.FieldDescriptor field,
+              Object value) {
+        return super.addRepeatedField(field, value);
+      }
+
+      @Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof Receipt) {
+          return mergeFrom((Receipt) other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(Receipt other) {
+        if (other == Receipt.getDefaultInstance()) return this;
+        if (other.getRecall() != 0) {
+          setRecall(other.getRecall());
+        }
+        if (!other.getFallback().isEmpty()) {
+          fallback_ = other.fallback_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @Override
+      public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        Receipt parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (Receipt) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int recall_;
+
+      /**
+       * <code>int32 recall = 1;</code>
+       *
+       * @return The recall.
+       */
+      @Override
+      public int getRecall() {
+        return recall_;
+      }
+
+      /**
+       * <code>int32 recall = 1;</code>
+       *
+       * @param value The recall to set.
+       * @return This builder for chaining.
+       */
+      public Builder setRecall(int value) {
+
+        recall_ = value;
+        onChanged();
+        return this;
+      }
+
+      /**
+       * <code>int32 recall = 1;</code>
+       *
+       * @return This builder for chaining.
+       */
+      public Builder clearRecall() {
+
+        recall_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private Object fallback_ = "";
+
+      /**
+       * <code>string fallback = 2;</code>
+       *
+       * @return The fallback.
+       */
+      public String getFallback() {
+        Object ref = fallback_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          fallback_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+
+      /**
+       * <code>string fallback = 2;</code>
+       *
+       * @return The bytes for fallback.
+       */
+      public com.google.protobuf.ByteString
+      getFallbackBytes() {
+        Object ref = fallback_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                          (String) ref);
+          fallback_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      /**
+       * <code>string fallback = 2;</code>
+       *
+       * @param value The fallback to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFallback(
+              String value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        fallback_ = value;
+        onChanged();
+        return this;
+      }
+
+      /**
+       * <code>string fallback = 2;</code>
+       *
+       * @return This builder for chaining.
+       */
+      public Builder clearFallback() {
+
+        fallback_ = getDefaultInstance().getFallback();
+        onChanged();
+        return this;
+      }
+
+      /**
+       * <code>string fallback = 2;</code>
+       *
+       * @param value The bytes for fallback to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFallbackBytes(
+              com.google.protobuf.ByteString value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        checkByteStringIsUtf8(value);
+
+        fallback_ = value;
+        onChanged();
+        return this;
+      }
+
+      @Override
+      public final Builder setUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @Override
+      public final Builder mergeUnknownFields(
+              final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:MsgResult.Receipt)
+    }
+
+    // @@protoc_insertion_point(class_scope:MsgResult.Receipt)
+    private static final Receipt DEFAULT_INSTANCE;
+
+    static {
+      DEFAULT_INSTANCE = new Receipt();
+    }
+
+    public static Receipt getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Receipt>
+            PARSER = new com.google.protobuf.AbstractParser<Receipt>() {
+      @Override
+      public Receipt parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Receipt(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Receipt> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<Receipt> getParserForType() {
+      return PARSER;
+    }
+
+    @Override
+    public Receipt getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public static final int CODE_FIELD_NUMBER = 1;
+  private int code_;
+
+  /**
+   * <code>.MsgResult.Code code = 1;</code>
+   *
+   * @return The enum numeric value on the wire for code.
+   */
+  @Override
+  public int getCodeValue() {
+    return code_;
+  }
+
+  /**
+   * <code>.MsgResult.Code code = 1;</code>
+   *
+   * @return The code.
+   */
+  @Override
+  public Code getCode() {
+    @SuppressWarnings("deprecation")
+    Code result = Code.valueOf(code_);
+    return result == null ? Code.UNRECOGNIZED : result;
+  }
+
+  public static final int MSG_FIELD_NUMBER = 2;
+  private volatile Object msg_;
+
+  /**
+   * <code>string msg = 2;</code>
+   *
+   * @return The msg.
+   */
+  @Override
+  public String getMsg() {
+    Object ref = msg_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      msg_ = s;
+      return s;
+    }
+  }
+
+  /**
+   * <code>string msg = 2;</code>
+   *
+   * @return The bytes for msg.
+   */
+  @Override
+  public com.google.protobuf.ByteString
+  getMsgBytes() {
+    Object ref = msg_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                      (String) ref);
+      msg_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int DATA_FIELD_NUMBER = 3;
+  private Data data_;
+
+  /**
+   * <code>.MsgResult.Data data = 3;</code>
+   *
+   * @return Whether the data field is set.
+   */
+  @Override
+  public boolean hasData() {
+    return data_ != null;
+  }
+
+  /**
+   * <code>.MsgResult.Data data = 3;</code>
+   *
+   * @return The data.
+   */
+  @Override
+  public Data getData() {
+    return data_ == null ? Data.getDefaultInstance() : data_;
+  }
+
+  /**
+   * <code>.MsgResult.Data data = 3;</code>
+   */
+  @Override
+  public DataOrBuilder getDataOrBuilder() {
+    return getData();
+  }
+
+  public static final int FOOT_FIELD_NUMBER = 4;
+  private volatile Object foot_;
+
+  /**
+   * <code>string foot = 4;</code>
+   *
+   * @return The foot.
+   */
+  @Override
+  public String getFoot() {
+    Object ref = foot_;
+    if (ref instanceof String) {
+      return (String) ref;
+    } else {
+      com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+      String s = bs.toStringUtf8();
+      foot_ = s;
+      return s;
+    }
+  }
+
+  /**
+   * <code>string foot = 4;</code>
+   *
+   * @return The bytes for foot.
+   */
+  @Override
+  public com.google.protobuf.ByteString
+  getFootBytes() {
+    Object ref = foot_;
+    if (ref instanceof String) {
+      com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                      (String) ref);
+      foot_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int RECEIPT_FIELD_NUMBER = 5;
+  private Receipt receipt_;
+
+  /**
+   * <code>.MsgResult.Receipt receipt = 5;</code>
+   *
+   * @return Whether the receipt field is set.
+   */
+  @Override
+  public boolean hasReceipt() {
+    return receipt_ != null;
+  }
+
+  /**
+   * <code>.MsgResult.Receipt receipt = 5;</code>
+   *
+   * @return The receipt.
+   */
+  @Override
+  public Receipt getReceipt() {
+    return receipt_ == null ? Receipt.getDefaultInstance() : receipt_;
+  }
+
+  /**
+   * <code>.MsgResult.Receipt receipt = 5;</code>
+   */
+  @Override
+  public ReceiptOrBuilder getReceiptOrBuilder() {
+    return getReceipt();
+  }
+
+  private byte memoizedIsInitialized = -1;
+
+  @Override
+  public final boolean isInitialized() {
+    byte isInitialized = memoizedIsInitialized;
+    if (isInitialized == 1) return true;
+    if (isInitialized == 0) return false;
+
+    memoizedIsInitialized = 1;
+    return true;
+  }
+
+  @Override
+  public void writeTo(com.google.protobuf.CodedOutputStream output)
+          throws java.io.IOException {
+    if (code_ != Code.OK.getNumber()) {
+      output.writeEnum(1, code_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(msg_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, msg_);
+    }
+    if (data_ != null) {
+      output.writeMessage(3, getData());
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(foot_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, foot_);
+    }
+    if (receipt_ != null) {
+      output.writeMessage(5, getReceipt());
+    }
+    unknownFields.writeTo(output);
+  }
+
+  @Override
+  public int getSerializedSize() {
+    int size = memoizedSize;
+    if (size != -1) return size;
+
+    size = 0;
+    if (code_ != Code.OK.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+              .computeEnumSize(1, code_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(msg_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, msg_);
+    }
+    if (data_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(3, getData());
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(foot_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, foot_);
+    }
+    if (receipt_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(5, getReceipt());
+    }
+    size += unknownFields.getSerializedSize();
+    memoizedSize = size;
+    return size;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (!(obj instanceof MsgResult)) {
+      return super.equals(obj);
+    }
+    MsgResult other = (MsgResult) obj;
+
+    if (code_ != other.code_) return false;
+    if (!getMsg()
+            .equals(other.getMsg())) return false;
+    if (hasData() != other.hasData()) return false;
+    if (hasData()) {
+      if (!getData()
+              .equals(other.getData())) return false;
+    }
+    if (!getFoot()
+            .equals(other.getFoot())) return false;
+    if (hasReceipt() != other.hasReceipt()) return false;
+    if (hasReceipt()) {
+      if (!getReceipt()
+              .equals(other.getReceipt())) return false;
+    }
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    if (memoizedHashCode != 0) {
+      return memoizedHashCode;
+    }
+    int hash = 41;
+    hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + CODE_FIELD_NUMBER;
+    hash = (53 * hash) + code_;
+    hash = (37 * hash) + MSG_FIELD_NUMBER;
+    hash = (53 * hash) + getMsg().hashCode();
+    if (hasData()) {
+      hash = (37 * hash) + DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getData().hashCode();
+    }
+    hash = (37 * hash) + FOOT_FIELD_NUMBER;
+    hash = (53 * hash) + getFoot().hashCode();
+    if (hasReceipt()) {
+      hash = (37 * hash) + RECEIPT_FIELD_NUMBER;
+      hash = (53 * hash) + getReceipt().hashCode();
+    }
+    hash = (29 * hash) + unknownFields.hashCode();
+    memoizedHashCode = hash;
+    return hash;
+  }
+
+  public static MsgResult parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+    return PARSER.parseFrom(data);
+  }
+
+  public static MsgResult parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+    return PARSER.parseFrom(data, extensionRegistry);
+  }
+
+  public static MsgResult parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+    return PARSER.parseFrom(data);
+  }
+
+  public static MsgResult parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+    return PARSER.parseFrom(data, extensionRegistry);
+  }
+
+  public static MsgResult parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+    return PARSER.parseFrom(data);
+  }
+
+  public static MsgResult parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+    return PARSER.parseFrom(data, extensionRegistry);
+  }
+
+  public static MsgResult parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+    return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+  }
+
+  public static MsgResult parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+    return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+  }
+
+  public static MsgResult parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+    return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+  }
+
+  public static MsgResult parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+    return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+  }
+
+  public static MsgResult parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+    return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+  }
+
+  public static MsgResult parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+    return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+  }
+
+  @Override
+  public Builder newBuilderForType() {
+    return newBuilder();
+  }
+
+  public static Builder newBuilder() {
+    return DEFAULT_INSTANCE.toBuilder();
+  }
+
+  public static Builder newBuilder(MsgResult prototype) {
+    return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+  }
+
+  @Override
+  public Builder toBuilder() {
+    return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+  }
+
+  @Override
+  protected Builder newBuilderForType(
+          BuilderParent parent) {
+    Builder builder = new Builder(parent);
+    return builder;
+  }
+
+  /**
+   * Protobuf type {@code MsgResult}
+   */
+  public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:MsgResult)
+          MsgResultOrBuilder {
+    public static final com.google.protobuf.Descriptors.Descriptor
+    getDescriptor() {
+      return BaseProto.internal_static_MsgResult_descriptor;
+    }
+
+    @Override
+    protected FieldAccessorTable
+    internalGetFieldAccessorTable() {
+      return BaseProto.internal_static_MsgResult_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                      MsgResult.class, Builder.class);
+    }
+
+    // Construct using io.net.api.MsgResult.newBuilder()
+    private Builder() {
+      maybeForceBuilderInitialization();
+    }
+
+    private Builder(
+            BuilderParent parent) {
+      super(parent);
+      maybeForceBuilderInitialization();
+    }
+
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+      }
+    }
+
+    @Override
+    public Builder clear() {
+      super.clear();
+      code_ = 0;
+
+      msg_ = "";
+
+      if (dataBuilder_ == null) {
+        data_ = null;
+      } else {
+        data_ = null;
+        dataBuilder_ = null;
+      }
+      foot_ = "";
+
+      if (receiptBuilder_ == null) {
+        receipt_ = null;
+      } else {
+        receipt_ = null;
+        receiptBuilder_ = null;
+      }
+      return this;
+    }
+
+    @Override
+    public com.google.protobuf.Descriptors.Descriptor
+    getDescriptorForType() {
+      return BaseProto.internal_static_MsgResult_descriptor;
+    }
+
+    @Override
+    public MsgResult getDefaultInstanceForType() {
+      return MsgResult.getDefaultInstance();
+    }
+
+    @Override
+    public MsgResult build() {
+      MsgResult result = buildPartial();
+      if (!result.isInitialized()) {
+        throw newUninitializedMessageException(result);
+      }
+      return result;
+    }
+
+    @Override
+    public MsgResult buildPartial() {
+      MsgResult result = new MsgResult(this);
+      result.code_ = code_;
+      result.msg_ = msg_;
+      if (dataBuilder_ == null) {
+        result.data_ = data_;
+      } else {
+        result.data_ = dataBuilder_.build();
+      }
+      result.foot_ = foot_;
+      if (receiptBuilder_ == null) {
+        result.receipt_ = receipt_;
+      } else {
+        result.receipt_ = receiptBuilder_.build();
+      }
+      onBuilt();
+      return result;
+    }
+
+    @Override
+    public Builder clone() {
+      return super.clone();
+    }
+
+    @Override
+    public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+      return super.setField(field, value);
+    }
+
+    @Override
+    public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+      return super.clearField(field);
+    }
+
+    @Override
+    public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+      return super.clearOneof(oneof);
+    }
+
+    @Override
+    public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, Object value) {
+      return super.setRepeatedField(field, index, value);
+    }
+
+    @Override
+    public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+      return super.addRepeatedField(field, value);
+    }
+
+    @Override
+    public Builder mergeFrom(com.google.protobuf.Message other) {
+      if (other instanceof MsgResult) {
+        return mergeFrom((MsgResult) other);
+      } else {
+        super.mergeFrom(other);
+        return this;
+      }
+    }
+
+    public Builder mergeFrom(MsgResult other) {
+      if (other == MsgResult.getDefaultInstance()) return this;
+      if (other.code_ != 0) {
+        setCodeValue(other.getCodeValue());
+      }
+      if (!other.getMsg().isEmpty()) {
+        msg_ = other.msg_;
+        onChanged();
+      }
+      if (other.hasData()) {
+        mergeData(other.getData());
+      }
+      if (!other.getFoot().isEmpty()) {
+        foot_ = other.foot_;
+        onChanged();
+      }
+      if (other.hasReceipt()) {
+        mergeReceipt(other.getReceipt());
+      }
+      this.mergeUnknownFields(other.unknownFields);
+      onChanged();
+      return this;
+    }
+
+    @Override
+    public final boolean isInitialized() {
+      return true;
+    }
+
+    @Override
+    public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      MsgResult parsedMessage = null;
+      try {
+        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        parsedMessage = (MsgResult) e.getUnfinishedMessage();
+        throw e.unwrapIOException();
+      } finally {
+        if (parsedMessage != null) {
+          mergeFrom(parsedMessage);
+        }
+      }
+      return this;
+    }
+
+    private int code_ = 0;
+
+    /**
+     * <code>.MsgResult.Code code = 1;</code>
      *
      * @return The enum numeric value on the wire for code.
      */
-    @java.lang.Override
+    @Override
     public int getCodeValue() {
-        return code_;
+      return code_;
     }
 
     /**
-     * <code>.MsgCode code = 1;</code>
+     * <code>.MsgResult.Code code = 1;</code>
+     *
+     * @param value The enum numeric value on the wire for code to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCodeValue(int value) {
+
+      code_ = value;
+      onChanged();
+      return this;
+    }
+
+    /**
+     * <code>.MsgResult.Code code = 1;</code>
      *
      * @return The code.
      */
-    @java.lang.Override
-    public io.net.api.MsgCode getCode() {
-        @SuppressWarnings("deprecation")
-        io.net.api.MsgCode result = io.net.api.MsgCode.valueOf(code_);
-        return result == null ? io.net.api.MsgCode.UNRECOGNIZED : result;
+    @Override
+    public Code getCode() {
+      @SuppressWarnings("deprecation")
+      Code result = Code.valueOf(code_);
+      return result == null ? Code.UNRECOGNIZED : result;
     }
 
-    public static final int MSG_FIELD_NUMBER = 2;
-    private volatile java.lang.Object msg_;
+    /**
+     * <code>.MsgResult.Code code = 1;</code>
+     *
+     * @param value The code to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCode(Code value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+
+      code_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+
+    /**
+     * <code>.MsgResult.Code code = 1;</code>
+     *
+     * @return This builder for chaining.
+     */
+    public Builder clearCode() {
+
+      code_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private Object msg_ = "";
 
     /**
      * <code>string msg = 2;</code>
      *
      * @return The msg.
      */
-    @java.lang.Override
-    public java.lang.String getMsg() {
-        java.lang.Object ref = msg_;
-        if (ref instanceof java.lang.String) {
-            return (java.lang.String) ref;
-        } else {
-            com.google.protobuf.ByteString bs =
-                    (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            msg_ = s;
-            return s;
-        }
+    public String getMsg() {
+      Object ref = msg_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        msg_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
     }
 
     /**
@@ -160,54 +2409,215 @@ private static final long serialVersionUID = 0L;
      *
      * @return The bytes for msg.
      */
-  @java.lang.Override
-  public com.google.protobuf.ByteString
-  getMsgBytes() {
-      java.lang.Object ref = msg_;
-      if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b =
-                  com.google.protobuf.ByteString.copyFromUtf8(
-                          (java.lang.String) ref);
-          msg_ = b;
-          return b;
+    public com.google.protobuf.ByteString
+    getMsgBytes() {
+      Object ref = msg_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (String) ref);
+        msg_ = b;
+        return b;
       } else {
-          return (com.google.protobuf.ByteString) ref;
+        return (com.google.protobuf.ByteString) ref;
       }
-  }
-
-    public static final int BYTES_FIELD_NUMBER = 3;
-    private com.google.protobuf.ByteString bytes_;
-
-    /**
-     * <code>bytes bytes = 3;</code>
-     *
-     * @return The bytes.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString getBytes() {
-        return bytes_;
     }
 
-    public static final int FOOT_FIELD_NUMBER = 4;
-    private volatile java.lang.Object foot_;
+    /**
+     * <code>string msg = 2;</code>
+     *
+     * @param value The msg to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMsg(
+            String value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+
+      msg_ = value;
+      onChanged();
+      return this;
+    }
+
+    /**
+     * <code>string msg = 2;</code>
+     *
+     * @return This builder for chaining.
+     */
+    public Builder clearMsg() {
+
+      msg_ = getDefaultInstance().getMsg();
+      onChanged();
+      return this;
+    }
+
+    /**
+     * <code>string msg = 2;</code>
+     *
+     * @param value The bytes for msg to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMsgBytes(
+            com.google.protobuf.ByteString value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      checkByteStringIsUtf8(value);
+
+      msg_ = value;
+      onChanged();
+      return this;
+    }
+
+    private Data data_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+            Data, Data.Builder, DataOrBuilder> dataBuilder_;
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     *
+     * @return Whether the data field is set.
+     */
+    public boolean hasData() {
+      return dataBuilder_ != null || data_ != null;
+    }
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     *
+     * @return The data.
+     */
+    public Data getData() {
+      if (dataBuilder_ == null) {
+        return data_ == null ? Data.getDefaultInstance() : data_;
+      } else {
+        return dataBuilder_.getMessage();
+      }
+    }
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     */
+    public Builder setData(Data value) {
+      if (dataBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        data_ = value;
+        onChanged();
+      } else {
+        dataBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     */
+    public Builder setData(
+            Data.Builder builderForValue) {
+      if (dataBuilder_ == null) {
+        data_ = builderForValue.build();
+        onChanged();
+      } else {
+        dataBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     */
+    public Builder mergeData(Data value) {
+      if (dataBuilder_ == null) {
+        if (data_ != null) {
+          data_ =
+                  Data.newBuilder(data_).mergeFrom(value).buildPartial();
+        } else {
+          data_ = value;
+        }
+        onChanged();
+      } else {
+        dataBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     */
+    public Builder clearData() {
+      if (dataBuilder_ == null) {
+        data_ = null;
+        onChanged();
+      } else {
+        data_ = null;
+        dataBuilder_ = null;
+      }
+
+      return this;
+    }
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     */
+    public Data.Builder getDataBuilder() {
+
+      onChanged();
+      return getDataFieldBuilder().getBuilder();
+    }
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     */
+    public DataOrBuilder getDataOrBuilder() {
+      if (dataBuilder_ != null) {
+        return dataBuilder_.getMessageOrBuilder();
+      } else {
+        return data_ == null ?
+                Data.getDefaultInstance() : data_;
+      }
+    }
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+            Data, Data.Builder, DataOrBuilder>
+    getDataFieldBuilder() {
+      if (dataBuilder_ == null) {
+        dataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                Data, Data.Builder, DataOrBuilder>(
+                getData(),
+                getParentForChildren(),
+                isClean());
+        data_ = null;
+      }
+      return dataBuilder_;
+    }
+
+    private Object foot_ = "";
 
     /**
      * <code>string foot = 4;</code>
      *
      * @return The foot.
      */
-    @java.lang.Override
-    public java.lang.String getFoot() {
-        java.lang.Object ref = foot_;
-        if (ref instanceof java.lang.String) {
-            return (java.lang.String) ref;
-        } else {
-            com.google.protobuf.ByteString bs =
-                    (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            foot_ = s;
-            return s;
-        }
+    public String getFoot() {
+      Object ref = foot_;
+      if (!(ref instanceof String)) {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        foot_ = s;
+        return s;
+      } else {
+        return (String) ref;
+      }
     }
 
     /**
@@ -215,703 +2625,229 @@ private static final long serialVersionUID = 0L;
      *
      * @return The bytes for foot.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
     getFootBytes() {
-        java.lang.Object ref = foot_;
-        if (ref instanceof java.lang.String) {
-            com.google.protobuf.ByteString b =
-                    com.google.protobuf.ByteString.copyFromUtf8(
-                            (java.lang.String) ref);
-            foot_ = b;
-            return b;
-        } else {
-            return (com.google.protobuf.ByteString) ref;
-        }
-    }
-
-    private byte memoizedIsInitialized = -1;
-
-    @java.lang.Override
-    public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-    memoizedIsInitialized = 1;
-    return true;
-  }
-
-  @java.lang.Override
-  public void writeTo(com.google.protobuf.CodedOutputStream output)
-          throws java.io.IOException {
-      if (code_ != io.net.api.MsgCode.OK.getNumber()) {
-          output.writeEnum(1, code_);
+      Object ref = foot_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8(
+                        (String) ref);
+        foot_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(msg_)) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, msg_);
-      }
-      if (!bytes_.isEmpty()) {
-          output.writeBytes(3, bytes_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(foot_)) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 4, foot_);
-      }
-      unknownFields.writeTo(output);
-  }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-        int size = memoizedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (code_ != io.net.api.MsgCode.OK.getNumber()) {
-            size += com.google.protobuf.CodedOutputStream
-                    .computeEnumSize(1, code_);
-        }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(msg_)) {
-            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, msg_);
-        }
-        if (!bytes_.isEmpty()) {
-            size += com.google.protobuf.CodedOutputStream
-                    .computeBytesSize(3, bytes_);
-        }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(foot_)) {
-            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, foot_);
-        }
-        size += unknownFields.getSerializedSize();
-        memoizedSize = size;
-        return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof io.net.api.MsgResult)) {
-            return super.equals(obj);
-        }
-        io.net.api.MsgResult other = (io.net.api.MsgResult) obj;
-
-        if (code_ != other.code_) return false;
-        if (!getMsg()
-                .equals(other.getMsg())) return false;
-        if (!getBytes()
-                .equals(other.getBytes())) return false;
-        if (!getFoot()
-                .equals(other.getFoot())) return false;
-        if (!unknownFields.equals(other.unknownFields)) return false;
-        return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-        if (memoizedHashCode != 0) {
-            return memoizedHashCode;
-        }
-        int hash = 41;
-        hash = (19 * hash) + getDescriptor().hashCode();
-        hash = (37 * hash) + CODE_FIELD_NUMBER;
-        hash = (53 * hash) + code_;
-        hash = (37 * hash) + MSG_FIELD_NUMBER;
-        hash = (53 * hash) + getMsg().hashCode();
-        hash = (37 * hash) + BYTES_FIELD_NUMBER;
-        hash = (53 * hash) + getBytes().hashCode();
-        hash = (37 * hash) + FOOT_FIELD_NUMBER;
-        hash = (53 * hash) + getFoot().hashCode();
-        hash = (29 * hash) + unknownFields.hashCode();
-        memoizedHashCode = hash;
-        return hash;
-    }
-
-    public static io.net.api.MsgResult parseFrom(
-            java.nio.ByteBuffer data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-    }
-
-    public static io.net.api.MsgResult parseFrom(
-            java.nio.ByteBuffer data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-    }
-
-    public static io.net.api.MsgResult parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-    }
-
-    public static io.net.api.MsgResult parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-    }
-
-    public static io.net.api.MsgResult parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-    }
-
-    public static io.net.api.MsgResult parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-    }
-
-    public static io.net.api.MsgResult parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-                .parseWithIOException(PARSER, input);
-    }
-
-    public static io.net.api.MsgResult parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-                .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static io.net.api.MsgResult parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-                .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static io.net.api.MsgResult parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-                .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static io.net.api.MsgResult parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-                .parseWithIOException(PARSER, input);
-    }
-
-    public static io.net.api.MsgResult parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-                .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() {
-        return newBuilder();
-    }
-
-    public static Builder newBuilder() {
-        return DEFAULT_INSTANCE.toBuilder();
-    }
-
-    public static Builder newBuilder(io.net.api.MsgResult prototype) {
-        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-
-    @java.lang.Override
-    public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-                ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
     }
 
     /**
-     * Protobuf type {@code MsgResult}
+     * <code>string foot = 4;</code>
+     *
+     * @param value The foot to set.
+     * @return This builder for chaining.
      */
-    public static final class Builder extends
-            com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-            // @@protoc_insertion_point(builder_implements:MsgResult)
-            io.net.api.MsgResultOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-            return io.net.api.BaseProto.internal_static_MsgResult_descriptor;
-        }
-
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-            return io.net.api.BaseProto.internal_static_MsgResult_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            io.net.api.MsgResult.class, io.net.api.MsgResult.Builder.class);
-        }
-
-        // Construct using io.net.api.MsgResult.newBuilder()
-        private Builder() {
-            maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-            super(parent);
-            maybeForceBuilderInitialization();
-        }
-
-        private void maybeForceBuilderInitialization() {
-            if (com.google.protobuf.GeneratedMessageV3
-                    .alwaysUseFieldBuilders) {
-            }
-        }
-
-        @java.lang.Override
-        public Builder clear() {
-            super.clear();
-            code_ = 0;
-
-            msg_ = "";
-
-            bytes_ = com.google.protobuf.ByteString.EMPTY;
-
-            foot_ = "";
-
-            return this;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Descriptors.Descriptor
-        getDescriptorForType() {
-            return io.net.api.BaseProto.internal_static_MsgResult_descriptor;
-        }
-
-        @java.lang.Override
-        public io.net.api.MsgResult getDefaultInstanceForType() {
-            return io.net.api.MsgResult.getDefaultInstance();
-        }
-
-        @java.lang.Override
-        public io.net.api.MsgResult build() {
-            io.net.api.MsgResult result = buildPartial();
-            if (!result.isInitialized()) {
-                throw newUninitializedMessageException(result);
-            }
-            return result;
-        }
-
-        @java.lang.Override
-        public io.net.api.MsgResult buildPartial() {
-            io.net.api.MsgResult result = new io.net.api.MsgResult(this);
-            result.code_ = code_;
-            result.msg_ = msg_;
-            result.bytes_ = bytes_;
-            result.foot_ = foot_;
-            onBuilt();
-            return result;
-        }
-
-        @java.lang.Override
-        public Builder clone() {
-            return super.clone();
-        }
-
-        @java.lang.Override
-        public Builder setField(
-                com.google.protobuf.Descriptors.FieldDescriptor field,
-                java.lang.Object value) {
-            return super.setField(field, value);
-        }
-
-        @java.lang.Override
-        public Builder clearField(
-                com.google.protobuf.Descriptors.FieldDescriptor field) {
-            return super.clearField(field);
-        }
-
-        @java.lang.Override
-        public Builder clearOneof(
-                com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-            return super.clearOneof(oneof);
-        }
-
-        @java.lang.Override
-        public Builder setRepeatedField(
-                com.google.protobuf.Descriptors.FieldDescriptor field,
-                int index, java.lang.Object value) {
-            return super.setRepeatedField(field, index, value);
-        }
-
-        @java.lang.Override
-        public Builder addRepeatedField(
-                com.google.protobuf.Descriptors.FieldDescriptor field,
-                java.lang.Object value) {
-            return super.addRepeatedField(field, value);
-        }
-
-        @java.lang.Override
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-            if (other instanceof io.net.api.MsgResult) {
-                return mergeFrom((io.net.api.MsgResult) other);
-            } else {
-                super.mergeFrom(other);
-                return this;
-            }
-        }
-
-        public Builder mergeFrom(io.net.api.MsgResult other) {
-            if (other == io.net.api.MsgResult.getDefaultInstance()) return this;
-            if (other.code_ != 0) {
-                setCodeValue(other.getCodeValue());
-            }
-            if (!other.getMsg().isEmpty()) {
-                msg_ = other.msg_;
-                onChanged();
-            }
-            if (other.getBytes() != com.google.protobuf.ByteString.EMPTY) {
-                setBytes(other.getBytes());
-            }
-            if (!other.getFoot().isEmpty()) {
-                foot_ = other.foot_;
-                onChanged();
-            }
-            this.mergeUnknownFields(other.unknownFields);
-      onChanged();
-      return this;
-    }
-
-        @java.lang.Override
-    public final boolean isInitialized() {
-      return true;
-    }
-
-    @java.lang.Override
-    public Builder mergeFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      io.net.api.MsgResult parsedMessage = null;
-      try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.net.api.MsgResult) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-      } finally {
-          if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-          }
-      }
-        return this;
-    }
-
-        private int code_ = 0;
-
-        /**
-         * <code>.MsgCode code = 1;</code>
-         *
-         * @return The enum numeric value on the wire for code.
-         */
-        @java.lang.Override
-        public int getCodeValue() {
-            return code_;
-        }
-
-        /**
-         * <code>.MsgCode code = 1;</code>
-         *
-         * @param value The enum numeric value on the wire for code to set.
-         * @return This builder for chaining.
-         */
-        public Builder setCodeValue(int value) {
-
-            code_ = value;
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>.MsgCode code = 1;</code>
-         *
-         * @return The code.
-         */
-        @java.lang.Override
-        public io.net.api.MsgCode getCode() {
-            @SuppressWarnings("deprecation")
-            io.net.api.MsgCode result = io.net.api.MsgCode.valueOf(code_);
-            return result == null ? io.net.api.MsgCode.UNRECOGNIZED : result;
-        }
-
-        /**
-         * <code>.MsgCode code = 1;</code>
-         *
-         * @param value The code to set.
-         * @return This builder for chaining.
-         */
-        public Builder setCode(io.net.api.MsgCode value) {
-            if (value == null) {
-                throw new NullPointerException();
-            }
-
-            code_ = value.getNumber();
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>.MsgCode code = 1;</code>
-         *
-         * @return This builder for chaining.
-         */
-        public Builder clearCode() {
-
-            code_ = 0;
-            onChanged();
-            return this;
-        }
-
-        private java.lang.Object msg_ = "";
-
-        /**
-         * <code>string msg = 2;</code>
-         *
-         * @return The msg.
-         */
-        public java.lang.String getMsg() {
-            java.lang.Object ref = msg_;
-            if (!(ref instanceof java.lang.String)) {
-                com.google.protobuf.ByteString bs =
-                        (com.google.protobuf.ByteString) ref;
-                java.lang.String s = bs.toStringUtf8();
-                msg_ = s;
-                return s;
-            } else {
-                return (java.lang.String) ref;
-            }
-        }
-
-        /**
-         * <code>string msg = 2;</code>
-         *
-         * @return The bytes for msg.
-         */
-        public com.google.protobuf.ByteString
-        getMsgBytes() {
-            java.lang.Object ref = msg_;
-            if (ref instanceof String) {
-                com.google.protobuf.ByteString b =
-                        com.google.protobuf.ByteString.copyFromUtf8(
-                                (java.lang.String) ref);
-                msg_ = b;
-                return b;
-            } else {
-                return (com.google.protobuf.ByteString) ref;
-            }
-        }
-
-        /**
-         * <code>string msg = 2;</code>
-         *
-         * @param value The msg to set.
-         * @return This builder for chaining.
-         */
-        public Builder setMsg(
-        java.lang.String value) {
+    public Builder setFoot(
+            String value) {
       if (value == null) {
-    throw new NullPointerException();
-  }
+        throw new NullPointerException();
+      }
 
-            msg_ = value;
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>string msg = 2;</code>
-         * @return This builder for chaining.
-     */
-    public Builder clearMsg() {
-      
-      msg_ = getDefaultInstance().getMsg();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string msg = 2;</code>
-     * @param value The bytes for msg to set.
-     * @return This builder for chaining.
-     */
-    public Builder setMsgBytes(
-        com.google.protobuf.ByteString value) {
-        if (value == null) {
-            throw new NullPointerException();
-        }
-        checkByteStringIsUtf8(value);
-      
-      msg_ = value;
+      foot_ = value;
       onChanged();
       return this;
     }
 
-        private com.google.protobuf.ByteString bytes_ = com.google.protobuf.ByteString.EMPTY;
-
-        /**
-         * <code>bytes bytes = 3;</code>
-     * @return The bytes.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString getBytes() {
-      return bytes_;
-    }
     /**
-     * <code>bytes bytes = 3;</code>
-     * @param value The bytes to set.
+     * <code>string foot = 4;</code>
+     *
      * @return This builder for chaining.
      */
-    public Builder setBytes(com.google.protobuf.ByteString value) {
-        if (value == null) {
-            throw new NullPointerException();
-        }
+    public Builder clearFoot() {
 
-        bytes_ = value;
+      foot_ = getDefaultInstance().getFoot();
+      onChanged();
+      return this;
+    }
+
+    /**
+     * <code>string foot = 4;</code>
+     *
+     * @param value The bytes for foot to set.
+     * @return This builder for chaining.
+     */
+    public Builder setFootBytes(
+            com.google.protobuf.ByteString value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      checkByteStringIsUtf8(value);
+
+      foot_ = value;
+      onChanged();
+      return this;
+    }
+
+    private Receipt receipt_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+            Receipt, Receipt.Builder, ReceiptOrBuilder> receiptBuilder_;
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     *
+     * @return Whether the receipt field is set.
+     */
+    public boolean hasReceipt() {
+      return receiptBuilder_ != null || receipt_ != null;
+    }
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     *
+     * @return The receipt.
+     */
+    public Receipt getReceipt() {
+      if (receiptBuilder_ == null) {
+        return receipt_ == null ? Receipt.getDefaultInstance() : receipt_;
+      } else {
+        return receiptBuilder_.getMessage();
+      }
+    }
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     */
+    public Builder setReceipt(Receipt value) {
+      if (receiptBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        receipt_ = value;
         onChanged();
-        return this;
+      } else {
+        receiptBuilder_.setMessage(value);
+      }
+
+      return this;
     }
 
-        /**
-         * <code>bytes bytes = 3;</code>
-         *
-         * @return This builder for chaining.
-         */
-        public Builder clearBytes() {
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     */
+    public Builder setReceipt(
+            Receipt.Builder builderForValue) {
+      if (receiptBuilder_ == null) {
+        receipt_ = builderForValue.build();
+        onChanged();
+      } else {
+        receiptBuilder_.setMessage(builderForValue.build());
+      }
 
-            bytes_ = getDefaultInstance().getBytes();
-            onChanged();
-            return this;
-        }
-
-        private java.lang.Object foot_ = "";
-
-        /**
-         * <code>string foot = 4;</code>
-         *
-         * @return The foot.
-         */
-        public java.lang.String getFoot() {
-            java.lang.Object ref = foot_;
-            if (!(ref instanceof java.lang.String)) {
-                com.google.protobuf.ByteString bs =
-                        (com.google.protobuf.ByteString) ref;
-                java.lang.String s = bs.toStringUtf8();
-                foot_ = s;
-                return s;
-            } else {
-                return (java.lang.String) ref;
-            }
-        }
-
-        /**
-         * <code>string foot = 4;</code>
-         *
-         * @return The bytes for foot.
-         */
-        public com.google.protobuf.ByteString
-        getFootBytes() {
-            java.lang.Object ref = foot_;
-            if (ref instanceof String) {
-                com.google.protobuf.ByteString b =
-                        com.google.protobuf.ByteString.copyFromUtf8(
-                                (java.lang.String) ref);
-                foot_ = b;
-                return b;
-            } else {
-                return (com.google.protobuf.ByteString) ref;
-            }
-        }
-
-        /**
-         * <code>string foot = 4;</code>
-         *
-         * @param value The foot to set.
-         * @return This builder for chaining.
-         */
-        public Builder setFoot(
-                java.lang.String value) {
-            if (value == null) {
-                throw new NullPointerException();
-            }
-
-            foot_ = value;
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>string foot = 4;</code>
-         *
-         * @return This builder for chaining.
-         */
-        public Builder clearFoot() {
-
-            foot_ = getDefaultInstance().getFoot();
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>string foot = 4;</code>
-         *
-         * @param value The bytes for foot to set.
-         * @return This builder for chaining.
-         */
-        public Builder setFootBytes(
-                com.google.protobuf.ByteString value) {
-            if (value == null) {
-                throw new NullPointerException();
-            }
-            checkByteStringIsUtf8(value);
-
-            foot_ = value;
-            onChanged();
-            return this;
-        }
-
-        @java.lang.Override
-        public final Builder setUnknownFields(
-                final com.google.protobuf.UnknownFieldSet unknownFields) {
-            return super.setUnknownFields(unknownFields);
-        }
-
-        @java.lang.Override
-        public final Builder mergeUnknownFields(
-                final com.google.protobuf.UnknownFieldSet unknownFields) {
-            return super.mergeUnknownFields(unknownFields);
-        }
-
-
-        // @@protoc_insertion_point(builder_scope:MsgResult)
+      return this;
     }
 
-    // @@protoc_insertion_point(class_scope:MsgResult)
-    private static final io.net.api.MsgResult DEFAULT_INSTANCE;
-  static {
-    DEFAULT_INSTANCE = new io.net.api.MsgResult();
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     */
+    public Builder mergeReceipt(Receipt value) {
+      if (receiptBuilder_ == null) {
+        if (receipt_ != null) {
+          receipt_ =
+                  Receipt.newBuilder(receipt_).mergeFrom(value).buildPartial();
+        } else {
+          receipt_ = value;
+        }
+        onChanged();
+      } else {
+        receiptBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     */
+    public Builder clearReceipt() {
+      if (receiptBuilder_ == null) {
+        receipt_ = null;
+        onChanged();
+      } else {
+        receipt_ = null;
+        receiptBuilder_ = null;
+      }
+
+      return this;
+    }
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     */
+    public Receipt.Builder getReceiptBuilder() {
+
+      onChanged();
+      return getReceiptFieldBuilder().getBuilder();
+    }
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     */
+    public ReceiptOrBuilder getReceiptOrBuilder() {
+      if (receiptBuilder_ != null) {
+        return receiptBuilder_.getMessageOrBuilder();
+      } else {
+        return receipt_ == null ?
+                Receipt.getDefaultInstance() : receipt_;
+      }
+    }
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+            Receipt, Receipt.Builder, ReceiptOrBuilder>
+    getReceiptFieldBuilder() {
+      if (receiptBuilder_ == null) {
+        receiptBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                Receipt, Receipt.Builder, ReceiptOrBuilder>(
+                getReceipt(),
+                getParentForChildren(),
+                isClean());
+        receipt_ = null;
+      }
+      return receiptBuilder_;
+    }
+    @Override
+    public final Builder setUnknownFields(
+        final com.google.protobuf.UnknownFieldSet unknownFields) {
+      return super.setUnknownFields(unknownFields);
+    }
+
+    @Override
+    public final Builder mergeUnknownFields(
+        final com.google.protobuf.UnknownFieldSet unknownFields) {
+      return super.mergeUnknownFields(unknownFields);
+    }
+
+
+    // @@protoc_insertion_point(builder_scope:MsgResult)
   }
 
-  public static io.net.api.MsgResult getDefaultInstance() {
+  // @@protoc_insertion_point(class_scope:MsgResult)
+  private static final MsgResult DEFAULT_INSTANCE;
+  static {
+    DEFAULT_INSTANCE = new MsgResult();
+  }
+
+  public static MsgResult getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
   private static final com.google.protobuf.Parser<MsgResult>
-          PARSER = new com.google.protobuf.AbstractParser<MsgResult>() {
-      @java.lang.Override
-      public MsgResult parsePartialFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws com.google.protobuf.InvalidProtocolBufferException {
+      PARSER = new com.google.protobuf.AbstractParser<MsgResult>() {
+    @Override
+    public MsgResult parsePartialFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
       return new MsgResult(input, extensionRegistry);
     }
   };
@@ -920,13 +2856,13 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<MsgResult> getParserForType() {
     return PARSER;
   }
 
-  @java.lang.Override
-  public io.net.api.MsgResult getDefaultInstanceForType() {
+  @Override
+  public MsgResult getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

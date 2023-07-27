@@ -4,7 +4,6 @@ option java_multiple_files = true;
 option java_generate_equals_and_hash = true;
 option java_package = "io.net.api";
 option java_outer_classname = "BaseProto";
-option objc_class_prefix = "DSP";
 
 message GroupCmd {
   repeated uint64 ats = 1;
@@ -16,14 +15,30 @@ message GroupCmd {
 }
 
 message MsgResult {
-  MsgCode code = 1;
+  Code code = 1;
   string msg = 2;
-  bytes bytes = 3;
+  Data data = 3;
   string foot = 4;
-}
+  Receipt receipt = 5;
 
-enum MsgCode {
-  OK = 0;
-  BUSINESS_ANOMALY = 1;
-  RPC_ANOMALY = 2;
+  enum Code {
+    OK = 0;
+    BUSINESS_ANOMALY = 1;
+    RPC_ANOMALY = 2;
+  }
+
+  message Data {
+    MediaType type = 1;
+    bytes bytes = 2;
+
+    enum MediaType {
+      PICTURE = 0;
+      AUDIO = 1;
+    }
+  }
+
+  message Receipt {
+    int32 recall = 1;
+    string fallback = 2;
+  }
 }

@@ -8,43 +8,84 @@ public interface MsgResultOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.MsgCode code = 1;</code>
+   * <code>.MsgResult.Code code = 1;</code>
+   *
    * @return The enum numeric value on the wire for code.
    */
   int getCodeValue();
-  /**
-   * <code>.MsgCode code = 1;</code>
-   * @return The code.
-   */
-  io.net.api.MsgCode getCode();
 
-  /**
-   * <code>string msg = 2;</code>
-   * @return The msg.
-   */
-  java.lang.String getMsg();
-  /**
-   * <code>string msg = 2;</code>
-   * @return The bytes for msg.
-   */
-  com.google.protobuf.ByteString
-      getMsgBytes();
+    /**
+     * <code>.MsgResult.Code code = 1;</code>
+     *
+     * @return The code.
+     */
+    MsgResult.Code getCode();
 
-  /**
-   * <code>bytes bytes = 3;</code>
-   * @return The bytes.
-   */
-  com.google.protobuf.ByteString getBytes();
+    /**
+     * <code>string msg = 2;</code>
+     *
+     * @return The msg.
+     */
+    String getMsg();
 
-  /**
-   * <code>string foot = 4;</code>
-   * @return The foot.
-   */
-  java.lang.String getFoot();
-  /**
-   * <code>string foot = 4;</code>
-   * @return The bytes for foot.
-   */
-  com.google.protobuf.ByteString
-      getFootBytes();
+    /**
+     * <code>string msg = 2;</code>
+     *
+     * @return The bytes for msg.
+     */
+    com.google.protobuf.ByteString
+    getMsgBytes();
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     *
+     * @return Whether the data field is set.
+     */
+    boolean hasData();
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     *
+     * @return The data.
+     */
+    MsgResult.Data getData();
+
+    /**
+     * <code>.MsgResult.Data data = 3;</code>
+     */
+    MsgResult.DataOrBuilder getDataOrBuilder();
+
+    /**
+     * <code>string foot = 4;</code>
+     *
+     * @return The foot.
+     */
+    String getFoot();
+
+    /**
+     * <code>string foot = 4;</code>
+     *
+     * @return The bytes for foot.
+     */
+    com.google.protobuf.ByteString
+    getFootBytes();
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     *
+     * @return Whether the receipt field is set.
+     */
+    boolean hasReceipt();
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     *
+     * @return The receipt.
+     */
+    MsgResult.Receipt getReceipt();
+
+    /**
+     * <code>.MsgResult.Receipt receipt = 5;</code>
+     */
+    MsgResult.ReceiptOrBuilder getReceiptOrBuilder();
 }

@@ -27,6 +27,16 @@ public final class BaseProto {
     static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_MsgResult_fieldAccessorTable;
+    static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_MsgResult_Data_descriptor;
+    static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_MsgResult_Data_fieldAccessorTable;
+    static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_MsgResult_Receipt_descriptor;
+    static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_MsgResult_Receipt_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor
     getDescriptor() {
@@ -37,13 +47,20 @@ public final class BaseProto {
             descriptor;
 
     static {
-        java.lang.String[] descriptorData = {
-                "\n\nbase.proto\"W\n\010GroupCmd\022\017\n\007groupId\030\001 \001(" +
-                        "\004\022\r\n\005botId\030\002 \001(\004\022\020\n\010senderId\030\003 \001(\004\022\013\n\003cm" +
-                        "d\030\004 \001(\t\022\014\n\004args\030\005 \003(\t\"C\n\tMsgResult\022\014\n\004co" +
-                        "de\030\001 \001(\005\022\013\n\003msg\030\002 \001(\t\022\r\n\005bytes\030\003 \001(\014\022\014\n\004" +
-                        "foot\030\004 \001(\tB\"\n\nio.net.apiB\tBaseProtoP\001\240\001\001" +
-                        "\242\002\003DSPb\006proto3"
+        String[] descriptorData = {
+                "\n\nbase.proto\"d\n\010GroupCmd\022\013\n\003ats\030\001 \003(\004\022\017\n" +
+                        "\007groupId\030\002 \001(\004\022\r\n\005botId\030\003 \001(\004\022\020\n\010senderI" +
+                        "d\030\004 \001(\004\022\013\n\003cmd\030\005 \001(\t\022\014\n\004args\030\006 \003(\t\"\322\002\n\tM" +
+                        "sgResult\022\035\n\004code\030\001 \001(\0162\017.MsgResult.Code\022" +
+                        "\013\n\003msg\030\002 \001(\t\022\035\n\004data\030\003 \001(\0132\017.MsgResult.D" +
+                        "ata\022\014\n\004foot\030\004 \001(\t\022#\n\007receipt\030\005 \001(\0132\022.Msg" +
+                        "Result.Receipt\032c\n\004Data\022\'\n\004type\030\001 \001(\0162\031.M" +
+                        "sgResult.Data.MediaType\022\r\n\005bytes\030\002 \001(\014\"#" +
+                        "\n\tMediaType\022\013\n\007PICTURE\020\000\022\t\n\005AUDIO\020\001\032+\n\007R" +
+                        "eceipt\022\016\n\006recall\030\001 \001(\005\022\020\n\010fallback\030\002 \001(\t" +
+                        "\"5\n\004Code\022\006\n\002OK\020\000\022\024\n\020BUSINESS_ANOMALY\020\001\022\017" +
+                        "\n\013RPC_ANOMALY\020\002B\034\n\nio.net.apiB\tBaseProto" +
+                        "P\001\240\001\001b\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
@@ -54,13 +71,25 @@ public final class BaseProto {
         internal_static_GroupCmd_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_GroupCmd_descriptor,
-                new java.lang.String[]{"GroupId", "BotId", "SenderId", "Cmd", "Args",});
+                new String[]{"Ats", "GroupId", "BotId", "SenderId", "Cmd", "Args",});
         internal_static_MsgResult_descriptor =
                 getDescriptor().getMessageTypes().get(1);
         internal_static_MsgResult_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_MsgResult_descriptor,
-                new java.lang.String[]{"Code", "Msg", "Bytes", "Foot",});
+                new String[]{"Code", "Msg", "Data", "Foot", "Receipt",});
+        internal_static_MsgResult_Data_descriptor =
+                internal_static_MsgResult_descriptor.getNestedTypes().get(0);
+        internal_static_MsgResult_Data_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_MsgResult_Data_descriptor,
+                new String[]{"Type", "Bytes",});
+        internal_static_MsgResult_Receipt_descriptor =
+                internal_static_MsgResult_descriptor.getNestedTypes().get(1);
+        internal_static_MsgResult_Receipt_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_MsgResult_Receipt_descriptor,
+                new String[]{"Recall", "Fallback",});
     }
 
     // @@protoc_insertion_point(outer_class_scope)

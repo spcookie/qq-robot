@@ -23,5 +23,3 @@ class SpringContextUtil : ApplicationContextAware {
         context = applicationContext
     }
 }
-
-

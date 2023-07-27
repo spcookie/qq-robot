@@ -57,7 +57,7 @@ public final class DubboGroupCmdServiceTriple {
             io.net.api.MsgResult::parseFrom);
 
     private static final StubMethodDescriptor invokeAsyncMethod = new StubMethodDescriptor("invoke",
-            io.net.api.GroupCmd.class, java.util.concurrent.CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            io.net.api.GroupCmd.class, CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
             obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), io.net.api.GroupCmd::parseFrom,
             io.net.api.MsgResult::parseFrom);
 

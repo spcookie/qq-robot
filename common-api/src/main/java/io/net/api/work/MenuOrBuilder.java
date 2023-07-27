@@ -16,33 +16,33 @@ public interface MenuOrBuilder extends
      * <code>map&lt;string, string&gt; menu = 1;</code>
      */
     boolean containsMenu(
-            java.lang.String key);
+            String key);
 
     /**
      * Use {@link #getMenuMap()} instead.
      */
-    @java.lang.Deprecated
-    java.util.Map<java.lang.String, java.lang.String>
+    @Deprecated
+    java.util.Map<String, String>
     getMenu();
 
     /**
      * <code>map&lt;string, string&gt; menu = 1;</code>
      */
-    java.util.Map<java.lang.String, java.lang.String>
+    java.util.Map<String, String>
     getMenuMap();
 
     /**
      * <code>map&lt;string, string&gt; menu = 1;</code>
      */
 
-    java.lang.String getMenuOrDefault(
-            java.lang.String key,
-            java.lang.String defaultValue);
+    String getMenuOrDefault(
+            String key,
+            String defaultValue);
 
     /**
      * <code>map&lt;string, string&gt; menu = 1;</code>
      */
 
-    java.lang.String getMenuOrThrow(
-            java.lang.String key);
+    String getMenuOrThrow(
+            String key);
 }

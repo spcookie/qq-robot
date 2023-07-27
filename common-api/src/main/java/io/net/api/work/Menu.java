@@ -20,14 +20,14 @@ public final class Menu extends
     private Menu() {
     }
 
-    @java.lang.Override
+    @Override
     @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
+    protected Object newInstance(
             UnusedPrivateParameter unused) {
         return new Menu();
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
         return this.unknownFields;
@@ -39,7 +39,7 @@ public final class Menu extends
             throws com.google.protobuf.InvalidProtocolBufferException {
         this();
         if (extensionRegistry == null) {
-            throw new java.lang.NullPointerException();
+            throw new NullPointerException();
         }
         int mutable_bitField0_ = 0;
         com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -58,7 +58,7 @@ public final class Menu extends
                                     MenuDefaultEntryHolder.defaultEntry);
                             mutable_bitField0_ |= 0x00000001;
                         }
-                        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+                        com.google.protobuf.MapEntry<String, String>
                                 menu__ = input.readMessage(
                                 MenuDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
                         menu_.getMutableMap().put(
@@ -87,11 +87,11 @@ public final class Menu extends
 
     public static final com.google.protobuf.Descriptors.Descriptor
     getDescriptor() {
-        return io.net.api.work.WorkProto.internal_static_protobuf_work_Menu_descriptor;
+        return WorkProto.internal_static_protobuf_work_Menu_descriptor;
     }
 
     @SuppressWarnings({"rawtypes"})
-    @java.lang.Override
+    @Override
     protected com.google.protobuf.MapField internalGetMapField(
             int number) {
         switch (number) {
@@ -103,22 +103,22 @@ public final class Menu extends
         }
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
     internalGetFieldAccessorTable() {
-        return io.net.api.work.WorkProto.internal_static_protobuf_work_Menu_fieldAccessorTable
+        return WorkProto.internal_static_protobuf_work_Menu_fieldAccessorTable
                 .ensureFieldAccessorsInitialized(
-                        io.net.api.work.Menu.class, io.net.api.work.Menu.Builder.class);
+                        Menu.class, Builder.class);
     }
 
     public static final int MENU_FIELD_NUMBER = 1;
 
     private static final class MenuDefaultEntryHolder {
         static final com.google.protobuf.MapEntry<
-                java.lang.String, java.lang.String> defaultEntry =
+                String, String> defaultEntry =
                 com.google.protobuf.MapEntry
-                        .<java.lang.String, java.lang.String>newDefaultInstance(
-                                io.net.api.work.WorkProto.internal_static_protobuf_work_Menu_MenuEntry_descriptor,
+                        .<String, String>newDefaultInstance(
+                                WorkProto.internal_static_protobuf_work_Menu_MenuEntry_descriptor,
                                 com.google.protobuf.WireFormat.FieldType.STRING,
                                 "",
                                 com.google.protobuf.WireFormat.FieldType.STRING,
@@ -126,9 +126,9 @@ public final class Menu extends
     }
 
     private com.google.protobuf.MapField<
-            java.lang.String, java.lang.String> menu_;
+            String, String> menu_;
 
-    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    private com.google.protobuf.MapField<String, String>
     internalGetMenu() {
         if (menu_ == null) {
             return com.google.protobuf.MapField.emptyMapField(
@@ -145,9 +145,9 @@ public final class Menu extends
      * <code>map&lt;string, string&gt; menu = 1;</code>
      */
 
-    @java.lang.Override
+    @Override
     public boolean containsMenu(
-            java.lang.String key) {
+            String key) {
         if (key == null) {
             throw new NullPointerException("map key");
         }
@@ -157,33 +157,33 @@ public final class Menu extends
     /**
      * Use {@link #getMenuMap()} instead.
      */
-    @java.lang.Override
-    @java.lang.Deprecated
-    public java.util.Map<java.lang.String, java.lang.String> getMenu() {
+    @Override
+    @Deprecated
+    public java.util.Map<String, String> getMenu() {
         return getMenuMap();
     }
 
     /**
      * <code>map&lt;string, string&gt; menu = 1;</code>
      */
-    @java.lang.Override
+    @Override
 
-    public java.util.Map<java.lang.String, java.lang.String> getMenuMap() {
+    public java.util.Map<String, String> getMenuMap() {
         return internalGetMenu().getMap();
     }
 
     /**
      * <code>map&lt;string, string&gt; menu = 1;</code>
      */
-    @java.lang.Override
+    @Override
 
-    public java.lang.String getMenuOrDefault(
-            java.lang.String key,
-            java.lang.String defaultValue) {
+    public String getMenuOrDefault(
+            String key,
+            String defaultValue) {
         if (key == null) {
             throw new NullPointerException("map key");
         }
-        java.util.Map<java.lang.String, java.lang.String> map =
+        java.util.Map<String, String> map =
                 internalGetMenu().getMap();
         return map.containsKey(key) ? map.get(key) : defaultValue;
     }
@@ -191,24 +191,24 @@ public final class Menu extends
     /**
      * <code>map&lt;string, string&gt; menu = 1;</code>
      */
-    @java.lang.Override
+    @Override
 
-    public java.lang.String getMenuOrThrow(
-            java.lang.String key) {
+    public String getMenuOrThrow(
+            String key) {
         if (key == null) {
             throw new NullPointerException("map key");
         }
-        java.util.Map<java.lang.String, java.lang.String> map =
+        java.util.Map<String, String> map =
                 internalGetMenu().getMap();
         if (!map.containsKey(key)) {
-            throw new java.lang.IllegalArgumentException();
+            throw new IllegalArgumentException();
         }
         return map.get(key);
     }
 
     private byte memoizedIsInitialized = -1;
 
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized == 1) return true;
@@ -218,7 +218,7 @@ public final class Menu extends
         return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
             throws java.io.IOException {
         com.google.protobuf.GeneratedMessageV3
@@ -230,15 +230,15 @@ public final class Menu extends
         unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
         int size = memoizedSize;
         if (size != -1) return size;
 
         size = 0;
-        for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+        for (java.util.Map.Entry<String, String> entry
                 : internalGetMenu().getMap().entrySet()) {
-            com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+            com.google.protobuf.MapEntry<String, String>
                     menu__ = MenuDefaultEntryHolder.defaultEntry.newBuilderForType()
                     .setKey(entry.getKey())
                     .setValue(entry.getValue())
@@ -251,15 +251,15 @@ public final class Menu extends
         return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof io.net.api.work.Menu)) {
+        if (!(obj instanceof Menu)) {
             return super.equals(obj);
         }
-        io.net.api.work.Menu other = (io.net.api.work.Menu) obj;
+        Menu other = (Menu) obj;
 
         if (!internalGetMenu().equals(
                 other.internalGetMenu())) return false;
@@ -267,7 +267,7 @@ public final class Menu extends
         return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
         if (memoizedHashCode != 0) {
             return memoizedHashCode;
@@ -283,51 +283,51 @@ public final class Menu extends
         return hash;
     }
 
-    public static io.net.api.work.Menu parseFrom(
+    public static Menu parseFrom(
             java.nio.ByteBuffer data)
             throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
     }
 
-    public static io.net.api.work.Menu parseFrom(
+    public static Menu parseFrom(
             java.nio.ByteBuffer data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
     }
 
-    public static io.net.api.work.Menu parseFrom(
+    public static Menu parseFrom(
             com.google.protobuf.ByteString data)
             throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
     }
 
-    public static io.net.api.work.Menu parseFrom(
+    public static Menu parseFrom(
             com.google.protobuf.ByteString data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
     }
 
-    public static io.net.api.work.Menu parseFrom(byte[] data)
+    public static Menu parseFrom(byte[] data)
             throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
     }
 
-    public static io.net.api.work.Menu parseFrom(
+    public static Menu parseFrom(
             byte[] data,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
     }
 
-    public static io.net.api.work.Menu parseFrom(java.io.InputStream input)
+    public static Menu parseFrom(java.io.InputStream input)
             throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
                 .parseWithIOException(PARSER, input);
     }
 
-    public static io.net.api.work.Menu parseFrom(
+    public static Menu parseFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
@@ -335,13 +335,13 @@ public final class Menu extends
                 .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static io.net.api.work.Menu parseDelimitedFrom(java.io.InputStream input)
+    public static Menu parseDelimitedFrom(java.io.InputStream input)
             throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
                 .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static io.net.api.work.Menu parseDelimitedFrom(
+    public static Menu parseDelimitedFrom(
             java.io.InputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
@@ -349,14 +349,14 @@ public final class Menu extends
                 .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static io.net.api.work.Menu parseFrom(
+    public static Menu parseFrom(
             com.google.protobuf.CodedInputStream input)
             throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
                 .parseWithIOException(PARSER, input);
     }
 
-    public static io.net.api.work.Menu parseFrom(
+    public static Menu parseFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
@@ -364,7 +364,7 @@ public final class Menu extends
                 .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() {
         return newBuilder();
     }
@@ -373,19 +373,19 @@ public final class Menu extends
         return DEFAULT_INSTANCE.toBuilder();
     }
 
-    public static Builder newBuilder(io.net.api.work.Menu prototype) {
+    public static Builder newBuilder(Menu prototype) {
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
 
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
         return this == DEFAULT_INSTANCE
                 ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            BuilderParent parent) {
         Builder builder = new Builder(parent);
         return builder;
     }
@@ -396,10 +396,10 @@ public final class Menu extends
     public static final class Builder extends
             com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
             // @@protoc_insertion_point(builder_implements:protobuf.work.Menu)
-            io.net.api.work.MenuOrBuilder {
+            MenuOrBuilder {
         public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-            return io.net.api.work.WorkProto.internal_static_protobuf_work_Menu_descriptor;
+            return WorkProto.internal_static_protobuf_work_Menu_descriptor;
         }
 
         @SuppressWarnings({"rawtypes"})
@@ -426,12 +426,12 @@ public final class Menu extends
             }
         }
 
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        @Override
+        protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-            return io.net.api.work.WorkProto.internal_static_protobuf_work_Menu_fieldAccessorTable
+            return WorkProto.internal_static_protobuf_work_Menu_fieldAccessorTable
                     .ensureFieldAccessorsInitialized(
-                            io.net.api.work.Menu.class, io.net.api.work.Menu.Builder.class);
+                            Menu.class, Builder.class);
         }
 
         // Construct using io.net.api.work.Menu.newBuilder()
@@ -440,7 +440,7 @@ public final class Menu extends
         }
 
         private Builder(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                BuilderParent parent) {
             super(parent);
             maybeForceBuilderInitialization();
         }
@@ -451,36 +451,36 @@ public final class Menu extends
             }
         }
 
-        @java.lang.Override
+        @Override
         public Builder clear() {
             super.clear();
             internalGetMutableMenu().clear();
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-            return io.net.api.work.WorkProto.internal_static_protobuf_work_Menu_descriptor;
+            return WorkProto.internal_static_protobuf_work_Menu_descriptor;
         }
 
-        @java.lang.Override
-        public io.net.api.work.Menu getDefaultInstanceForType() {
-            return io.net.api.work.Menu.getDefaultInstance();
+        @Override
+        public Menu getDefaultInstanceForType() {
+            return Menu.getDefaultInstance();
         }
 
-        @java.lang.Override
-        public io.net.api.work.Menu build() {
-            io.net.api.work.Menu result = buildPartial();
+        @Override
+        public Menu build() {
+            Menu result = buildPartial();
             if (!result.isInitialized()) {
                 throw newUninitializedMessageException(result);
             }
             return result;
         }
 
-        @java.lang.Override
-        public io.net.api.work.Menu buildPartial() {
-            io.net.api.work.Menu result = new io.net.api.work.Menu(this);
+        @Override
+        public Menu buildPartial() {
+            Menu result = new Menu(this);
             int from_bitField0_ = bitField0_;
             result.menu_ = internalGetMenu();
             result.menu_.makeImmutable();
@@ -488,56 +488,56 @@ public final class Menu extends
             return result;
         }
 
-        @java.lang.Override
+        @Override
         public Builder clone() {
             return super.clone();
         }
 
-        @java.lang.Override
+        @Override
         public Builder setField(
                 com.google.protobuf.Descriptors.FieldDescriptor field,
-                java.lang.Object value) {
+                Object value) {
             return super.setField(field, value);
         }
 
-        @java.lang.Override
+        @Override
         public Builder clearField(
                 com.google.protobuf.Descriptors.FieldDescriptor field) {
             return super.clearField(field);
         }
 
-        @java.lang.Override
+        @Override
         public Builder clearOneof(
                 com.google.protobuf.Descriptors.OneofDescriptor oneof) {
             return super.clearOneof(oneof);
         }
 
-        @java.lang.Override
+        @Override
         public Builder setRepeatedField(
                 com.google.protobuf.Descriptors.FieldDescriptor field,
-                int index, java.lang.Object value) {
+                int index, Object value) {
             return super.setRepeatedField(field, index, value);
         }
 
-        @java.lang.Override
+        @Override
         public Builder addRepeatedField(
                 com.google.protobuf.Descriptors.FieldDescriptor field,
-                java.lang.Object value) {
+                Object value) {
             return super.addRepeatedField(field, value);
         }
 
-        @java.lang.Override
+        @Override
         public Builder mergeFrom(com.google.protobuf.Message other) {
-            if (other instanceof io.net.api.work.Menu) {
-                return mergeFrom((io.net.api.work.Menu) other);
+            if (other instanceof Menu) {
+                return mergeFrom((Menu) other);
             } else {
                 super.mergeFrom(other);
                 return this;
             }
         }
 
-        public Builder mergeFrom(io.net.api.work.Menu other) {
-            if (other == io.net.api.work.Menu.getDefaultInstance()) return this;
+        public Builder mergeFrom(Menu other) {
+            if (other == Menu.getDefaultInstance()) return this;
             internalGetMutableMenu().mergeFrom(
                     other.internalGetMenu());
             this.mergeUnknownFields(other.unknownFields);
@@ -545,21 +545,21 @@ public final class Menu extends
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public final boolean isInitialized() {
             return true;
         }
 
-        @java.lang.Override
+        @Override
         public Builder mergeFrom(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
-            io.net.api.work.Menu parsedMessage = null;
+            Menu parsedMessage = null;
             try {
                 parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
             } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                parsedMessage = (io.net.api.work.Menu) e.getUnfinishedMessage();
+                parsedMessage = (Menu) e.getUnfinishedMessage();
                 throw e.unwrapIOException();
             } finally {
                 if (parsedMessage != null) {
@@ -572,9 +572,9 @@ public final class Menu extends
         private int bitField0_;
 
         private com.google.protobuf.MapField<
-                java.lang.String, java.lang.String> menu_;
+                String, String> menu_;
 
-        private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        private com.google.protobuf.MapField<String, String>
         internalGetMenu() {
             if (menu_ == null) {
                 return com.google.protobuf.MapField.emptyMapField(
@@ -583,7 +583,7 @@ public final class Menu extends
             return menu_;
         }
 
-        private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        private com.google.protobuf.MapField<String, String>
         internalGetMutableMenu() {
             onChanged();
             ;
@@ -605,9 +605,9 @@ public final class Menu extends
          * <code>map&lt;string, string&gt; menu = 1;</code>
          */
 
-        @java.lang.Override
+        @Override
         public boolean containsMenu(
-                java.lang.String key) {
+                String key) {
             if (key == null) {
                 throw new NullPointerException("map key");
             }
@@ -617,33 +617,33 @@ public final class Menu extends
         /**
          * Use {@link #getMenuMap()} instead.
          */
-        @java.lang.Override
-        @java.lang.Deprecated
-        public java.util.Map<java.lang.String, java.lang.String> getMenu() {
+        @Override
+        @Deprecated
+        public java.util.Map<String, String> getMenu() {
             return getMenuMap();
         }
 
         /**
          * <code>map&lt;string, string&gt; menu = 1;</code>
          */
-        @java.lang.Override
+        @Override
 
-        public java.util.Map<java.lang.String, java.lang.String> getMenuMap() {
+        public java.util.Map<String, String> getMenuMap() {
             return internalGetMenu().getMap();
         }
 
         /**
          * <code>map&lt;string, string&gt; menu = 1;</code>
          */
-        @java.lang.Override
+        @Override
 
-        public java.lang.String getMenuOrDefault(
-                java.lang.String key,
-                java.lang.String defaultValue) {
+        public String getMenuOrDefault(
+                String key,
+                String defaultValue) {
             if (key == null) {
                 throw new NullPointerException("map key");
             }
-            java.util.Map<java.lang.String, java.lang.String> map =
+            java.util.Map<String, String> map =
                     internalGetMenu().getMap();
             return map.containsKey(key) ? map.get(key) : defaultValue;
         }
@@ -651,17 +651,17 @@ public final class Menu extends
         /**
          * <code>map&lt;string, string&gt; menu = 1;</code>
          */
-        @java.lang.Override
+        @Override
 
-        public java.lang.String getMenuOrThrow(
-                java.lang.String key) {
+        public String getMenuOrThrow(
+                String key) {
             if (key == null) {
                 throw new NullPointerException("map key");
             }
-            java.util.Map<java.lang.String, java.lang.String> map =
+            java.util.Map<String, String> map =
                     internalGetMenu().getMap();
             if (!map.containsKey(key)) {
-                throw new java.lang.IllegalArgumentException();
+                throw new IllegalArgumentException();
             }
             return map.get(key);
         }
@@ -677,7 +677,7 @@ public final class Menu extends
          */
 
         public Builder removeMenu(
-                java.lang.String key) {
+                String key) {
             if (key == null) {
                 throw new NullPointerException("map key");
             }
@@ -689,8 +689,8 @@ public final class Menu extends
         /**
          * Use alternate mutation accessors instead.
          */
-        @java.lang.Deprecated
-        public java.util.Map<java.lang.String, java.lang.String>
+        @Deprecated
+        public java.util.Map<String, String>
         getMutableMenu() {
             return internalGetMutableMenu().getMutableMap();
         }
@@ -699,8 +699,8 @@ public final class Menu extends
          * <code>map&lt;string, string&gt; menu = 1;</code>
          */
         public Builder putMenu(
-                java.lang.String key,
-                java.lang.String value) {
+                String key,
+                String value) {
             if (key == null) {
                 throw new NullPointerException("map key");
             }
@@ -718,19 +718,19 @@ public final class Menu extends
          */
 
         public Builder putAllMenu(
-                java.util.Map<java.lang.String, java.lang.String> values) {
+                java.util.Map<String, String> values) {
             internalGetMutableMenu().getMutableMap()
                     .putAll(values);
             return this;
         }
 
-        @java.lang.Override
+        @Override
         public final Builder setUnknownFields(
                 final com.google.protobuf.UnknownFieldSet unknownFields) {
             return super.setUnknownFields(unknownFields);
         }
 
-        @java.lang.Override
+        @Override
         public final Builder mergeUnknownFields(
                 final com.google.protobuf.UnknownFieldSet unknownFields) {
             return super.mergeUnknownFields(unknownFields);
@@ -741,19 +741,19 @@ public final class Menu extends
     }
 
     // @@protoc_insertion_point(class_scope:protobuf.work.Menu)
-    private static final io.net.api.work.Menu DEFAULT_INSTANCE;
+    private static final Menu DEFAULT_INSTANCE;
 
     static {
-        DEFAULT_INSTANCE = new io.net.api.work.Menu();
+        DEFAULT_INSTANCE = new Menu();
     }
 
-    public static io.net.api.work.Menu getDefaultInstance() {
+    public static Menu getDefaultInstance() {
         return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<Menu>
             PARSER = new com.google.protobuf.AbstractParser<Menu>() {
-        @java.lang.Override
+        @Override
         public Menu parsePartialFrom(
                 com.google.protobuf.CodedInputStream input,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -766,13 +766,13 @@ public final class Menu extends
         return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<Menu> getParserForType() {
         return PARSER;
     }
 
-    @java.lang.Override
-    public io.net.api.work.Menu getDefaultInstanceForType() {
+    @Override
+    public Menu getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;
     }
 

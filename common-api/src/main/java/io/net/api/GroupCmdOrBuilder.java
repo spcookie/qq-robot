@@ -45,48 +45,55 @@ public interface GroupCmdOrBuilder extends
 
     /**
      * <code>uint64 senderId = 4;</code>
+     *
      * @return The senderId.
      */
     long getSenderId();
 
     /**
-   * <code>string cmd = 5;</code>
+     * <code>string cmd = 5;</code>
+     *
      * @return The cmd.
      */
     String getCmd();
 
     /**
      * <code>string cmd = 5;</code>
-   * @return The bytes for cmd.
+     *
+     * @return The bytes for cmd.
      */
     com.google.protobuf.ByteString
     getCmdBytes();
 
     /**
      * <code>repeated string args = 6;</code>
-   * @return A list containing the args.
+     *
+     * @return A list containing the args.
      */
     java.util.List<String>
     getArgsList();
 
     /**
      * <code>repeated string args = 6;</code>
+     *
      * @return The count of args.
      */
     int getArgsCount();
 
     /**
      * <code>repeated string args = 6;</code>
+     *
      * @param index The index of the element to return.
-   * @return The args at the given index.
+     * @return The args at the given index.
      */
     String getArgs(int index);
 
     /**
      * <code>repeated string args = 6;</code>
+     *
      * @param index The index of the value to return.
-   * @return The bytes of the args at the given index.
-   */
-  com.google.protobuf.ByteString
-      getArgsBytes(int index);
+     * @return The bytes of the args at the given index.
+     */
+    com.google.protobuf.ByteString
+    getArgsBytes(int index);
 }
