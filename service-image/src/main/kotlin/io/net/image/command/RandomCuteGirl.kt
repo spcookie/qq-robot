@@ -1,6 +1,12 @@
 package io.net.image.command
 
 
+import com.alibaba.csp.sentinel.EntryType
+import com.alibaba.csp.sentinel.annotation.SentinelResource
+import com.alibaba.csp.sentinel.slots.block.BlockException
+import com.alibaba.csp.sentinel.slots.block.RuleConstant
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager
 import io.net.api.base.AbstractCmd
 import io.net.api.base.Cmd
 import io.net.api.base.Msg
@@ -29,6 +35,7 @@ import kotlin.random.nextInt
  *@author Augenstern
  *@date 2023/6/4
  */
+@Suppress("UNUSED")
 @Cmd(cmd = CmdEnum.IMG)
 class RandomCuteGirl(
     @Qualifier("direct") private val restTemplate: RestTemplate,
@@ -43,6 +50,17 @@ class RandomCuteGirl(
         @JvmStatic
         private val logger = LoggerFactory.getLogger(RandomCuteGirl::class.java)
         private const val CUTE_GIRL_URL = "http://3650000.xyz/api/?mode={mode}&type={type}"
+        private const val BASE_RESOURCE = "img"
+    }
+
+    init {
+        val flow = FlowRule().apply {
+            resource = BASE_RESOURCE
+            count = 0.05
+            grade = RuleConstant.FLOW_GRADE_QPS
+            controlBehavior = RuleConstant.CONTROL_BEHAVIOR_DEFAULT
+        }
+        FlowRuleManager.loadRules(listOf(flow))
     }
 
     override fun describe() = """
@@ -50,6 +68,12 @@ class RandomCuteGirl(
           img()
     """.trimIndent()
 
+    @SentinelResource(
+        BASE_RESOURCE,
+        entryType = EntryType.IN,
+        blockHandler = "flow",
+        exceptionsToIgnore = [GroupCmdException::class]
+    )
     override fun command(args: MutableList<String>): Msg {
         val img = imageRepository.findFirstByCategoryIsOrderByCreatedDateAsc(Image.Category.GIRL)
         return if (img != null) {
@@ -61,6 +85,10 @@ class RandomCuteGirl(
         } else {
             Msg(bytes = query())
         }
+    }
+
+    protected fun flow(args: MutableList<String>, ex: BlockException): Msg {
+        throw GroupCmdException("看小姐姐太频繁了，休息一会吧")
     }
 
     private fun query(): ByteArray {
@@ -100,7 +128,6 @@ class RandomCuteGirl(
             ?: throw GroupCmdException("非常抱歉，在尝试加载图片时发生了服务错误。尽管已经找到了图片，但由于某些困难，无法顺利加载。")
     }
 
-    @Suppress("UNUSED")
     @Recover
     protected fun fallback(e: Exception): ByteArray {
         throw GroupCmdException("非常抱歉，目前无法成功找到图片链接。", e)

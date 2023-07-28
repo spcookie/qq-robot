@@ -10,6 +10,7 @@ import net.mamoe.mirai.message.data.At
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.mock.MockBot
 import net.mamoe.mirai.mock.MockBotFactory
+import net.mamoe.mirai.mock.contact.MockNormalMember
 import net.mamoe.mirai.mock.utils.simpleMemberInfo
 import net.mamoe.mirai.utils.LoggerAdapters
 import org.junit.jupiter.api.BeforeAll
@@ -28,7 +29,25 @@ class BotApplicationTests {
     @Test
     @DisplayName("测试img")
     fun img() {
-        mock("img")
+        blockMock("img")
+    }
+
+    @Test
+    @DisplayName("测试st")
+    fun st() {
+        blockMock("st")
+    }
+
+    @Test
+    @DisplayName("测试img限流")
+    fun img_flow() {
+        runBlocking {
+            repeat(4) {
+                launch {
+                    mock("img")
+                }
+            }
+        }
     }
 
     @set:Autowired
@@ -39,21 +58,25 @@ class BotApplicationTests {
 
     lateinit var bot: MockBot
 
+    lateinit var member: MockNormalMember
+
     val context = SupervisorJob() +
             CoroutineName("MockBot-Coroutine") +
             CoroutineExceptionHandler { _, e ->
                 e.printStackTrace()
             }
 
-    @OptIn(LowLevelApi::class)
-    fun mock(msg: String) {
+    suspend fun mock(msg: String) {
+        member.says(At(bot) + PlainText(msg))
+    }
+
+    fun blockMock(msg: String) {
         runBlocking {
-            val member = bot.addGroup(666, "testing!")
-                .addMember(simpleMemberInfo(5971, "test", permission = MemberPermission.OWNER))
-            member.says(At(bot) + PlainText(msg))
+            mock(msg)
         }
     }
 
+    @OptIn(LowLevelApi::class)
     @BeforeAll
     fun mockBot() {
         LoggerAdapters.useLog4j2()
@@ -67,6 +90,8 @@ class BotApplicationTests {
                         this@BotApplicationTests.bot = this
                         try {
                             login()
+                            member = bot.addGroup(666, "testing!")
+                                .addMember(simpleMemberInfo(5971, "test", permission = MemberPermission.OWNER))
                         } catch (_: RuntimeException) {
                             cancel()
                             close()

@@ -1,5 +1,11 @@
 package io.net.image.command
 
+import com.alibaba.csp.sentinel.EntryType
+import com.alibaba.csp.sentinel.annotation.SentinelResource
+import com.alibaba.csp.sentinel.slots.block.BlockException
+import com.alibaba.csp.sentinel.slots.block.RuleConstant
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager
 import io.net.api.base.AbstractCmd
 import io.net.api.base.Cmd
 import io.net.api.base.Msg
@@ -47,6 +53,17 @@ class PixivR18Plus(
         @JvmStatic
         private val logger = LoggerFactory.getLogger(PixivR18Plus::class.java)
         private const val URL = "https://image.anosu.top/pixiv/json"
+        private const val BASE_RESOURCE = "st"
+    }
+
+    init {
+        val flow = FlowRule().apply {
+            resource = BASE_RESOURCE
+            count = 0.25
+            grade = RuleConstant.FLOW_GRADE_QPS
+            controlBehavior = RuleConstant.CONTROL_BEHAVIOR_DEFAULT
+        }
+        FlowRuleManager.loadRules(listOf(flow))
     }
 
     override fun describe() = """
@@ -55,6 +72,12 @@ class PixivR18Plus(
           keyword-搜索关键字("|"分割)
     """.trimIndent()
 
+    @SentinelResource(
+        BASE_RESOURCE,
+        entryType = EntryType.IN,
+        blockHandler = "flow",
+        exceptionsToIgnore = [GroupCmdException::class]
+    )
     override fun command(args: MutableList<String>): Msg {
         var bytes: ByteArray? = null
         var name: String by Delegates.notNull()
@@ -83,6 +106,10 @@ class PixivR18Plus(
             overdue = appProperty.pixivR18RecallIn.toMillis().toInt(),
             replace = "${name}\n图片发送被限制，转为链接：\n" + url
         )
+    }
+
+    protected fun flow(args: MutableList<String>, ex: BlockException): Msg {
+        throw GroupCmdException("看太多涩图对身体不好哦，休息一会吧")
     }
 
     @Scheduled(initialDelay = 5, fixedDelay = 5, timeUnit = TimeUnit.MINUTES)

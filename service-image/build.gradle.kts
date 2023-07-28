@@ -9,6 +9,10 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     implementation("io.minio:minio:8.5.4")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("com.alibaba.csp:sentinel-core:1.8.6")
+    implementation("com.alibaba.csp:sentinel-annotation-aspectj:1.8.6")
+//    implementation("com.alibaba.csp:sentinel-apache-dubbo3-adapter:1.8.6")
+//    api("com.alibaba.csp:sentinel-transport-simple-http:1.8.6")
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude("org.springframework.boot", "spring-boot-starter-tomcat")
     }
