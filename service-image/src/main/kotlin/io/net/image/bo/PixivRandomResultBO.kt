@@ -1,10 +1,12 @@
 package io.net.image.bo
 
+import java.io.Serializable
+
 /**
  *@author Augenstern
  *@date 2023/6/4
  */
-data class PixivRandomResult(
+data class PixivRandomResultBO(
     val pid: Long = 0,
     val page: Int = 0,
     val uid: Long = 0,
@@ -15,4 +17,4 @@ data class PixivRandomResult(
     val height: Int = 0,
     val tags: List<String> = listOf(),
     val url: String = ""
-)
+) : Serializable
