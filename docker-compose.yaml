@@ -23,10 +23,15 @@ services:
       - POSTGRES_DB=service
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - postgresql_dev:/var/lib/postgresql/data/pgdata
+      - ./.env/postgresql_dev:/var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
     restart: on-failure
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   zookeeper:
     image: zookeeper
     container_name: zookeeper-dev
@@ -39,12 +44,21 @@ services:
     image: minio/minio
     container_name: minio-dev
     volumes:
-      - minio_dev:/mnt/data
+      - ./.env/minio_dev:/mnt/data
     ports:
       - "9000:9000"
       - "9090:9090"
     restart: on-failure
     command: server --console-address ":9090" /mnt/data
+  redis:
+    image: redis
+    container_name: redis-dev
+    volumes:
+      - ./.env/redis_dev:/data
+    ports:
+      - "6379:6379"
+    restart: on-failure
+    command: redis-server --save 60 1
 
 volumes:
   postgresql_dev:

@@ -8,10 +8,12 @@ import io.net.api.base.Cmd
 import io.net.api.base.Msg
 import io.net.api.enumeration.CmdEnum
 import io.net.api.exception.GroupCmdException
-import io.net.image.bo.PixivRandomResult
+import io.net.api.util.DeleteAfterUseLock
+import io.net.image.bo.PixivRandomResultBO
 import io.net.image.config.AppProperty
 import io.net.image.entity.Image
 import io.net.image.minio.MinioImageUtils
+import io.net.image.redis.RedisPixivUtils
 import io.net.image.repository.ImageRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,11 +23,11 @@ import org.springframework.core.ParameterizedTypeReference
 import org.springframework.core.io.Resource
 import org.springframework.http.*
 import org.springframework.retry.annotation.Backoff
+import org.springframework.retry.annotation.Recover
 import org.springframework.retry.annotation.Retryable
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.web.client.RestTemplate
 import java.util.*
-import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
 import javax.imageio.ImageIO
 import kotlin.properties.Delegates
@@ -35,6 +37,7 @@ import kotlin.properties.Delegates
  *@author Augenstern
  *@date 2023/6/4
  */
+@Suppress("unused")
 @Cmd(cmd = CmdEnum.ST)
 class PixivR18Plus(
     @Qualifier("proxy") val restTemplate: RestTemplate,
@@ -45,6 +48,8 @@ class PixivR18Plus(
     @set:Autowired
     @setparam:Lazy
     lateinit var self: PixivR18Plus
+
+    private val deleteAfterUseLock = DeleteAfterUseLock<String>()
 
     companion object {
         @JvmStatic
@@ -71,12 +76,16 @@ class PixivR18Plus(
         if (args.isEmpty()) {
             val image = imageRepository.findFirstByCategoryIsOrderByCreatedDateAsc(Image.Category.PIXIV)
             if (image != null) {
-                val path = image.path!!
                 name = image.name!!
                 url = image.url!!
-                bytes = MinioImageUtils.getImage(path)
-                imageRepository.delete(image)
-                MinioImageUtils.removeImage(path)
+                val path = image.path!!
+                deleteAfterUseLock.lock(path) {
+                    delete {
+                        imageRepository.delete(image)
+                        MinioImageUtils.removeImage(path)
+                    }
+                    bytes = MinioImageUtils.getImage(path)
+                }
             }
         }
         if (bytes == null) {
@@ -119,16 +128,12 @@ class PixivR18Plus(
         logger.info("图片下载成功...")
     }
 
-    private val pixivRandomResults: CopyOnWriteArrayList<PixivRandomResult> = CopyOnWriteArrayList()
-
     @Retryable(
-        retryFor = [RuntimeException::class],
         noRetryFor = [GroupCmdException::class],
-        backoff = Backoff(delay = 1000),
-        recover = "fallback"
+        backoff = Backoff(delay = 1000)
     )
-    protected fun resolve(args: MutableList<String>): Pair<ByteArray, PixivRandomResult> {
-        var result: PixivRandomResult
+    protected fun resolve(args: MutableList<String>): Pair<ByteArray, PixivRandomResultBO> {
+        var result: PixivRandomResultBO
         var bytes: ByteArray? = null
         var counter = 10
         do {
@@ -138,10 +143,12 @@ class PixivR18Plus(
             result = if (args.isNotEmpty()) {
                 request(args[0], 1)[0]
             } else {
-                if (pixivRandomResults.isEmpty()) {
-                    pixivRandomResults.addAll(request())
+                var pixiv = RedisPixivUtils.getPixiv(1L)
+                if (pixiv.isNullOrEmpty()) {
+                    pixiv = request()
+                    RedisPixivUtils.addPixiv(pixiv)
                 }
-                pixivRandomResults.removeFirst()
+                pixiv[0]
             }
             val entity = restTemplate.getForEntity(result.url, Resource::class.java)
             if (entity.statusCode.is2xxSuccessful) {
@@ -153,17 +160,17 @@ class PixivR18Plus(
         return bytes to result
     }
 
-    @Suppress("UNUSED")
-    protected fun fallback(e: RuntimeException): Pair<ByteArray, PixivRandomResult> {
-        throw GroupCmdException("非常抱歉，由于网络异常，无法提供图片浏览服务", e)
+    @Recover
+    fun fallback(e: RuntimeException, args: MutableList<String>): Pair<ByteArray, PixivRandomResultBO> {
+        throw GroupCmdException("非常抱歉，由于网络异常，无法加载图片", e)
     }
 
-    private fun request(keyword: String = "", num: Int = 30): List<PixivRandomResult> {
+    private fun request(keyword: String = "", num: Int = 30): List<PixivRandomResultBO> {
         val entity = restTemplate.exchange(
             "$URL?r18=1&num=$num&size=regular&keywords=$keyword",
             HttpMethod.GET,
             HttpEntity(mutableMapOf(HttpHeaders.ACCEPT to MediaType.APPLICATION_JSON_VALUE)),
-            object : ParameterizedTypeReference<List<PixivRandomResult>>() {}
+            object : ParameterizedTypeReference<List<PixivRandomResultBO>>() {}
         )
         if (entity.statusCode.is2xxSuccessful) {
             return entity.body!!
