@@ -161,7 +161,7 @@ class PixivR18Plus(
 
     fun validImage(byteArray: ByteArray): Boolean {
         return try {
-            ImageIO.read(byteArray.inputStream()).width
+            byteArray.inputStream().use { ImageIO.read(it).width }
             true
         } catch (_: Exception) {
             false
