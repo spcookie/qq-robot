@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 @SpringBootTest
 class ImageApplicationTests {
@@ -13,7 +14,7 @@ class ImageApplicationTests {
     lateinit var randomCuteGirl: RandomCuteGirl
 
     @Test
-    fun img_() {
+    fun img() {
         val latch = CountDownLatch(4)
         repeat(4) {
             Thread {
@@ -26,6 +27,7 @@ class ImageApplicationTests {
             }.start()
         }
         latch.await()
+        TimeUnit.SECONDS.sleep(5)
     }
 
 }

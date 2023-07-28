@@ -3,9 +3,6 @@ package io.net.image.command
 import com.alibaba.csp.sentinel.EntryType
 import com.alibaba.csp.sentinel.annotation.SentinelResource
 import com.alibaba.csp.sentinel.slots.block.BlockException
-import com.alibaba.csp.sentinel.slots.block.RuleConstant
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager
 import io.net.api.base.AbstractCmd
 import io.net.api.base.Cmd
 import io.net.api.base.Msg
@@ -53,17 +50,6 @@ class PixivR18Plus(
         @JvmStatic
         private val logger = LoggerFactory.getLogger(PixivR18Plus::class.java)
         private const val URL = "https://image.anosu.top/pixiv/json"
-        private const val BASE_RESOURCE = "st"
-    }
-
-    init {
-        val flow = FlowRule().apply {
-            resource = BASE_RESOURCE
-            count = 0.25
-            grade = RuleConstant.FLOW_GRADE_QPS
-            controlBehavior = RuleConstant.CONTROL_BEHAVIOR_DEFAULT
-        }
-        FlowRuleManager.loadRules(listOf(flow))
     }
 
     override fun describe() = """
@@ -73,7 +59,7 @@ class PixivR18Plus(
     """.trimIndent()
 
     @SentinelResource(
-        BASE_RESOURCE,
+        SentinelRule.ST,
         entryType = EntryType.IN,
         blockHandler = "flow",
         exceptionsToIgnore = [GroupCmdException::class]

@@ -4,14 +4,12 @@ package io.net.image.command
 import com.alibaba.csp.sentinel.EntryType
 import com.alibaba.csp.sentinel.annotation.SentinelResource
 import com.alibaba.csp.sentinel.slots.block.BlockException
-import com.alibaba.csp.sentinel.slots.block.RuleConstant
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager
 import io.net.api.base.AbstractCmd
 import io.net.api.base.Cmd
 import io.net.api.base.Msg
 import io.net.api.enumeration.CmdEnum
 import io.net.api.exception.GroupCmdException
+import io.net.api.util.DeleteAfterUseLock
 import io.net.image.bo.RandomUrlBO
 import io.net.image.entity.Image
 import io.net.image.minio.MinioImageUtils
@@ -27,7 +25,9 @@ import org.springframework.retry.annotation.Retryable
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.web.client.RestTemplate
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.ReentrantReadWriteLock
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -46,45 +46,44 @@ class RandomCuteGirl(
     @setparam:Lazy
     lateinit var self: RandomCuteGirl
 
+    private val lockPoll = ConcurrentHashMap<String, ReentrantReadWriteLock>()
+
     companion object {
         @JvmStatic
         private val logger = LoggerFactory.getLogger(RandomCuteGirl::class.java)
         private const val CUTE_GIRL_URL = "http://3650000.xyz/api/?mode={mode}&type={type}"
-        private const val BASE_RESOURCE = "img"
     }
 
-    init {
-        val flow = FlowRule().apply {
-            resource = BASE_RESOURCE
-            count = 0.05
-            grade = RuleConstant.FLOW_GRADE_QPS
-            controlBehavior = RuleConstant.CONTROL_BEHAVIOR_DEFAULT
-        }
-        FlowRuleManager.loadRules(listOf(flow))
-    }
 
     override fun describe() = """
         ##随机小姐姐##
           img()
     """.trimIndent()
 
+    private val deleteAfterUseLock = DeleteAfterUseLock<String>()
+
     @SentinelResource(
-        BASE_RESOURCE,
+        SentinelRule.IMG,
         entryType = EntryType.IN,
         blockHandler = "flow",
         exceptionsToIgnore = [GroupCmdException::class]
     )
     override fun command(args: MutableList<String>): Msg {
         val img = imageRepository.findFirstByCategoryIsOrderByCreatedDateAsc(Image.Category.GIRL)
-        return if (img != null) {
+        val msg = if (img != null) {
             val path = img.path!!
-            val image = MinioImageUtils.getImage(path)
-            imageRepository.delete(img)
-            MinioImageUtils.removeImage(path)
-            Msg(bytes = image)
+            deleteAfterUseLock.lock(path) {
+                delete {
+                    imageRepository.delete(img)
+                    MinioImageUtils.removeImage(path)
+                }
+                val image = MinioImageUtils.getImage(path)
+                Msg(bytes = image)
+            }
         } else {
             Msg(bytes = query())
         }
+        return msg
     }
 
     protected fun flow(args: MutableList<String>, ex: BlockException): Msg {
@@ -125,7 +124,7 @@ class RandomCuteGirl(
         val randomUrl = restTemplate.getForObject(CUTE_GIRL_URL, RandomUrlBO::class.java, param)
         val resource = restTemplate.getForEntity(randomUrl!!.url, Resource::class.java)
         return resource.body?.contentAsByteArray
-            ?: throw GroupCmdException("非常抱歉，在尝试加载图片时发生了服务错误。尽管已经找到了图片，但由于某些困难，无法顺利加载。")
+            ?: throw GroupCmdException("非常抱歉，在尝试加载图片时发生了错误，无法顺利加载。")
     }
 
     @Recover

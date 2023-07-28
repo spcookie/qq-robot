@@ -1,7 +1,7 @@
 package io.net.image.minio
 
 import io.minio.*
-import io.net.api.util.SpringContextUtil
+import io.net.api.util.SpringContextUtils
 
 /**
  *@author Augenstern
@@ -12,7 +12,7 @@ object MinioImageUtils {
     private const val BUCKET = "image"
 
     private val minio: MinioClient
-        get() = SpringContextUtil.getBean<MinioClient>()
+        get() = SpringContextUtils.getBean<MinioClient>()
 
     private var bucketExists = false
 

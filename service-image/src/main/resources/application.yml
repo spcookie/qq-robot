@@ -30,6 +30,8 @@ dubbo:
 logging:
   pattern:
     dateformat: yyyy-MM-dd hh:mm:ss.SSS
+  level:
+    sql: debug
 minio:
   host: localhost
   port: 9000

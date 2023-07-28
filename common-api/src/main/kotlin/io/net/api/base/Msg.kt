@@ -10,10 +10,10 @@ import io.net.api.MsgResult.Receipt
  *@since 2023/7/13
  */
 data class Msg(
-    val str: String? = null,
-    val bytes: ByteArray? = null,
-    val overdue: Int? = null,
-    val replace: String? = null
+    var str: String? = null,
+    var bytes: ByteArray? = null,
+    var overdue: Int? = null,
+    var replace: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -40,6 +40,7 @@ data class Msg(
                 .build()
         }
         receipt = Receipt.newBuilder().apply {
+            val overdue = overdue
             if (overdue != null) {
                 recall = overdue
             }

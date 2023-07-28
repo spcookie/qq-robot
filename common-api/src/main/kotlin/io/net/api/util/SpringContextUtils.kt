@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
  *@since 2023/7/26
  */
 @Component
-class SpringContextUtil : ApplicationContextAware {
+class SpringContextUtils : ApplicationContextAware {
 
     companion object {
         lateinit var context: ApplicationContext
