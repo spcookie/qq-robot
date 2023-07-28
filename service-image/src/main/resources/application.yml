@@ -35,6 +35,6 @@ minio:
   port: 9000
   accessKey: minioadmin
   secretKey: minioadmin
-rest:
+proxy:
   host: localhost
   port: 62495
