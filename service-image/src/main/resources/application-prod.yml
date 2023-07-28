@@ -18,3 +18,5 @@ minio:
 proxy:
   host: clash
   port: 7890
+app:
+  pixiv-r18-recall-in: 35s

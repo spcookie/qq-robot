@@ -63,9 +63,9 @@ class PixivR18Plus(
             val image = imageRepository.findFirstByCategoryIsOrderByCreatedDateAsc(Image.Category.PIXIV)
             if (image != null) {
                 val path = image.path!!
-                bytes = MinioImageUtils.getImage(path)
                 name = image.name!!
                 url = image.url!!
+                bytes = MinioImageUtils.getImage(path)
                 imageRepository.delete(image)
                 MinioImageUtils.removeImage(path)
             }

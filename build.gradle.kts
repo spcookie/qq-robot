@@ -1,4 +1,5 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -73,7 +74,7 @@ subprojects {
         useJUnitPlatform()
     }
 
-    rootProject.extra["dockerRegistry"] = "local"
+    rootProject.extra["dockerRegistry"] = "175.178.120.75:5000"
 
     docker {
         url.set("npipe:////./pipe/docker_engine")
@@ -94,7 +95,11 @@ subprojects {
     tasks.register("buildDockerImage", DockerBuildImage::class) {
         dependsOn.add(tasks.named<Copy>("copyJar"))
         inputDir.set(file("docker"))
-//        pull.set(true)
+        images.add("${rootProject.extra["dockerRegistry"]}/${project.name}:$version")
+    }
+
+    tasks.register("pushDockerImage", DockerPushImage::class) {
+        dependsOn.add(tasks.named<DockerBuildImage>("buildDockerImage"))
         images.add("${rootProject.extra["dockerRegistry"]}/${project.name}:$version")
     }
 }
