@@ -25,9 +25,7 @@ import org.springframework.retry.annotation.Retryable
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.web.client.RestTemplate
 import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.locks.ReentrantReadWriteLock
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -35,7 +33,7 @@ import kotlin.random.nextInt
  *@author Augenstern
  *@date 2023/6/4
  */
-@Suppress("UNUSED")
+@Suppress("unused")
 @Cmd(cmd = CmdEnum.IMG)
 class RandomCuteGirl(
     @Qualifier("direct") private val restTemplate: RestTemplate,
@@ -46,7 +44,7 @@ class RandomCuteGirl(
     @setparam:Lazy
     lateinit var self: RandomCuteGirl
 
-    private val lockPoll = ConcurrentHashMap<String, ReentrantReadWriteLock>()
+    private val deleteAfterUseLock = DeleteAfterUseLock<String>()
 
     companion object {
         @JvmStatic
@@ -54,13 +52,10 @@ class RandomCuteGirl(
         private const val CUTE_GIRL_URL = "http://3650000.xyz/api/?mode={mode}&type={type}"
     }
 
-
     override fun describe() = """
         ##随机小姐姐##
           img()
     """.trimIndent()
-
-    private val deleteAfterUseLock = DeleteAfterUseLock<String>()
 
     @SentinelResource(
         SentinelRule.IMG,
@@ -118,17 +113,17 @@ class RandomCuteGirl(
         }
     }
 
-    @Retryable(exclude = [GroupCmdException::class], maxAttempts = 3, backoff = Backoff(delay = 1500))
+    @Retryable(noRetryFor = [GroupCmdException::class], maxAttempts = 3, backoff = Backoff(delay = 1500))
     protected fun resolve(mode: String): ByteArray {
         val param = mapOf("mode" to mode, "type" to "json")
         val randomUrl = restTemplate.getForObject(CUTE_GIRL_URL, RandomUrlBO::class.java, param)
         val resource = restTemplate.getForEntity(randomUrl!!.url, Resource::class.java)
         return resource.body?.contentAsByteArray
-            ?: throw GroupCmdException("非常抱歉，在尝试加载图片时发生了错误，无法顺利加载。")
+            ?: throw GroupCmdException("非常抱歉，在尝试加载图片时发生了错误。")
     }
 
     @Recover
-    protected fun fallback(e: Exception): ByteArray {
-        throw GroupCmdException("非常抱歉，目前无法成功找到图片链接。", e)
+    protected fun fallback(e: RuntimeException, mode: String): ByteArray {
+        throw GroupCmdException("非常抱歉，没有找到图片链接。", e)
     }
 }

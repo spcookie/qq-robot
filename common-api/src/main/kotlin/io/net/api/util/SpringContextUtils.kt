@@ -16,7 +16,7 @@ class SpringContextUtils : ApplicationContextAware {
 
         inline fun <reified T> getBean(): T = context.getBean(T::class.java)
 
-        inline fun <reified T> getBean(name: String): T = context.getBean(T::class.java, name)
+        inline fun <reified T> getBean(name: String): T = context.getBean(name, T::class.java)
     }
 
     override fun setApplicationContext(applicationContext: ApplicationContext) {
