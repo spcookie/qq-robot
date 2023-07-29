@@ -1,4 +1,4 @@
-package io.net.image.command
+package io.net.image.config
 
 import com.alibaba.csp.sentinel.slots.block.RuleConstant
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule

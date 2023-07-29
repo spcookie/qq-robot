@@ -8,6 +8,7 @@ import org.apache.dubbo.rpc.Filter
 import org.apache.dubbo.rpc.Invocation
 import org.apache.dubbo.rpc.Invoker
 import org.apache.dubbo.rpc.Result
+import org.slf4j.LoggerFactory
 
 /**
  *@author Augenstern
@@ -15,11 +16,20 @@ import org.apache.dubbo.rpc.Result
  */
 @Activate(CommonConstants.PROVIDER)
 class DubboExceptionFilter : Filter {
+
+    companion object {
+        @JvmStatic
+        private val logger = LoggerFactory.getLogger(DubboExceptionFilter::class.simpleName)
+    }
+
     override fun invoke(invoker: Invoker<*>, invocation: Invocation): Result {
         val result = invoker.invoke(invocation)
         if (result.hasException()) {
             val exception = result.exception
             if (exception is GroupCmdException) {
+                if (exception.cause != null) {
+                    logger.error("business anomaly", exception.cause)
+                }
                 result.exception = null
                 result.value = MsgResult.newBuilder()
                     .setCode(MsgResult.Code.BUSINESS_ANOMALY)

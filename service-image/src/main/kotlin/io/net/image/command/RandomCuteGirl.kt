@@ -11,6 +11,7 @@ import io.net.api.enumeration.CmdEnum
 import io.net.api.exception.GroupCmdException
 import io.net.api.util.DeleteAfterUseLock
 import io.net.image.bo.RandomUrlBO
+import io.net.image.config.SentinelRule
 import io.net.image.entity.Image
 import io.net.image.minio.MinioImageUtils
 import io.net.image.repository.ImageRepository
