@@ -24,9 +24,10 @@ public final class CommandProto {
   static {
       String[] descriptorData = {
               "\n\025command/command.proto\022\020protobuf.comman" +
-                      "d\032\nbase.proto24\n\017GroupCmdService\022!\n\006invo" +
-                      "ke\022\t.GroupCmd\032\n.MsgResult\"\000B\'\n\022io.net.ap" +
-                      "i.commandB\014CommandProtoP\001\240\001\001b\006proto3"
+                      "d\032\nbase.proto29\n\017GroupCmdService\022&\n\006invo" +
+                      "ke\022\t.GroupCmd\032\017.MsgResultChain\"\000B\'\n\022io.n" +
+                      "et.api.commandB\014CommandProtoP\001\240\001\001b\006proto" +
+                      "3"
       };
       descriptor = com.google.protobuf.Descriptors.FileDescriptor
               .internalBuildGeneratedFileFrom(descriptorData,

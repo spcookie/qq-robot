@@ -4,32 +4,18 @@
 package io.net.api;
 
 public interface MsgResultOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:MsgResult)
-    com.google.protobuf.MessageOrBuilder {
-
-  /**
-   * <code>.MsgResult.Code code = 1;</code>
-   *
-   * @return The enum numeric value on the wire for code.
-   */
-  int getCodeValue();
+        // @@protoc_insertion_point(interface_extends:MsgResult)
+        com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.MsgResult.Code code = 1;</code>
-     *
-     * @return The code.
-     */
-    MsgResult.Code getCode();
-
-    /**
-     * <code>string msg = 2;</code>
+     * <code>string msg = 1;</code>
      *
      * @return The msg.
      */
     String getMsg();
 
     /**
-     * <code>string msg = 2;</code>
+     * <code>string msg = 1;</code>
      *
      * @return The bytes for msg.
      */
@@ -37,55 +23,21 @@ public interface MsgResultOrBuilder extends
     getMsgBytes();
 
     /**
-     * <code>.MsgResult.Data data = 3;</code>
+     * <code>.MsgResult.Data data = 2;</code>
      *
      * @return Whether the data field is set.
      */
     boolean hasData();
 
     /**
-     * <code>.MsgResult.Data data = 3;</code>
+     * <code>.MsgResult.Data data = 2;</code>
      *
      * @return The data.
      */
     MsgResult.Data getData();
 
     /**
-     * <code>.MsgResult.Data data = 3;</code>
+     * <code>.MsgResult.Data data = 2;</code>
      */
     MsgResult.DataOrBuilder getDataOrBuilder();
-
-    /**
-     * <code>string foot = 4;</code>
-     *
-     * @return The foot.
-     */
-    String getFoot();
-
-    /**
-     * <code>string foot = 4;</code>
-     *
-     * @return The bytes for foot.
-     */
-    com.google.protobuf.ByteString
-    getFootBytes();
-
-    /**
-     * <code>.MsgResult.Receipt receipt = 5;</code>
-     *
-     * @return Whether the receipt field is set.
-     */
-    boolean hasReceipt();
-
-    /**
-     * <code>.MsgResult.Receipt receipt = 5;</code>
-     *
-     * @return The receipt.
-     */
-    MsgResult.Receipt getReceipt();
-
-    /**
-     * <code>.MsgResult.Receipt receipt = 5;</code>
-     */
-    MsgResult.ReceiptOrBuilder getReceiptOrBuilder();
 }

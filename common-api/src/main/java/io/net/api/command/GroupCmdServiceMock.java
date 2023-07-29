@@ -2,6 +2,7 @@ package io.net.api.command;
 
 import io.net.api.GroupCmd;
 import io.net.api.MsgResult;
+import io.net.api.MsgResultChain;
 
 /**
  * @author Augenstern
@@ -9,7 +10,8 @@ import io.net.api.MsgResult;
  */
 public class GroupCmdServiceMock implements GroupCmdService {
     @Override
-    public MsgResult invoke(GroupCmd request) {
-        return MsgResult.newBuilder().setCode(MsgResult.Code.RPC_ANOMALY).setMsg("服务不可以，请稍后再试").build();
+    public MsgResultChain invoke(GroupCmd request) {
+        MsgResult msgResult = MsgResult.newBuilder().setMsg("服务不可以，请稍后再试").build();
+        return MsgResultChain.newBuilder().setCode(MsgResultChain.Code.RPC_ANOMALY).addMsgResult(msgResult).build();
     }
 }

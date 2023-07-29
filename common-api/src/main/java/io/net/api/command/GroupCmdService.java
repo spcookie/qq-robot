@@ -26,9 +26,9 @@ public interface GroupCmdService extends org.apache.dubbo.rpc.model.DubboStub {
     String JAVA_SERVICE_NAME = "io.net.api.command.GroupCmdService";
     String SERVICE_NAME = "protobuf.command.GroupCmdService";
 
-    io.net.api.MsgResult invoke(io.net.api.GroupCmd request);
+    io.net.api.MsgResultChain invoke(io.net.api.GroupCmd request);
 
-    default CompletableFuture<io.net.api.MsgResult> invokeAsync(io.net.api.GroupCmd request) {
+    default CompletableFuture<io.net.api.MsgResultChain> invokeAsync(io.net.api.GroupCmd request) {
         return CompletableFuture.completedFuture(invoke(request));
     }
 
@@ -36,7 +36,7 @@ public interface GroupCmdService extends org.apache.dubbo.rpc.model.DubboStub {
      * This server stream type unary method is <b>only</b> used for generated stub to support async unary method.
      * It will not be called if you are NOT using Dubbo3 generated triple stub and <b>DO NOT</b> implement this method.
      */
-    default void invoke(io.net.api.GroupCmd request, StreamObserver<io.net.api.MsgResult> responseObserver) {
+    default void invoke(io.net.api.GroupCmd request, StreamObserver<io.net.api.MsgResultChain> responseObserver) {
         invokeAsync(request).whenComplete((r, t) -> {
             if (t != null) {
                 responseObserver.onError(t);

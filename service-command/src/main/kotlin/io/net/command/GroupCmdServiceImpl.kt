@@ -3,6 +3,7 @@ package io.net.command
 import com.google.protobuf.Empty
 import io.net.api.GroupCmd
 import io.net.api.MsgResult
+import io.net.api.MsgResultChain
 import io.net.api.command.DubboGroupCmdServiceTriple
 import io.net.api.enumeration.CmdEnum
 import io.net.api.enumeration.CmdType
@@ -37,13 +38,13 @@ class GroupCmdServiceImpl(
         private val logger: Logger = LoggerFactory.getLogger(this::class.simpleName)
     }
 
-    override fun invoke(request: GroupCmd): MsgResult {
+    override fun invoke(request: GroupCmd): MsgResultChain {
         val cmd = request.cmd
         val ats: List<Long> = request.atsList
         if (request.botId !in ats) {
-            return MsgResult.getDefaultInstance()
+            return MsgResultChain.getDefaultInstance()
         }
-        val result: MsgResult
+        val result: MsgResultChain
         if (cmd.isBlank()) {
             result = menu(request.groupId)
         } else {
@@ -52,11 +53,11 @@ class GroupCmdServiceImpl(
                     val enum = CmdEnum.valueOf(cmd)
                     when (enum.type) {
                         CmdType.TEXT -> {
-                            MsgResult.getDefaultInstance()
+                            MsgResultChain.getDefaultInstance()
                         }
 
                         CmdType.CRAWLING -> {
-                            MsgResult.getDefaultInstance()
+                            MsgResultChain.getDefaultInstance()
                         }
 
                         CmdType.IMAGE -> {
@@ -66,7 +67,8 @@ class GroupCmdServiceImpl(
                         CmdType.OTHER -> {
                             when (enum) {
                                 CmdEnum.HELP -> {
-                                    MsgResult.newBuilder().setMsg(help()).build()
+                                    MsgResultChain.newBuilder()
+                                        .addMsgResult(MsgResult.newBuilder().setMsg(help()).build()).build()
                                 }
 
                                 else -> {
@@ -82,13 +84,13 @@ class GroupCmdServiceImpl(
                 }
             }
         }
-        return result.toBuilder().setFoot(foot()).build()
+        return result.toBuilder().putMeta("foot", foot()).build()
     }
 
     private inline fun authentication(
         request: GroupCmd,
-        crossinline block: () -> MsgResult
-    ): MsgResult {
+        crossinline block: () -> MsgResultChain
+    ): MsgResultChain {
         val permission = cmdProperty.permissionWithStatus
         val sudo = cmdProperty.sudo
         val predicate = request.senderId in sudo
@@ -103,7 +105,7 @@ class GroupCmdServiceImpl(
         }
     }
 
-    private fun menu(groupId: Long, cmd: String? = null): MsgResult {
+    private fun menu(groupId: Long, cmd: String? = null): MsgResultChain {
         val manifest = buildList {
             try {
                 add(imageService.manifest(Empty.getDefaultInstance()))
@@ -134,8 +136,8 @@ class GroupCmdServiceImpl(
                     """.trimIndent()
                 )
             }
-            MsgResult.newBuilder().setMsg(str).build()
-        } ?: MsgResult.getDefaultInstance()
+            MsgResultChain.newBuilder().addMsgResult(MsgResult.newBuilder().setMsg(str).build()).build()
+        } ?: MsgResultChain.getDefaultInstance()
     }
 
     private fun help() = """
@@ -150,14 +152,15 @@ class GroupCmdServiceImpl(
 
     private fun foot() = """
             
-              ฅฅฅฅฅฅฅฅ
+               ฅฅฅฅฅฅฅฅ
             ∷ @${cmdProperty.name}
             ∷ v${cmdProperty.version}
             ∷ ${cmdProperty.poweredBy}
         """.trimIndent()
 
-    private fun error(cmd: String): MsgResult {
-        return MsgResult.newBuilder().setCode(MsgResult.Code.RPC_ANOMALY).setMsg("「${cmd}」命令不可用，请稍后再试")
-            .build()
+    private fun error(cmd: String): MsgResultChain {
+        return MsgResultChain.newBuilder()
+            .setCode(MsgResultChain.Code.RPC_ANOMALY)
+            .addMsgResult(MsgResult.newBuilder().setMsg("「${cmd}」命令不可用，请稍后再试").build()).build()
     }
 }

@@ -10,5 +10,5 @@ package protobuf.command;
 import "base.proto";
 
 service GroupCmdService {
-  rpc invoke (GroupCmd) returns (MsgResult) {}
+  rpc invoke (GroupCmd) returns (MsgResultChain) {}
 }

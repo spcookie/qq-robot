@@ -11,7 +11,7 @@ import "base.proto";
 import "google/protobuf/empty.proto";
 
 service WorkService {
-  rpc doWork (GroupCmd) returns (MsgResult);
+  rpc doWork (GroupCmd) returns (MsgResultChain);
   rpc manifest (google.protobuf.Empty) returns (Menu);
 }
 

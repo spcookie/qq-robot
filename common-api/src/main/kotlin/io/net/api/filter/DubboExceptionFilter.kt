@@ -1,6 +1,7 @@
 package io.net.api.filter
 
 import io.net.api.MsgResult
+import io.net.api.MsgResultChain
 import io.net.api.exception.GroupCmdException
 import org.apache.dubbo.common.constants.CommonConstants
 import org.apache.dubbo.common.extension.Activate
@@ -31,10 +32,13 @@ class DubboExceptionFilter : Filter {
                     logger.error("business anomaly", exception.cause)
                 }
                 result.exception = null
-                result.value = MsgResult.newBuilder()
-                    .setCode(MsgResult.Code.BUSINESS_ANOMALY)
-                    .setMsg(exception.message)
-                    .build()
+                result.value = MsgResultChain.newBuilder()
+                    .setCode(MsgResultChain.Code.BUSINESS_ANOMALY)
+                    .addMsgResult(
+                        MsgResult.newBuilder()
+                            .setMsg(exception.message)
+                            .build()
+                    ).build()
             }
         }
         return result

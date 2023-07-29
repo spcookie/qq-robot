@@ -23,6 +23,21 @@ public final class BaseProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_GroupCmd_fieldAccessorTable;
     static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_MsgResultChain_descriptor;
+    static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_MsgResultChain_fieldAccessorTable;
+    static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_MsgResultChain_MetaEntry_descriptor;
+    static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_MsgResultChain_MetaEntry_fieldAccessorTable;
+    static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_MsgResultChain_Receipt_descriptor;
+    static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internal_static_MsgResultChain_Receipt_fieldAccessorTable;
+    static final com.google.protobuf.Descriptors.Descriptor
             internal_static_MsgResult_descriptor;
     static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -32,11 +47,6 @@ public final class BaseProto {
     static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internal_static_MsgResult_Data_fieldAccessorTable;
-    static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_MsgResult_Receipt_descriptor;
-    static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_MsgResult_Receipt_fieldAccessorTable;
 
     public static com.google.protobuf.Descriptors.FileDescriptor
     getDescriptor() {
@@ -50,17 +60,20 @@ public final class BaseProto {
         String[] descriptorData = {
                 "\n\nbase.proto\"d\n\010GroupCmd\022\013\n\003ats\030\001 \003(\004\022\017\n" +
                         "\007groupId\030\002 \001(\004\022\r\n\005botId\030\003 \001(\004\022\020\n\010senderI" +
-                        "d\030\004 \001(\004\022\013\n\003cmd\030\005 \001(\t\022\014\n\004args\030\006 \003(\t\"\322\002\n\tM" +
-                        "sgResult\022\035\n\004code\030\001 \001(\0162\017.MsgResult.Code\022" +
-                        "\013\n\003msg\030\002 \001(\t\022\035\n\004data\030\003 \001(\0132\017.MsgResult.D" +
-                        "ata\022\014\n\004foot\030\004 \001(\t\022#\n\007receipt\030\005 \001(\0132\022.Msg" +
-                        "Result.Receipt\032c\n\004Data\022\'\n\004type\030\001 \001(\0162\031.M" +
-                        "sgResult.Data.MediaType\022\r\n\005bytes\030\002 \001(\014\"#" +
-                        "\n\tMediaType\022\013\n\007PICTURE\020\000\022\t\n\005AUDIO\020\001\032+\n\007R" +
-                        "eceipt\022\016\n\006recall\030\001 \001(\005\022\020\n\010fallback\030\002 \001(\t" +
-                        "\"5\n\004Code\022\006\n\002OK\020\000\022\024\n\020BUSINESS_ANOMALY\020\001\022\017" +
-                        "\n\013RPC_ANOMALY\020\002B\034\n\nio.net.apiB\tBaseProto" +
-                        "P\001\240\001\001b\006proto3"
+                        "d\030\004 \001(\004\022\013\n\003cmd\030\005 \001(\t\022\014\n\004args\030\006 \003(\t\"\304\002\n\016M" +
+                        "sgResultChain\022\"\n\004code\030\001 \001(\0162\024.MsgResultC" +
+                        "hain.Code\022\013\n\003msg\030\002 \001(\t\022\035\n\tmsgResult\030\003 \003(" +
+                        "\0132\n.MsgResult\022(\n\007receipt\030\004 \001(\0132\027.MsgResu" +
+                        "ltChain.Receipt\022\'\n\004meta\030\005 \003(\0132\031.MsgResul" +
+                        "tChain.MetaEntry\032+\n\tMetaEntry\022\013\n\003key\030\001 \001" +
+                        "(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032+\n\007Receipt\022\016\n\006reca" +
+                        "ll\030\001 \001(\005\022\020\n\010fallback\030\002 \001(\t\"5\n\004Code\022\006\n\002OK" +
+                        "\020\000\022\024\n\020BUSINESS_ANOMALY\020\001\022\017\n\013RPC_ANOMALY\020" +
+                        "\002\"\234\001\n\tMsgResult\022\013\n\003msg\030\001 \001(\t\022\035\n\004data\030\002 \001" +
+                        "(\0132\017.MsgResult.Data\032c\n\004Data\022\'\n\004type\030\001 \001(" +
+                        "\0162\031.MsgResult.Data.MediaType\022\r\n\005bytes\030\002 " +
+                        "\001(\014\"#\n\tMediaType\022\013\n\007PICTURE\020\000\022\t\n\005AUDIO\020\001" +
+                        "B\034\n\nio.net.apiB\tBaseProtoP\001\240\001\001b\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
@@ -72,24 +85,36 @@ public final class BaseProto {
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_GroupCmd_descriptor,
                 new String[]{"Ats", "GroupId", "BotId", "SenderId", "Cmd", "Args",});
-        internal_static_MsgResult_descriptor =
+        internal_static_MsgResultChain_descriptor =
                 getDescriptor().getMessageTypes().get(1);
+        internal_static_MsgResultChain_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_MsgResultChain_descriptor,
+                new String[]{"Code", "Msg", "MsgResult", "Receipt", "Meta",});
+        internal_static_MsgResultChain_MetaEntry_descriptor =
+                internal_static_MsgResultChain_descriptor.getNestedTypes().get(0);
+        internal_static_MsgResultChain_MetaEntry_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_MsgResultChain_MetaEntry_descriptor,
+                new String[]{"Key", "Value",});
+        internal_static_MsgResultChain_Receipt_descriptor =
+                internal_static_MsgResultChain_descriptor.getNestedTypes().get(1);
+        internal_static_MsgResultChain_Receipt_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_MsgResultChain_Receipt_descriptor,
+                new String[]{"Recall", "Fallback",});
+        internal_static_MsgResult_descriptor =
+                getDescriptor().getMessageTypes().get(2);
         internal_static_MsgResult_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_MsgResult_descriptor,
-                new String[]{"Code", "Msg", "Data", "Foot", "Receipt",});
+                new String[]{"Msg", "Data",});
         internal_static_MsgResult_Data_descriptor =
                 internal_static_MsgResult_descriptor.getNestedTypes().get(0);
         internal_static_MsgResult_Data_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
                 internal_static_MsgResult_Data_descriptor,
                 new String[]{"Type", "Bytes",});
-        internal_static_MsgResult_Receipt_descriptor =
-                internal_static_MsgResult_descriptor.getNestedTypes().get(1);
-        internal_static_MsgResult_Receipt_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_MsgResult_Receipt_descriptor,
-                new String[]{"Recall", "Fallback",});
     }
 
     // @@protoc_insertion_point(outer_class_scope)

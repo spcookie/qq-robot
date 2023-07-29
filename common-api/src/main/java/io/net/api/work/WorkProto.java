@@ -37,17 +37,18 @@ public final class WorkProto {
                     "roto\032\033google/protobuf/empty.proto\"`\n\004Men" +
                     "u\022+\n\004menu\030\001 \003(\0132\035.protobuf.work.Menu.Men" +
                     "uEntry\032+\n\tMenuEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005valu" +
-                    "e\030\002 \001(\t:\0028\0012g\n\013WorkService\022\037\n\006doWork\022\t.G" +
-                    "roupCmd\032\n.MsgResult\0227\n\010manifest\022\026.google" +
-                    ".protobuf.Empty\032\023.protobuf.work.MenuB!\n\017" +
-                    "io.net.api.workB\tWorkProtoP\001\240\001\001b\006proto3"
+                    "e\030\002 \001(\t:\0028\0012l\n\013WorkService\022$\n\006doWork\022\t.G" +
+                    "roupCmd\032\017.MsgResultChain\0227\n\010manifest\022\026.g" +
+                    "oogle.protobuf.Empty\032\023.protobuf.work.Men" +
+                    "uB!\n\017io.net.api.workB\tWorkProtoP\001\240\001\001b\006pr" +
+                    "oto3"
     };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-          io.net.api.BaseProto.getDescriptor(),
-          com.google.protobuf.EmptyProto.getDescriptor(),
-        });
+      descriptor = com.google.protobuf.Descriptors.FileDescriptor
+              .internalBuildGeneratedFileFrom(descriptorData,
+                      new com.google.protobuf.Descriptors.FileDescriptor[]{
+                              io.net.api.BaseProto.getDescriptor(),
+                              com.google.protobuf.EmptyProto.getDescriptor(),
+                      });
       internal_static_protobuf_work_Menu_descriptor =
               getDescriptor().getMessageTypes().get(0);
       internal_static_protobuf_work_Menu_fieldAccessorTable = new
@@ -61,7 +62,7 @@ public final class WorkProto {
               internal_static_protobuf_work_Menu_MenuEntry_descriptor,
               new String[]{"Key", "Value",});
       io.net.api.BaseProto.getDescriptor();
-    com.google.protobuf.EmptyProto.getDescriptor();
+      com.google.protobuf.EmptyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

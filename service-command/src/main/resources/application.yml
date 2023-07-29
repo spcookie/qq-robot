@@ -19,6 +19,6 @@ logging:
   pattern:
     dateformat: yyyy-MM-dd hh:mm:ss.SSS
 cmd:
-  name: "augenstern-bot"
+  name: "Augenstern bot"
   version: "3.0.0"
   powered-by: "mirai | spring | dubbo"

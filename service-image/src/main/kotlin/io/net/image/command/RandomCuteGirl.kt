@@ -4,9 +4,11 @@ package io.net.image.command
 import com.alibaba.csp.sentinel.EntryType
 import com.alibaba.csp.sentinel.annotation.SentinelResource
 import com.alibaba.csp.sentinel.slots.block.BlockException
+import com.google.protobuf.ByteString
+import io.net.api.MsgResult
+import io.net.api.MsgResultChain
 import io.net.api.base.AbstractCmd
 import io.net.api.base.Cmd
-import io.net.api.base.Msg
 import io.net.api.enumeration.CmdEnum
 import io.net.api.exception.GroupCmdException
 import io.net.api.util.DeleteAfterUseLock
@@ -64,7 +66,7 @@ class RandomCuteGirl(
         blockHandler = "flow",
         exceptionsToIgnore = [GroupCmdException::class]
     )
-    override fun command(args: MutableList<String>): Msg {
+    override fun command(args: MutableList<String>): MsgResultChain {
         val img = imageRepository.findFirstByCategoryIsOrderByCreatedDateAsc(Image.Category.GIRL)
         val msg = if (img != null) {
             val path = img.path!!
@@ -74,15 +76,26 @@ class RandomCuteGirl(
                     MinioImageUtils.removeImage(path)
                 }
                 val image = MinioImageUtils.getImage(path)
-                Msg(bytes = image)
+                createMsg(image)
             }
         } else {
-            Msg(bytes = query())
+            createMsg(query())
         }
         return msg
     }
 
-    protected fun flow(args: MutableList<String>, ex: BlockException): Msg {
+    private fun createMsg(bytes: ByteArray): MsgResultChain = MsgResultChain.newBuilder()
+        .addMsgResult(
+            MsgResult.newBuilder()
+                .setData(
+                    MsgResult.Data.newBuilder()
+                        .setType(MsgResult.Data.MediaType.PICTURE)
+                        .setBytes(ByteString.copyFrom(bytes))
+                        .build()
+                ).build()
+        ).build()
+
+    protected fun flow(args: MutableList<String>, ex: BlockException): MsgResultChain {
         throw GroupCmdException("看小姐姐太频繁了，休息一会吧")
     }
 

@@ -14,18 +14,28 @@ message GroupCmd {
   repeated string args = 6;
 }
 
-message MsgResult {
+message MsgResultChain {
   Code code = 1;
   string msg = 2;
-  Data data = 3;
-  string foot = 4;
-  Receipt receipt = 5;
+  repeated MsgResult msgResult = 3;
+  Receipt receipt = 4;
+  map<string, string> meta = 5;
 
   enum Code {
     OK = 0;
     BUSINESS_ANOMALY = 1;
     RPC_ANOMALY = 2;
   }
+
+  message Receipt {
+    int32 recall = 1;
+    string fallback = 2;
+  }
+}
+
+message MsgResult {
+  string msg = 1;
+  Data data = 2;
 
   message Data {
     MediaType type = 1;
@@ -35,10 +45,5 @@ message MsgResult {
       PICTURE = 0;
       AUDIO = 1;
     }
-  }
-
-  message Receipt {
-    int32 recall = 1;
-    string fallback = 2;
   }
 }

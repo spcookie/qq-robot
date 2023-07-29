@@ -2,7 +2,7 @@ package io.net.image.service
 
 import com.google.protobuf.Empty
 import io.net.api.GroupCmd
-import io.net.api.MsgResult
+import io.net.api.MsgResultChain
 import io.net.api.base.AbstractCmd
 import io.net.api.base.Cmd
 import io.net.api.enumeration.ServiceGroup
@@ -31,11 +31,9 @@ class ImageServiceImpl(private val cmds: List<AbstractCmd>) : DubboWorkServiceTr
         }
     }
 
-    override fun doWork(request: GroupCmd): MsgResult {
-        val result = matchedCmds[request.cmd]?.run {
-            command(args().strategy(request.argsList)).proto()
-        } ?: MsgResult.getDefaultInstance()
-        return result
+    override fun doWork(request: GroupCmd): MsgResultChain {
+        return matchedCmds[request.cmd]?.run { command(args().strategy(request.argsList)) }
+            ?: MsgResultChain.getDefaultInstance()
     }
 
     override fun manifest(request: Empty?): Menu {

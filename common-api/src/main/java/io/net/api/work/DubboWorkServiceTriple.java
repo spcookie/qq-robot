@@ -52,19 +52,19 @@ public final class DubboWorkServiceTriple {
     }
 
     private static final StubMethodDescriptor doWorkMethod = new StubMethodDescriptor("doWork",
-            io.net.api.GroupCmd.class, io.net.api.MsgResult.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            io.net.api.GroupCmd.class, io.net.api.MsgResultChain.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
             obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), io.net.api.GroupCmd::parseFrom,
-            io.net.api.MsgResult::parseFrom);
+            io.net.api.MsgResultChain::parseFrom);
 
     private static final StubMethodDescriptor doWorkAsyncMethod = new StubMethodDescriptor("doWork",
             io.net.api.GroupCmd.class, CompletableFuture.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
             obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), io.net.api.GroupCmd::parseFrom,
-            io.net.api.MsgResult::parseFrom);
+            io.net.api.MsgResultChain::parseFrom);
 
     private static final StubMethodDescriptor doWorkProxyAsyncMethod = new StubMethodDescriptor("doWorkAsync",
-            io.net.api.GroupCmd.class, io.net.api.MsgResult.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
+            io.net.api.GroupCmd.class, io.net.api.MsgResultChain.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
             obj -> ((Message) obj).toByteArray(), obj -> ((Message) obj).toByteArray(), io.net.api.GroupCmd::parseFrom,
-            io.net.api.MsgResult::parseFrom);
+            io.net.api.MsgResultChain::parseFrom);
 
     private static final StubMethodDescriptor manifestMethod = new StubMethodDescriptor("manifest",
             com.google.protobuf.Empty.class, Menu.class, serviceDescriptor, MethodDescriptor.RpcType.UNARY,
@@ -90,16 +90,16 @@ public final class DubboWorkServiceTriple {
         }
 
         @Override
-        public io.net.api.MsgResult doWork(io.net.api.GroupCmd request) {
+        public io.net.api.MsgResultChain doWork(io.net.api.GroupCmd request) {
             return StubInvocationUtil.unaryCall(invoker, doWorkMethod, request);
         }
 
-        public CompletableFuture<io.net.api.MsgResult> doWorkAsync(io.net.api.GroupCmd request) {
+        public CompletableFuture<io.net.api.MsgResultChain> doWorkAsync(io.net.api.GroupCmd request) {
             return StubInvocationUtil.unaryCall(invoker, doWorkAsyncMethod, request);
         }
 
         @Override
-        public void doWork(io.net.api.GroupCmd request, StreamObserver<io.net.api.MsgResult> responseObserver) {
+        public void doWork(io.net.api.GroupCmd request, StreamObserver<io.net.api.MsgResultChain> responseObserver) {
             StubInvocationUtil.unaryCall(invoker, doWorkMethod, request, responseObserver);
         }
 
@@ -150,9 +150,9 @@ public final class DubboWorkServiceTriple {
             pathResolver.addNativeStub("/" + SERVICE_NAME + "/manifest");
             pathResolver.addNativeStub("/" + SERVICE_NAME + "/manifestAsync");
 
-            BiConsumer<io.net.api.GroupCmd, StreamObserver<io.net.api.MsgResult>> doWorkFunc = this::doWork;
+            BiConsumer<io.net.api.GroupCmd, StreamObserver<io.net.api.MsgResultChain>> doWorkFunc = this::doWork;
             handlers.put(doWorkMethod.getMethodName(), new UnaryStubMethodHandler<>(doWorkFunc));
-            BiConsumer<io.net.api.GroupCmd, StreamObserver<io.net.api.MsgResult>> doWorkAsyncFunc = syncToAsync(this::doWork);
+            BiConsumer<io.net.api.GroupCmd, StreamObserver<io.net.api.MsgResultChain>> doWorkAsyncFunc = syncToAsync(this::doWork);
             handlers.put(doWorkProxyAsyncMethod.getMethodName(), new UnaryStubMethodHandler<>(doWorkAsyncFunc));
             BiConsumer<com.google.protobuf.Empty, StreamObserver<Menu>> manifestFunc = this::manifest;
             handlers.put(manifestMethod.getMethodName(), new UnaryStubMethodHandler<>(manifestFunc));
@@ -165,7 +165,7 @@ public final class DubboWorkServiceTriple {
 
 
         @Override
-        public io.net.api.MsgResult doWork(io.net.api.GroupCmd request) {
+        public io.net.api.MsgResultChain doWork(io.net.api.GroupCmd request) {
             throw unimplementedMethodException(doWorkMethod);
         }
 

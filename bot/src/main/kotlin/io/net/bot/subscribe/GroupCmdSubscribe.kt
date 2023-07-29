@@ -2,18 +2,18 @@ package io.net.bot.subscribe
 
 import io.net.api.GroupCmd
 import io.net.api.MsgResult
+import io.net.api.MsgResultChain
 import io.net.api.command.GroupCmdService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import net.mamoe.mirai.contact.Group
 import net.mamoe.mirai.event.EventHandler
 import net.mamoe.mirai.event.ListenerHost
 import net.mamoe.mirai.event.events.GroupMessageEvent
-import net.mamoe.mirai.message.MessageReceipt
 import net.mamoe.mirai.message.data.At
 import net.mamoe.mirai.message.data.MessageChain
 import net.mamoe.mirai.message.data.MessageSource.Key.quote
 import net.mamoe.mirai.message.data.PlainText
+import net.mamoe.mirai.message.data.buildMessageChain
 import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
 import org.apache.dubbo.common.constants.ClusterRules
 import org.apache.dubbo.common.constants.LoadbalanceRules
@@ -36,7 +36,11 @@ class GroupCmdSubscribe(
     ) private val groupCmdService: GroupCmdService
 ) {
 
-    private suspend fun GroupMessageEvent.call(ats: List<Long>, cmd: String, vararg args: String): Result<MsgResult> {
+    private suspend fun GroupMessageEvent.call(
+        ats: List<Long>,
+        cmd: String,
+        vararg args: String
+    ): Result<MsgResultChain> {
         return runCatching {
             withContext(Dispatchers.IO) {
                 val groupCmd = GroupCmd.newBuilder()
@@ -86,8 +90,8 @@ class GroupCmdSubscribe(
         suspend fun GroupMessageEvent.onMessage() {
             getCmdAndArgs(message).also { (cmd, args) ->
                 call(getAts(message), cmd, *args.toTypedArray())
-                    .onSuccess { result ->
-                        runCatching { send(result) }.onFailure {
+                    .onSuccess { results ->
+                        runCatching { send(results) }.onFailure {
                             sendInternalError(it.message)
                             throw it
                         }
@@ -95,56 +99,59 @@ class GroupCmdSubscribe(
             }
         }
 
-        private suspend fun GroupMessageEvent.send(result: MsgResult) {
-            val code = result.code!!
-            val msg = result.msg
-            val foot = result.foot
-            val data = result.data
-            val mediaType = data.type
-            val bytes = data.bytes
-            val receipt = result.receipt
-            val recall = receipt.recall
-            val fallback = receipt.fallback
-            when (code) {
-                MsgResult.Code.OK -> {
-                    // AUDIO not implemented
-                    if (mediaType == MsgResult.Data.MediaType.PICTURE) {
-                        var messageReceipt: MessageReceipt<Group>? = null
-                        if (msg.isNotBlank() && !bytes.isEmpty) {
-                            val image = bytes.newInput().use { it.uploadAsImage(sender) }
-                            messageReceipt = group.sendMessage(message.quote() + msg + image + foot)
-                        } else if (msg.isNotBlank()) {
-                            messageReceipt = group.sendMessage(message.quote() + msg + foot)
-                        } else if (!bytes.isEmpty) {
-                            val image = bytes.newInput().use { it.uploadAsImage(sender) }
-                            messageReceipt = group.sendMessage(message.quote() + image + foot)
-                        }
-                        if (messageReceipt != null) {
-                            if (recall > 0) {
-                                messageReceipt.recallIn(recall.toLong())
-                            }
-                            val ids = messageReceipt.source.ids
-                            if (ids.isEmpty() || ids.any { it < 0 }) {
-                                logger.warn("消息发送失败，账号可能已被风控")
-                                if (fallback.isNotBlank()) {
-                                    val fallbackMsg = group.sendMessage(message.quote() + fallback + foot)
-                                    if (recall > 0) {
-                                        fallbackMsg.recallIn(recall.toLong())
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                MsgResult.Code.BUSINESS_ANOMALY -> group.sendMessage(message.quote() + "•́‸ก " + msg + foot)
-                MsgResult.Code.RPC_ANOMALY -> group.sendMessage(message.quote() + "＞﹏＜" + msg)
-                MsgResult.Code.UNRECOGNIZED -> logger.error("UNRECOGNIZED: " + result.unknownFields.toString())
+        private suspend fun GroupMessageEvent.send(list: MsgResultChain) {
+            val default = list.getMsgResult(0)
+            when (list.code!!) {
+                MsgResultChain.Code.OK -> sendOkMessage(list)
+                MsgResultChain.Code.BUSINESS_ANOMALY -> group.sendMessage(message.quote() + "•́‸ก " + default.msg)
+                MsgResultChain.Code.RPC_ANOMALY -> group.sendMessage(message.quote() + "＞﹏＜" + default.msg)
+                MsgResultChain.Code.UNRECOGNIZED -> logger.error("UNRECOGNIZED: " + default.unknownFields.toString())
             }
         }
 
         private suspend fun GroupMessageEvent.sendInternalError(msg: String?) {
             group.sendMessage(message.quote() + "·﹏· 内部错误：" + msg.toString())
+        }
+
+        private suspend fun GroupMessageEvent.sendOkMessage(list: MsgResultChain) {
+            val foot = list.metaMap["foot"].toString()
+            val messages = list.msgResultList
+            val messageChain = buildMessageChain {
+                messages.forEach { result ->
+                    add(message.quote())
+                    val msg = result.msg
+                    val data = result.data
+                    val mediaType = data.type
+                    val bytes = data.bytes.toByteArray()
+                    if (msg.isNotBlank()) {
+                        add(msg)
+                    }
+                    if (bytes.isNotEmpty()) {
+                        // audio not implemented
+                        if (mediaType == MsgResult.Data.MediaType.PICTURE) {
+                            add(bytes.inputStream().use { it.uploadAsImage(sender) })
+                        }
+                    }
+                }
+                add(foot)
+            }
+            val mr = group.sendMessage(messageChain)
+            val receipt = list.receipt
+            val recall = receipt.recall
+            val fallback = receipt.fallback
+            if (recall > 0) {
+                mr.recallIn(recall.toLong())
+            }
+            val ids = mr.source.ids
+            if (ids.isEmpty() || ids.any { it < 0 }) {
+                logger.warn("消息发送失败，账号可能已被风控")
+                if (fallback.isNotBlank()) {
+                    val fallbackMsg = group.sendMessage(message.quote() + fallback + foot)
+                    if (recall > 0) {
+                        fallbackMsg.recallIn(recall.toLong())
+                    }
+                }
+            }
         }
     }
 }
