@@ -1,4 +1,4 @@
-package io.net.api.enumeration
+package io.net.api.enum
 
 /**
  *@author Augenstern
@@ -6,4 +6,5 @@ package io.net.api.enumeration
  */
 object ServiceGroup {
     const val IMAGE = "image"
+    const val TEXT = "text"
 }

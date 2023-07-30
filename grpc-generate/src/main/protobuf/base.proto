@@ -16,10 +16,9 @@ message GroupCmd {
 
 message MsgResultChain {
   Code code = 1;
-  string msg = 2;
-  repeated MsgResult msgResult = 3;
-  Receipt receipt = 4;
-  map<string, string> meta = 5;
+  repeated MsgResult msgResult = 2;
+  Receipt receipt = 3;
+  map<string, string> meta = 4;
 
   enum Code {
     OK = 0;

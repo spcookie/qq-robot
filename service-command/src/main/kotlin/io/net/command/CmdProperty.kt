@@ -1,6 +1,6 @@
 package io.net.command
 
-import io.net.api.enumeration.CmdEnum
+import io.net.api.enum.CmdEnum
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.validation.annotation.Validated
 

@@ -43,26 +43,26 @@ public final class WorkProto {
                     "uB!\n\017io.net.api.workB\tWorkProtoP\001\240\001\001b\006pr" +
                     "oto3"
     };
-      descriptor = com.google.protobuf.Descriptors.FileDescriptor
-              .internalBuildGeneratedFileFrom(descriptorData,
-                      new com.google.protobuf.Descriptors.FileDescriptor[]{
-                              io.net.api.BaseProto.getDescriptor(),
-                              com.google.protobuf.EmptyProto.getDescriptor(),
-                      });
-      internal_static_protobuf_work_Menu_descriptor =
-              getDescriptor().getMessageTypes().get(0);
-      internal_static_protobuf_work_Menu_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_protobuf_work_Menu_descriptor,
-              new String[]{"Menu",});
-      internal_static_protobuf_work_Menu_MenuEntry_descriptor =
-              internal_static_protobuf_work_Menu_descriptor.getNestedTypes().get(0);
-      internal_static_protobuf_work_Menu_MenuEntry_fieldAccessorTable = new
-              com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-              internal_static_protobuf_work_Menu_MenuEntry_descriptor,
-              new String[]{"Key", "Value",});
-      io.net.api.BaseProto.getDescriptor();
-      com.google.protobuf.EmptyProto.getDescriptor();
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+            .internalBuildGeneratedFileFrom(descriptorData,
+                    new com.google.protobuf.Descriptors.FileDescriptor[]{
+                            io.net.api.BaseProto.getDescriptor(),
+                            com.google.protobuf.EmptyProto.getDescriptor(),
+                    });
+    internal_static_protobuf_work_Menu_descriptor =
+            getDescriptor().getMessageTypes().get(0);
+    internal_static_protobuf_work_Menu_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_protobuf_work_Menu_descriptor,
+            new String[]{"Menu",});
+    internal_static_protobuf_work_Menu_MenuEntry_descriptor =
+            internal_static_protobuf_work_Menu_descriptor.getNestedTypes().get(0);
+    internal_static_protobuf_work_Menu_MenuEntry_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_protobuf_work_Menu_MenuEntry_descriptor,
+            new String[]{"Key", "Value",});
+    io.net.api.BaseProto.getDescriptor();
+    com.google.protobuf.EmptyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

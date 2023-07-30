@@ -20,5 +20,3 @@ class ImageApplication
 fun main(args: Array<String>) {
     runApplication<ImageApplication>(*args)
 }
-
-val aaa = "image"

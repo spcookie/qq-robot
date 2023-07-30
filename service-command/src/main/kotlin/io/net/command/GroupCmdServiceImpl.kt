@@ -5,9 +5,9 @@ import io.net.api.GroupCmd
 import io.net.api.MsgResult
 import io.net.api.MsgResultChain
 import io.net.api.command.DubboGroupCmdServiceTriple
-import io.net.api.enumeration.CmdEnum
-import io.net.api.enumeration.CmdType
-import io.net.api.enumeration.ServiceGroup
+import io.net.api.enum.CmdEnum
+import io.net.api.enum.CmdType
+import io.net.api.enum.ServiceGroup
 import io.net.api.work.WorkService
 import org.apache.dubbo.common.constants.ClusterRules
 import org.apache.dubbo.common.constants.LoadbalanceRules

@@ -22,19 +22,19 @@ public final class CommandProto {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-      String[] descriptorData = {
-              "\n\025command/command.proto\022\020protobuf.comman" +
-                      "d\032\nbase.proto29\n\017GroupCmdService\022&\n\006invo" +
-                      "ke\022\t.GroupCmd\032\017.MsgResultChain\"\000B\'\n\022io.n" +
-                      "et.api.commandB\014CommandProtoP\001\240\001\001b\006proto" +
-                      "3"
-      };
-      descriptor = com.google.protobuf.Descriptors.FileDescriptor
-              .internalBuildGeneratedFileFrom(descriptorData,
-                      new com.google.protobuf.Descriptors.FileDescriptor[]{
-                              io.net.api.BaseProto.getDescriptor(),
-                      });
-      io.net.api.BaseProto.getDescriptor();
+    String[] descriptorData = {
+            "\n\025command/command.proto\022\020protobuf.comman" +
+                    "d\032\nbase.proto29\n\017GroupCmdService\022&\n\006invo" +
+                    "ke\022\t.GroupCmd\032\017.MsgResultChain\"\000B\'\n\022io.n" +
+                    "et.api.commandB\014CommandProtoP\001\240\001\001b\006proto" +
+                    "3"
+    };
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+            .internalBuildGeneratedFileFrom(descriptorData,
+                    new com.google.protobuf.Descriptors.FileDescriptor[]{
+                            io.net.api.BaseProto.getDescriptor(),
+                    });
+    io.net.api.BaseProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

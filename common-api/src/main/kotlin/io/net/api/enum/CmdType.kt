@@ -1,4 +1,4 @@
-package io.net.api.enumeration
+package io.net.api.enum
 
 /**
  *@author Augenstern

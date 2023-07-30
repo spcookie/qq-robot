@@ -3,12 +3,9 @@ package io.net.image.command
 import com.alibaba.csp.sentinel.EntryType
 import com.alibaba.csp.sentinel.annotation.SentinelResource
 import com.alibaba.csp.sentinel.slots.block.BlockException
-import com.google.protobuf.ByteString
-import io.net.api.MsgResult
 import io.net.api.MsgResultChain
-import io.net.api.base.AbstractCmd
-import io.net.api.base.Cmd
-import io.net.api.enumeration.CmdEnum
+import io.net.api.base.*
+import io.net.api.enum.CmdEnum
 import io.net.api.exception.GroupCmdException
 import io.net.api.util.DeleteAfterUseLock
 import io.net.image.bo.PixivRandomResultBO
@@ -72,7 +69,7 @@ class PixivR18Plus(
         blockHandler = "flow",
         exceptionsToIgnore = [GroupCmdException::class]
     )
-    override fun command(args: MutableList<String>): MsgResultChain {
+    override fun command(args: MutableList<String>): MsgChain {
         var bytes: ByteArray? = null
         var name: String by Delegates.notNull()
         var url: String by Delegates.notNull()
@@ -98,27 +95,21 @@ class PixivR18Plus(
             name = result.title
             url = result.url
         }
-        return MsgResultChain.newBuilder()
-            .addAllMsgResult(buildList {
-                add(
-                    MsgResult.newBuilder()
-                        .setMsg(name)
-                        .setData(
-                            MsgResult.Data.newBuilder()
-                                .setType(MsgResult.Data.MediaType.PICTURE)
-                                .setBytes(ByteString.copyFrom(bytes))
-                                .build()
-                        )
-                        .build()
+        return MsgChain(
+            msgs = listOf(
+                Msg(
+                    msg = name,
+                    data = Msg.Data(
+                        type = Msg.Data.Type.PICTURE,
+                        bytes = bytes!!
+                    )
                 )
-            })
-            .setReceipt(
-                MsgResultChain.Receipt.newBuilder()
-                    .setRecall(appProperty.pixivR18RecallIn.toMillis().toInt())
-                    .setFallback("${name}\n图片发送被限制，转为链接：\n" + url)
-                    .build()
-            ).build()
-
+            ),
+            receipt = Receipt(
+                recall = appProperty.pixivR18RecallIn.toMillis().toInt(),
+                fallback = "${name}\n图片发送被限制，转为链接：\n" + url
+            )
+        )
     }
 
     protected fun flow(args: MutableList<String>, ex: BlockException): MsgResultChain {

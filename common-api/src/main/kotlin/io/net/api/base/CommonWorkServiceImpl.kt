@@ -1,23 +1,18 @@
-package io.net.image.service
+package io.net.api.base
 
 import com.google.protobuf.Empty
 import io.net.api.GroupCmd
 import io.net.api.MsgResultChain
-import io.net.api.base.AbstractCmd
-import io.net.api.base.Cmd
-import io.net.api.enumeration.ServiceGroup
 import io.net.api.work.DubboWorkServiceTriple
 import io.net.api.work.Menu
 import jakarta.annotation.PostConstruct
-import org.apache.dubbo.config.annotation.DubboService
 import org.springframework.core.annotation.AnnotationUtils
 
 /**
  *@author Augenstern
- *@since 2023/7/8
+ *@since 2023/7/29
  */
-@DubboService(group = ServiceGroup.IMAGE, filter = ["ex"])
-class ImageServiceImpl(private val cmds: List<AbstractCmd>) : DubboWorkServiceTriple.WorkServiceImplBase() {
+class CommonWorkServiceImpl(private val cmds: List<AbstractCmd>) : DubboWorkServiceTriple.WorkServiceImplBase() {
 
     private val matchedCmds: MutableMap<String, AbstractCmd> = mutableMapOf()
 
@@ -32,8 +27,11 @@ class ImageServiceImpl(private val cmds: List<AbstractCmd>) : DubboWorkServiceTr
     }
 
     override fun doWork(request: GroupCmd): MsgResultChain {
-        return matchedCmds[request.cmd]?.run { command(args().strategy(request.argsList)) }
-            ?: MsgResultChain.getDefaultInstance()
+        return matchedCmds[request.cmd]?.run {
+            ContextHolder.use(ContextHolder.Context(request.botId, request.groupId, request.senderId)) {
+                command(args().strategy(request.argsList)).protobuf()
+            }
+        } ?: MsgResultChain.getDefaultInstance()
     }
 
     override fun manifest(request: Empty?): Menu {

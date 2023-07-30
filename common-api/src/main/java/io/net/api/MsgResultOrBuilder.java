@@ -7,37 +7,37 @@ public interface MsgResultOrBuilder extends
         // @@protoc_insertion_point(interface_extends:MsgResult)
         com.google.protobuf.MessageOrBuilder {
 
-    /**
-     * <code>string msg = 1;</code>
-     *
-     * @return The msg.
-     */
-    String getMsg();
+  /**
+   * <code>string msg = 1;</code>
+   *
+   * @return The msg.
+   */
+  String getMsg();
 
-    /**
-     * <code>string msg = 1;</code>
-     *
-     * @return The bytes for msg.
-     */
-    com.google.protobuf.ByteString
-    getMsgBytes();
+  /**
+   * <code>string msg = 1;</code>
+   *
+   * @return The bytes for msg.
+   */
+  com.google.protobuf.ByteString
+  getMsgBytes();
 
-    /**
-     * <code>.MsgResult.Data data = 2;</code>
-     *
-     * @return Whether the data field is set.
-     */
-    boolean hasData();
+  /**
+   * <code>.MsgResult.Data data = 2;</code>
+   *
+   * @return Whether the data field is set.
+   */
+  boolean hasData();
 
-    /**
-     * <code>.MsgResult.Data data = 2;</code>
-     *
-     * @return The data.
-     */
-    MsgResult.Data getData();
+  /**
+   * <code>.MsgResult.Data data = 2;</code>
+   *
+   * @return The data.
+   */
+  MsgResult.Data getData();
 
-    /**
-     * <code>.MsgResult.Data data = 2;</code>
-     */
-    MsgResult.DataOrBuilder getDataOrBuilder();
+  /**
+   * <code>.MsgResult.Data data = 2;</code>
+   */
+  MsgResult.DataOrBuilder getDataOrBuilder();
 }

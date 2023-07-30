@@ -7,118 +7,103 @@ public interface MsgResultChainOrBuilder extends
         // @@protoc_insertion_point(interface_extends:MsgResultChain)
         com.google.protobuf.MessageOrBuilder {
 
-    /**
-     * <code>.MsgResultChain.Code code = 1;</code>
-     *
-     * @return The enum numeric value on the wire for code.
-     */
-    int getCodeValue();
+  /**
+   * <code>.MsgResultChain.Code code = 1;</code>
+   *
+   * @return The enum numeric value on the wire for code.
+   */
+  int getCodeValue();
 
-    /**
-     * <code>.MsgResultChain.Code code = 1;</code>
-     *
-     * @return The code.
-     */
-    MsgResultChain.Code getCode();
+  /**
+   * <code>.MsgResultChain.Code code = 1;</code>
+   *
+   * @return The code.
+   */
+  MsgResultChain.Code getCode();
 
-    /**
-     * <code>string msg = 2;</code>
-     *
-     * @return The msg.
-     */
-    String getMsg();
+  /**
+   * <code>repeated .MsgResult msgResult = 2;</code>
+   */
+  java.util.List<MsgResult>
+  getMsgResultList();
 
-    /**
-     * <code>string msg = 2;</code>
-     *
-     * @return The bytes for msg.
-     */
-    com.google.protobuf.ByteString
-    getMsgBytes();
+  /**
+   * <code>repeated .MsgResult msgResult = 2;</code>
+   */
+  MsgResult getMsgResult(int index);
 
-    /**
-     * <code>repeated .MsgResult msgResult = 3;</code>
-     */
-    java.util.List<MsgResult>
-    getMsgResultList();
+  /**
+   * <code>repeated .MsgResult msgResult = 2;</code>
+   */
+  int getMsgResultCount();
 
-    /**
-     * <code>repeated .MsgResult msgResult = 3;</code>
-     */
-    MsgResult getMsgResult(int index);
+  /**
+   * <code>repeated .MsgResult msgResult = 2;</code>
+   */
+  java.util.List<? extends MsgResultOrBuilder>
+  getMsgResultOrBuilderList();
 
-    /**
-     * <code>repeated .MsgResult msgResult = 3;</code>
-     */
-    int getMsgResultCount();
+  /**
+   * <code>repeated .MsgResult msgResult = 2;</code>
+   */
+  MsgResultOrBuilder getMsgResultOrBuilder(
+          int index);
 
-    /**
-     * <code>repeated .MsgResult msgResult = 3;</code>
-     */
-    java.util.List<? extends MsgResultOrBuilder>
-    getMsgResultOrBuilderList();
+  /**
+   * <code>.MsgResultChain.Receipt receipt = 3;</code>
+   *
+   * @return Whether the receipt field is set.
+   */
+  boolean hasReceipt();
 
-    /**
-     * <code>repeated .MsgResult msgResult = 3;</code>
-     */
-    MsgResultOrBuilder getMsgResultOrBuilder(
-            int index);
+  /**
+   * <code>.MsgResultChain.Receipt receipt = 3;</code>
+   *
+   * @return The receipt.
+   */
+  MsgResultChain.Receipt getReceipt();
 
-    /**
-     * <code>.MsgResultChain.Receipt receipt = 4;</code>
-     *
-     * @return Whether the receipt field is set.
-     */
-    boolean hasReceipt();
+  /**
+   * <code>.MsgResultChain.Receipt receipt = 3;</code>
+   */
+  MsgResultChain.ReceiptOrBuilder getReceiptOrBuilder();
 
-    /**
-     * <code>.MsgResultChain.Receipt receipt = 4;</code>
-     *
-     * @return The receipt.
-     */
-    MsgResultChain.Receipt getReceipt();
+  /**
+   * <code>map&lt;string, string&gt; meta = 4;</code>
+   */
+  int getMetaCount();
 
-    /**
-     * <code>.MsgResultChain.Receipt receipt = 4;</code>
-     */
-    MsgResultChain.ReceiptOrBuilder getReceiptOrBuilder();
+  /**
+   * <code>map&lt;string, string&gt; meta = 4;</code>
+   */
+  boolean containsMeta(
+          String key);
 
-    /**
-     * <code>map&lt;string, string&gt; meta = 5;</code>
-     */
-    int getMetaCount();
+  /**
+   * Use {@link #getMetaMap()} instead.
+   */
+  @Deprecated
+  java.util.Map<String, String>
+  getMeta();
 
-    /**
-     * <code>map&lt;string, string&gt; meta = 5;</code>
-     */
-    boolean containsMeta(
-            String key);
+  /**
+   * <code>map&lt;string, string&gt; meta = 4;</code>
+   */
+  java.util.Map<String, String>
+  getMetaMap();
 
-    /**
-     * Use {@link #getMetaMap()} instead.
-     */
-    @Deprecated
-    java.util.Map<String, String>
-    getMeta();
+  /**
+   * <code>map&lt;string, string&gt; meta = 4;</code>
+   */
 
-    /**
-     * <code>map&lt;string, string&gt; meta = 5;</code>
-     */
-    java.util.Map<String, String>
-    getMetaMap();
+  String getMetaOrDefault(
+          String key,
+          String defaultValue);
 
-    /**
-     * <code>map&lt;string, string&gt; meta = 5;</code>
-     */
+  /**
+   * <code>map&lt;string, string&gt; meta = 4;</code>
+   */
 
-    String getMetaOrDefault(
-            String key,
-            String defaultValue);
-
-    /**
-     * <code>map&lt;string, string&gt; meta = 5;</code>
-     */
-
-    String getMetaOrThrow(
-            String key);
+  String getMetaOrThrow(
+          String key);
 }
