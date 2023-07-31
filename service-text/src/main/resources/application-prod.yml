@@ -1,0 +1,17 @@
+app:
+  openai-api-key: ""
+dubbo:
+  registry:
+    address: zookeeper://zookeeper:2181
+  metadata-report:
+    address: zookeeper://zookeeper:2181
+logging:
+  level:
+    root: error
+    sql: off
+    io.net.text.*: info
+  file:
+    name: ./logger.log
+proxy:
+  host: clash
+  port: 7890

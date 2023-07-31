@@ -1,6 +1,14 @@
 spring:
   datasource:
     url: jdbc:postgresql://postgresql:5432/service
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: root
+  data:
+    redis:
+      host: redis
+      port: 6379
+      database: 0
 dubbo:
   registry:
     address: zookeeper://zookeeper:2181
