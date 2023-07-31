@@ -27,7 +27,7 @@ class CommonWorkServiceImpl(private val cmds: List<AbstractCmd>) : DubboWorkServ
     }
 
     override fun doWork(request: GroupCmd): MsgResultChain {
-        return matchedCmds[request.cmd]?.run {
+        return matchedCmds[request.cmd.uppercase()]?.run {
             ContextHolder.use(ContextHolder.Context(request.botId, request.groupId, request.senderId)) {
                 command(args().strategy(request.argsList)).protobuf()
             }

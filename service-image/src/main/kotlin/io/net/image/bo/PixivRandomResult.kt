@@ -6,7 +6,7 @@ import java.io.Serializable
  *@author Augenstern
  *@date 2023/6/4
  */
-data class PixivRandomResultBO(
+data class PixivRandomResult(
     val pid: Long = 0,
     val page: Int = 0,
     val uid: Long = 0,

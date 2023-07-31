@@ -16,6 +16,9 @@ import org.apache.dubbo.config.annotation.DubboService
 import org.apache.dubbo.rpc.RpcException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 /**
  *@author Augenstern
@@ -47,21 +50,22 @@ class GroupCmdServiceImpl(
     }
 
     override fun invoke(request: GroupCmd): MsgResultChain {
-        val cmd = request.cmd
         val ats: List<Long> = request.atsList
-        if (request.botId !in ats) {
+        if (request.botId !in ats && !request.cmd.startsWith("/")) {
             return MsgResultChain.getDefaultInstance()
         }
+        val req = request.toBuilder().setCmd(request.cmd.trimStart('/')).build()
+        val cmd = req.cmd
         val result: MsgResultChain
         if (cmd.isBlank()) {
-            result = menu(request.groupId)
+            result = menu(req.groupId)
         } else {
-            result = authentication(request) {
+            result = authentication(req.senderId, req.groupId, cmd) {
                 try {
-                    val enum = CmdEnum.valueOf(cmd)
+                    val enum = CmdEnum.valueOf(cmd.uppercase())
                     when (enum.type) {
                         CmdType.TEXT -> {
-                            textService.doWork(request)
+                            textService.doWork(req)
                         }
 
                         CmdType.CRAWLING -> {
@@ -69,7 +73,7 @@ class GroupCmdServiceImpl(
                         }
 
                         CmdType.IMAGE -> {
-                            imageService.doWork(request)
+                            imageService.doWork(req)
                         }
 
                         CmdType.OTHER -> {
@@ -86,9 +90,9 @@ class GroupCmdServiceImpl(
                         }
                     }
                 } catch (e: IllegalArgumentException) {
-                    menu(request.groupId, cmd)
+                    menu(req.groupId, cmd)
                 } catch (e: RpcException) {
-                    error(cmd)
+                    error(cmd, e)
                 }
             }
         }
@@ -96,20 +100,22 @@ class GroupCmdServiceImpl(
     }
 
     private inline fun authentication(
-        request: GroupCmd,
+        senderId: Long,
+        groupId: Long,
+        cmd: String,
         crossinline block: () -> MsgResultChain
     ): MsgResultChain {
         val permission = cmdProperty.permissionWithStatus
         val sudo = cmdProperty.sudo
-        val predicate = request.senderId in sudo
-                || request.cmd.uppercase() == CmdEnum.HELP.name
-                || permission.getOrDefault(request.groupId, mapOf())
+        val predicate = senderId in sudo
+                || cmd.uppercase() == CmdEnum.HELP.name
+                || permission.getOrDefault(groupId, mapOf())
             .map { it.key.name.uppercase() }
-            .contains(request.cmd.uppercase())
+            .contains(cmd.uppercase())
         return if (predicate) {
             block()
         } else {
-            menu(request.groupId, request.cmd)
+            menu(groupId, cmd)
         }
     }
 
@@ -166,12 +172,14 @@ class GroupCmdServiceImpl(
 
     private fun foot() = """
             
-            ∷ @${cmdProperty.name}
-            ∷ v${cmdProperty.version}
+            ∷ ${DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(LocalDateTime.now())}
+            ∷ ${cmdProperty.version}
             ∷ ${cmdProperty.poweredBy}
+            ∷ ${cmdProperty.name}
         """.trimIndent()
 
-    private fun error(cmd: String): MsgResultChain {
+    private fun error(cmd: String, e: RpcException): MsgResultChain {
+        logger.error("rpc异常", e)
         return MsgResultChain.newBuilder()
             .setCode(MsgResultChain.Code.RPC_ANOMALY)
             .addMsgResult(MsgResult.newBuilder().setMsg("「${cmd}」命令不可用，请稍后再试").build()).build()

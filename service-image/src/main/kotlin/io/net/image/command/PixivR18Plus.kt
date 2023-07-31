@@ -8,7 +8,7 @@ import io.net.api.base.*
 import io.net.api.enum.CmdEnum
 import io.net.api.exception.GroupCmdException
 import io.net.api.util.DeleteAfterUseLock
-import io.net.image.bo.PixivRandomResultBO
+import io.net.image.bo.PixivRandomResult
 import io.net.image.config.AppProperty
 import io.net.image.config.SentinelRule
 import io.net.image.entity.Image
@@ -141,8 +141,8 @@ class PixivR18Plus(
         noRetryFor = [GroupCmdException::class],
         backoff = Backoff(delay = 1000)
     )
-    protected fun resolve(args: MutableList<String>): Pair<ByteArray, PixivRandomResultBO> {
-        var result: PixivRandomResultBO
+    protected fun resolve(args: MutableList<String>): Pair<ByteArray, PixivRandomResult> {
+        var result: PixivRandomResult
         var bytes: ByteArray? = null
         var counter = 10
         do {
@@ -170,16 +170,16 @@ class PixivR18Plus(
     }
 
     @Recover
-    fun fallback(e: RuntimeException, args: MutableList<String>): Pair<ByteArray, PixivRandomResultBO> {
+    fun fallback(e: RuntimeException, args: MutableList<String>): Pair<ByteArray, PixivRandomResult> {
         throw GroupCmdException("非常抱歉，由于网络异常，无法加载图片", e)
     }
 
-    private fun request(keyword: String = "", num: Int = 30): List<PixivRandomResultBO> {
+    private fun request(keyword: String = "", num: Int = 30): List<PixivRandomResult> {
         val entity = restTemplate.exchange(
             "$URL?r18=1&num=$num&size=regular&keywords=$keyword",
             HttpMethod.GET,
             HttpEntity(mutableMapOf(HttpHeaders.ACCEPT to MediaType.APPLICATION_JSON_VALUE)),
-            object : ParameterizedTypeReference<List<PixivRandomResultBO>>() {}
+            object : ParameterizedTypeReference<List<PixivRandomResult>>() {}
         )
         if (entity.statusCode.is2xxSuccessful) {
             return entity.body!!

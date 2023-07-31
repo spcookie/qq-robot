@@ -1,7 +1,7 @@
 package io.net.image.redis
 
 import io.net.api.util.SpringContextUtils
-import io.net.image.bo.PixivRandomResultBO
+import io.net.image.bo.PixivRandomResult
 import org.springframework.data.redis.core.RedisTemplate
 
 /**
@@ -13,14 +13,14 @@ object RedisPixivUtils {
     private const val KEY = "image:pixiv"
 
     private val ops
-        get() = (SpringContextUtils.getBean<RedisTemplate<String, Any>>("redisTemplate") as RedisTemplate<String, PixivRandomResultBO>)
+        get() = SpringContextUtils.getBean<RedisTemplate<String, PixivRandomResult>>("redisTemplate")
             .boundListOps(KEY)
 
-    fun getPixiv(count: Long): List<PixivRandomResultBO>? {
+    fun getPixiv(count: Long): List<PixivRandomResult>? {
         return ops.leftPop(count)
     }
 
-    fun addPixiv(pixivRandomResultBOs: List<PixivRandomResultBO>) {
-        ops.leftPushAll(*(pixivRandomResultBOs.toTypedArray()))
+    fun addPixiv(pixivRandomResults: List<PixivRandomResult>) {
+        ops.leftPushAll(*(pixivRandomResults.toTypedArray()))
     }
 }

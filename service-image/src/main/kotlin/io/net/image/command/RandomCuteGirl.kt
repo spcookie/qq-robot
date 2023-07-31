@@ -12,7 +12,7 @@ import io.net.api.base.MsgChain
 import io.net.api.enum.CmdEnum
 import io.net.api.exception.GroupCmdException
 import io.net.api.util.DeleteAfterUseLock
-import io.net.image.bo.RandomUrlBO
+import io.net.image.bo.RandomUrl
 import io.net.image.config.SentinelRule
 import io.net.image.entity.Image
 import io.net.image.minio.MinioImageUtils
@@ -130,7 +130,7 @@ class RandomCuteGirl(
     @Retryable(noRetryFor = [GroupCmdException::class], maxAttempts = 3, backoff = Backoff(delay = 1500))
     protected fun resolve(mode: String): ByteArray {
         val param = mapOf("mode" to mode, "type" to "json")
-        val randomUrl = restTemplate.getForObject(CUTE_GIRL_URL, RandomUrlBO::class.java, param)
+        val randomUrl = restTemplate.getForObject(CUTE_GIRL_URL, RandomUrl::class.java, param)
         val resource = restTemplate.getForEntity(randomUrl!!.url, Resource::class.java)
         return resource.body?.contentAsByteArray
             ?: throw GroupCmdException("非常抱歉，在尝试加载图片时发生了错误。")

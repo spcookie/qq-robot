@@ -15,6 +15,6 @@ logging:
   pattern:
     dateformat: yyyy-MM-dd hh:mm:ss.SSS
 cmd:
-  name: "domain"
-  version: "3.0.0"
-  powered-by: "mirai | spring | dubbo"
+  name: "Copyright 2023 by Spc."
+  version: "v3.0.0"
+  powered-by: "Mirai | Spring | Dubbo"

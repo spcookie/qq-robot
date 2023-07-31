@@ -48,7 +48,7 @@ class GroupCmdSubscribe(
                     .setGroupId(group.id)
                     .setBotId(bot.id)
                     .setSenderId(sender.id)
-                    .setCmd(cmd.uppercase())
+                    .setCmd(cmd)
                     .addAllArgs(args.asList()).build()
                 groupCmdService.invoke(groupCmd)
             }
@@ -60,7 +60,7 @@ class GroupCmdSubscribe(
             val content = it.content.trim()
             if (content.isNotBlank()) {
                 val index = content.indexOf(' ')
-                val command = (if (index == -1) content else content.substring(0 until index)).lowercase()
+                val command = (if (index == -1) content else content.substring(0 until index))
                 val args = if (index == -1) {
                     emptyList()
                 } else {

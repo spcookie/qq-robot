@@ -1,4 +1,4 @@
-package io.net.image.config
+package io.net.text.config
 
 import com.alibaba.csp.sentinel.slots.block.RuleConstant
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule
@@ -15,8 +15,7 @@ import org.springframework.stereotype.Component
 class SentinelRule : ApplicationStartupAware {
 
     companion object {
-        const val IMG = "img"
-        const val ST = "st"
+        const val CHAT = "chat"
     }
 
     init {
@@ -27,20 +26,10 @@ class SentinelRule : ApplicationStartupAware {
         val flowRules = buildList {
             add(
                 FlowRule().apply {
-                    resource = IMG
-                    count = 0.5
+                    resource = CHAT
+                    count = 0.15
                     grade = RuleConstant.FLOW_GRADE_QPS
                     controlBehavior = RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER
-                    maxQueueingTimeMs = 1000 * 1
-                }
-            )
-            add(
-                FlowRule().apply {
-                    resource = ST
-                    count = 0.5
-                    grade = RuleConstant.FLOW_GRADE_QPS
-                    controlBehavior = RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER
-                    maxQueueingTimeMs = 1000 * 2
                 }
             )
         }
