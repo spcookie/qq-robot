@@ -8,10 +8,10 @@ import io.net.api.MsgResultChain;
  * @author Augenstern
  * @since 2023/7/27
  */
-public class GroupCmdServiceMock implements GroupCmdService {
+public class GroupCmdServiceMock extends DubboGroupCmdServiceTriple.GroupCmdServiceImplBase {
     @Override
     public MsgResultChain invoke(GroupCmd request) {
-        MsgResult msgResult = MsgResult.newBuilder().setMsg("服务不可以，请稍后再试").build();
+        MsgResult msgResult = MsgResult.newBuilder().setMsg("服务不可用，请稍后再试").build();
         return MsgResultChain.newBuilder().setCode(MsgResultChain.Code.RPC_ANOMALY).addMsgResult(msgResult).build();
     }
 }

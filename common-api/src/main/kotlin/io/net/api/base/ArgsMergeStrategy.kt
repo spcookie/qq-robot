@@ -15,9 +15,7 @@ interface ArgsMergeStrategy {
         }
         val Merge = object : ArgsMergeStrategy {
             override fun strategy(originalArgs: List<String>): MutableList<String> {
-                return mutableListOf(originalArgs.reduce { acc, s ->
-                    acc + s
-                })
+                return if (originalArgs.isEmpty()) mutableListOf() else mutableListOf(originalArgs.reduce { acc, s -> acc + s })
             }
         }
     }

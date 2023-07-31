@@ -13,10 +13,9 @@ import net.mamoe.mirai.mock.MockBotFactory
 import net.mamoe.mirai.mock.contact.MockNormalMember
 import net.mamoe.mirai.mock.utils.simpleMemberInfo
 import net.mamoe.mirai.utils.LoggerAdapters
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.*
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -27,24 +26,62 @@ import org.springframework.boot.test.mock.mockito.MockBean
 class BotApplicationTests {
 
     @Test
-    @DisplayName("测试img")
+    @DisplayName("不存在的命令")
+    fun command_that_not_exist() {
+        blockMock("command_that_not_exist")
+    }
+
+    @Test
+    @DisplayName("img")
     fun img() {
         blockMock("img")
     }
 
+    @ParameterizedTest
+    @DisplayName("带参数的st")
+    @ValueSource(strings = ["胡桃", "JOJO"])
+    fun st_param(kw: String) {
+        blockMock("st $kw")
+    }
+
     @Test
-    @DisplayName("测试st")
+    @DisplayName("st")
     fun st() {
         blockMock("st")
     }
 
     @Test
-    @DisplayName("测试img限流")
+    @DisplayName("img限流")
     fun img_flow() {
         runBlocking {
             repeat(4) {
                 launch {
                     mock("img")
+                }
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("没有参数的chat")
+    fun chat_not_para() {
+        blockMock("chat")
+    }
+
+    @ParameterizedTest
+    @DisplayName("chat")
+    @ValueSource(strings = ["你好！"])
+    fun chat(msg: String) {
+        blockMock("chat $msg")
+    }
+
+    @Test
+    @DisplayName("chat限流")
+    fun chat_flow() {
+        runBlocking {
+            repeat(3) {
+                launch {
+                    mock("chat")
                 }
             }
         }
@@ -67,7 +104,13 @@ class BotApplicationTests {
             }
 
     suspend fun mock(msg: String) {
-        member.says(At(bot) + PlainText(msg))
+        var flag = true
+        try {
+            member.says(At(bot) + PlainText(msg))
+        } catch (_: Exception) {
+            flag = false
+        }
+        Assertions.assertTrue(flag, "命令'$msg'测试失败")
     }
 
     fun blockMock(msg: String) {

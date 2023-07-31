@@ -90,27 +90,20 @@ class GroupCmdSubscribe(
         suspend fun GroupMessageEvent.onMessage() {
             getCmdAndArgs(message).also { (cmd, args) ->
                 call(getAts(message), cmd, *args.toTypedArray())
-                    .onSuccess { results ->
-                        runCatching { send(results) }.onFailure {
-                            sendInternalError(it.message)
-                            throw it
-                        }
-                    }
+                    .onSuccess { results -> send(results) }
             }
         }
 
         private suspend fun GroupMessageEvent.send(list: MsgResultChain) {
-            val default = list.getMsgResult(0)
-            when (list.code!!) {
-                MsgResultChain.Code.OK -> sendOkMessage(list)
-                MsgResultChain.Code.BUSINESS_ANOMALY -> group.sendMessage(message.quote() + "•́‸ก " + default.msg)
-                MsgResultChain.Code.RPC_ANOMALY -> group.sendMessage(message.quote() + "＞﹏＜" + default.msg)
-                MsgResultChain.Code.UNRECOGNIZED -> logger.error("UNRECOGNIZED: " + default.unknownFields.toString())
+            if (list.msgResultCount > 0) {
+                val default = list.getMsgResult(0)
+                when (list.code!!) {
+                    MsgResultChain.Code.OK -> sendOkMessage(list)
+                    MsgResultChain.Code.BUSINESS_ANOMALY -> group.sendMessage(message.quote() + "•́‸ก " + default.msg)
+                    MsgResultChain.Code.RPC_ANOMALY -> group.sendMessage(message.quote() + "＞﹏＜" + default.msg)
+                    MsgResultChain.Code.UNRECOGNIZED -> logger.error("UNRECOGNIZED: " + default.unknownFields.toString())
+                }
             }
-        }
-
-        private suspend fun GroupMessageEvent.sendInternalError(msg: String?) {
-            group.sendMessage(message.quote() + "·﹏· 内部错误：" + msg.toString())
         }
 
         private suspend fun GroupMessageEvent.sendOkMessage(list: MsgResultChain) {
@@ -127,7 +120,7 @@ class GroupCmdSubscribe(
                         add(msg)
                     }
                     if (bytes.isNotEmpty()) {
-                        // audio not implemented
+                        // TODO: audio not implemented
                         if (mediaType == MsgResult.Data.MediaType.PICTURE) {
                             add(bytes.inputStream().use { it.uploadAsImage(sender) })
                         }

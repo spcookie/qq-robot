@@ -3,23 +3,10 @@ spring:
     name: service-image
   profiles:
     active: dev
-  datasource:
-    url: jdbc:postgresql://localhost:5432/service
-    driver-class-name: org.postgresql.Driver
-    username: root
-    password: root
   jpa:
     database: postgresql
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      database: 0
 dubbo:
   application:
     name: ${spring.application.name}
@@ -28,20 +15,6 @@ dubbo:
     id: tri
     name: tri
     port: -1
-  registry:
-    address: zookeeper://localhost:2181
-  metadata-report:
-    address: zookeeper://localhost:2181
 logging:
   pattern:
     dateformat: yyyy-MM-dd hh:mm:ss.SSS
-  level:
-    sql: debug
-minio:
-  host: localhost
-  port: 9000
-  accessKey: minioadmin
-  secretKey: minioadmin
-proxy:
-  host: localhost
-  port: 62495

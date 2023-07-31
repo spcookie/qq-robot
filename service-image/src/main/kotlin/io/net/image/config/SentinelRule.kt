@@ -30,7 +30,6 @@ class SentinelRule : ApplicationStartupAware {
                     resource = IMG
                     count = 0.5
                     grade = RuleConstant.FLOW_GRADE_QPS
-                    limitApp = "default"
                     controlBehavior = RuleConstant.CONTROL_BEHAVIOR_WARM_UP_RATE_LIMITER
                     maxQueueingTimeMs = 1000 * 1
                 }

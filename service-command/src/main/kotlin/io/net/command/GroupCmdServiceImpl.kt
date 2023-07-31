@@ -31,7 +31,15 @@ class GroupCmdServiceImpl(
         cluster = ClusterRules.FAIL_OVER,
         timeout = 1000 * 60 * 2,
         retries = 2
-    ) val imageService: WorkService
+    ) val imageService: WorkService,
+    @DubboReference(
+        check = false,
+        group = ServiceGroup.TEXT,
+        loadbalance = LoadbalanceRules.ROUND_ROBIN,
+        cluster = ClusterRules.FAIL_OVER,
+        timeout = 1000 * 60 * 2,
+        retries = 2
+    ) val textService: WorkService
 ) : DubboGroupCmdServiceTriple.GroupCmdServiceImplBase() {
 
     companion object {
@@ -53,7 +61,7 @@ class GroupCmdServiceImpl(
                     val enum = CmdEnum.valueOf(cmd)
                     when (enum.type) {
                         CmdType.TEXT -> {
-                            MsgResultChain.getDefaultInstance()
+                            textService.doWork(request)
                         }
 
                         CmdType.CRAWLING -> {
@@ -107,16 +115,22 @@ class GroupCmdServiceImpl(
 
     private fun menu(groupId: Long, cmd: String? = null): MsgResultChain {
         val manifest = buildList {
-            try {
-                add(imageService.manifest(Empty.getDefaultInstance()))
-            } catch (e: RuntimeException) {
-                logger.error("查询命令清单时出错", e)
+            runCatching { add(imageService.manifest(Empty.getDefaultInstance())) }.onFailure {
+                logger.error(
+                    "查询命令清单image时出错",
+                    it
+                )
+            }
+            runCatching { add(textService.manifest(Empty.getDefaultInstance())) }.onFailure {
+                logger.error(
+                    "查询命令清单text时出错",
+                    it
+                )
             }
         }
         val permission = cmdProperty.permissionWithStatus
-        val menu = manifest.map { it.menuMap }.reduce { acc, map ->
-            acc.putAll(map)
-            acc
+        val menu = buildMap {
+            manifest.map { it.menuMap }.forEach { putAll(it) }
         }
         return permission[groupId]?.run {
             val names = this.filterValues { it }.keys.map { it.name }
@@ -152,7 +166,6 @@ class GroupCmdServiceImpl(
 
     private fun foot() = """
             
-               ฅฅฅฅฅฅฅฅ
             ∷ @${cmdProperty.name}
             ∷ v${cmdProperty.version}
             ∷ ${cmdProperty.poweredBy}

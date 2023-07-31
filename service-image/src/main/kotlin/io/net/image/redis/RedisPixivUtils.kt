@@ -13,9 +13,8 @@ object RedisPixivUtils {
     private const val KEY = "image:pixiv"
 
     private val ops
-        get() = (SpringContextUtils.getBean<RedisTemplate<String, Any>>("redisTemplate") as RedisTemplate<String, PixivRandomResultBO>).boundListOps(
-            KEY
-        )
+        get() = (SpringContextUtils.getBean<RedisTemplate<String, Any>>("redisTemplate") as RedisTemplate<String, PixivRandomResultBO>)
+            .boundListOps(KEY)
 
     fun getPixiv(count: Long): List<PixivRandomResultBO>? {
         return ops.leftPop(count)

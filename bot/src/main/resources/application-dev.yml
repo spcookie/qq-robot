@@ -1,0 +1,8 @@
+dubbo:
+  registry:
+    address: zookeeper://localhost:2181
+  metadata-report:
+    address: zookeeper://localhost:2181
+logging:
+  level:
+    net.mamoe.mirai.*: trace

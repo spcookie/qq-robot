@@ -2,7 +2,16 @@ cmd:
   sudo: [ 5971 ]
   permission:
     666:
-      - gpt
+      - chat
       - img
       - st
       - steam
+    474270623:
+      - img
+      - st
+      - chat
+dubbo:
+  registry:
+    address: zookeeper://localhost:2181
+  metadata-report:
+    address: zookeeper://localhost:2181

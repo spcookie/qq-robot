@@ -1,6 +1,8 @@
 spring:
   application:
     name: bot
+  profiles:
+    active: dev
 dubbo:
   application:
     name: ${spring.application.name}
@@ -9,12 +11,6 @@ dubbo:
     id: tri
     name: tri
     port: -1
-  registry:
-    address: zookeeper://localhost:2181
-  metadata-report:
-    address: zookeeper://localhost:2181
 logging:
   pattern:
     dateformat: yyyy-MM-dd hh:mm:ss.SSS
-  level:
-    net.mamoe.mirai.*: trace

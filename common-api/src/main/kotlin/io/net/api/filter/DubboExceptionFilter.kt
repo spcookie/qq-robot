@@ -3,6 +3,7 @@ package io.net.api.filter
 import io.net.api.MsgResult
 import io.net.api.MsgResultChain
 import io.net.api.exception.GroupCmdException
+import jakarta.validation.ConstraintViolationException
 import org.apache.dubbo.common.constants.CommonConstants
 import org.apache.dubbo.common.extension.Activate
 import org.apache.dubbo.rpc.Filter
@@ -38,6 +39,18 @@ class DubboExceptionFilter : Filter {
                         MsgResult.newBuilder()
                             .setMsg(exception.message)
                             .build()
+                    ).build()
+            }
+            if (exception is ConstraintViolationException) {
+                result.exception = null
+                result.value = MsgResultChain.newBuilder()
+                    .setCode(MsgResultChain.Code.BUSINESS_ANOMALY)
+                    .addAllMsgResult(
+                        exception.constraintViolations.map { cv ->
+                            MsgResult.newBuilder()
+                                .setMsg(cv.messageTemplate)
+                                .build()
+                        }
                     ).build()
             }
         }
